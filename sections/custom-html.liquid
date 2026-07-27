@@ -1,0 +1,84 @@
+{%- if section.settings.html != blank -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} .custom-html-section {
+      background: {{ section.settings.background_gradient | default: section.settings.background }};
+      color: {{ section.settings.text_color }};
+      padding-top: {% if section.settings.remove_vertical_spacing %}0{% else %}32px{% endif %};
+      padding-bottom: {% if section.settings.remove_vertical_spacing %}0{% else %}32px{% endif %};
+    }
+
+    #shopify-section-{{ section.id }} .custom-html-section__inner {
+      max-width: {% if section.settings.full_width %}100%{% else %}var(--page-width){% endif %};
+      margin: 0 auto;
+      padding-left: {% if section.settings.remove_horizontal_spacing %}0{% else %}1.5rem{% endif %};
+      padding-right: {% if section.settings.remove_horizontal_spacing %}0{% else %}1.5rem{% endif %};
+    }
+  {%- endstyle -%}
+
+  <section class="custom-html-section">
+    <div class="custom-html-section__inner">
+      {{ section.settings.html }}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Custom HTML",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_vertical_spacing",
+      "label": "Remove vertical spacing",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_horizontal_spacing",
+      "label": "Remove horizontal spacing",
+      "default": false
+    },
+    {
+      "type": "html",
+      "id": "html",
+      "label": "HTML",
+      "default": "<p style=\"text-align:center\">Write or paste custom HTML here</p>"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Background gradient"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom HTML"
+    }
+  ]
+}
+{% endschema %}

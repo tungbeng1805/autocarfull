@@ -1,0 +1,218 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .faq-section {
+    background: {{ section.settings.background_gradient | default: section.settings.background }};
+    color: {{ section.settings.text_color }};
+    padding: 48px 0;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__intro {
+    max-width: 72rem;
+    margin: 0 auto 2.4rem;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__subheading {
+    margin: 0 0 0.8rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__title {
+    margin: 0 0 1.2rem;
+    color: {{ section.settings.heading_color | default: section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__button {
+    display: inline-block;
+    margin-top: 0.8rem;
+    padding: 1rem 1.8rem;
+    border-radius: 999px;
+    background: {{ section.settings.button_background | default: '#ee6819' }};
+    color: {{ section.settings.button_text_color | default: '#ffffff' }};
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__items {
+    max-width: 88rem;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__group-title {
+    margin: 2rem 0 0.8rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__item {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 1.2rem;
+    background: {{ section.settings.accordion_background | default: '#ffffff' }};
+    color: {{ section.settings.accordion_text_color | default: section.settings.text_color }};
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__item summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.6rem 1.8rem;
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__answer {
+    padding: 0 1.8rem 1.8rem;
+  }
+{%- endstyle -%}
+
+<section class="faq-section" id="{{ section.settings.anchor_id | escape }}">
+  <div class="faq-section__inner">
+    <div class="faq-section__intro">
+      {%- if section.settings.subheading != blank -%}
+        <p class="faq-section__subheading">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="faq-section__title h1">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.content != blank -%}
+        <div class="rte">{{ section.settings.content }}</div>
+      {%- endif -%}
+      {%- if section.settings.button_text != blank and section.settings.button_url != blank -%}
+        <a class="faq-section__button" href="{{ section.settings.button_url }}">{{ section.settings.button_text | escape }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="faq-section__items">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'header' -%}
+            {%- if block.settings.title != blank -%}
+              <h3 class="faq-section__group-title" {{ block.shopify_attributes }}>{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+          {%- when 'item' -%}
+            {%- if block.settings.title != blank -%}
+              <details class="faq-section__item" {{ block.shopify_attributes }}>
+                <summary>{{ block.settings.title | escape }}</summary>
+                <div class="faq-section__answer rte">{{ block.settings.content }}</div>
+              </details>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "header",
+      "name": "Header",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Header title",
+          "default": "Compatibility and fit"
+        }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "Are these custom-made for my car?"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Answer",
+          "default": "<p>We customize for each vehicle model rather than using one universal fit.</p>"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "faq"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "FAQ"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>Use this section to answer common product, shipping, and installation questions.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    { "type": "color", "id": "background", "label": "Background" },
+    { "type": "color_background", "id": "background_gradient", "label": "Background gradient" },
+    { "type": "color", "id": "text_color", "label": "Text color" },
+    { "type": "color", "id": "heading_color", "label": "Heading color" },
+    { "type": "color", "id": "button_background", "label": "Button background", "default": "#ee6819" },
+    { "type": "color", "id": "button_text_color", "label": "Button text color", "default": "#ffffff" },
+    { "type": "color", "id": "accordion_background", "label": "Accordion background" },
+    { "type": "color", "id": "accordion_text_color", "label": "Accordion text color" }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "item" },
+        { "type": "item", "settings": { "title": "How long does shipping take?", "content": "<p>Orders are usually delivered in 7-15 days for custom seat covers.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

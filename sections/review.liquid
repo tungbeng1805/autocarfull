@@ -1,0 +1,88 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .review-section {
+    padding: 48px 0;
+    background: {{ section.settings.background | default: '#ffffff' }};
+    color: {{ section.settings.text_color | default: '#111111' }};
+  }
+{%- endstyle -%}
+
+{{ 'app-review.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'app-review.js' | asset_url }}" defer="defer"></script>
+
+<section class="review-section" id="{{ section.settings.anchor_id | escape }}">
+  <div class="review-section__inner container-app-review">
+    <h2 class="review-section__title h1">{{ section.settings.title | escape }}</h2>
+
+    <div class="rating-summary-app-review" id="rating-summary-app-review">
+      <div class="rating-left-app-review">
+        <div class="rating-stars-app-review">
+          <div class="rating-number-app-review">{{ section.settings.rating_value }}</div>
+          <div>
+            <div class="stars-app-review">★★★★☆</div>
+            <div class="review-count-app-review">{{ section.settings.review_count_text | escape }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rating-right-app-review">
+        <div class="recommendation-app-review">
+          <div class="recommendation-circle-app-review">{{ section.settings.recommend_percent }}</div>
+          <p>{{ section.settings.recommend_text | escape }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-gallery-app-review">
+      <h3 class="section-title-app-review h2">{{ section.settings.video_title | escape }}</h3>
+      <div class="video-reviews-app-review">
+        <div class="video-reviews-container-app-review" id="videoContainer"></div>
+      </div>
+    </div>
+
+    <div class="review-gallery-app-review">
+      <h3 class="section-title-app-review h2">{{ section.settings.image_title | escape }}</h3>
+      <div class="image-reviews-app-review">
+        <div class="image-reviews-container-app-review" id="imageContainer"></div>
+      </div>
+    </div>
+
+    <section class="customer-review-app-review"></section>
+
+    <div style="display:flex; justify-content:center;">
+      <button class="view-more-app-review" type="button" onclick="getMoreReview()">{{ section.settings.view_more_text | escape }}</button>
+    </div>
+  </div>
+</section>
+
+<div id="reviewModal" class="modal-app-review">
+  <div class="modal-content-app-review">
+    <span class="close-app-review">&times;</span>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "App review",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "rating-summary-app-review" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Reviews" },
+    { "type": "text", "id": "rating_value", "label": "Rating value", "default": "4.8" },
+    { "type": "text", "id": "review_count_text", "label": "Review count text", "default": "400+ reviews" },
+    { "type": "text", "id": "recommend_percent", "label": "Recommendation percent", "default": "98%" },
+    { "type": "text", "id": "recommend_text", "label": "Recommendation text", "default": "98% would recommend" },
+    { "type": "text", "id": "video_title", "label": "Video section title", "default": "Reviews with videos" },
+    { "type": "text", "id": "image_title", "label": "Image section title", "default": "Reviews with images" },
+    { "type": "text", "id": "view_more_text", "label": "View more button text", "default": "View 8 more" },
+    { "type": "color", "id": "background", "label": "Background" },
+    { "type": "color", "id": "text_color", "label": "Text color" }
+  ],
+  "presets": [
+    {
+      "name": "App review"
+    }
+  ]
+}
+{% endschema %}

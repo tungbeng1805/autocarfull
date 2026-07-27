@@ -1,0 +1,339 @@
+<strong>SELECT YOUR VEHICLE:</strong>
+  <div class="dropdown-container">
+    <div class="dropdown-wrapper">
+      <div class="select-wrapper">
+        <select class="dropdown-select-year" form="{{ form }}" required>
+          <option class="text-bold" value="">Year</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="dropdown-wrapper">
+      <div class="select-wrapper">
+        <select class="dropdown-select-make" form="{{ form }}" required>
+          <option class="text-bold" value="">Make</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="dropdown-wrapper">
+      <div class="select-wrapper">
+        <select class="dropdown-select-model" form="{{ form }}" required>
+          <option class="text-bold" value="">Model</option>
+        </select>
+      </div>
+    </div>
+    <div id="trim-selects-container"></div>
+  </div>
+
+  <div class="required-text-vehicle" style="color: red; margin-top: 10px;" data-required="true">
+    Please select all info vehicle
+  </div>
+
+  <style>
+    .dropdown-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .dropdown-container>div:last-child {
+      display: contents;
+    }
+
+    .dropdown-wrapper {
+      flex: 1;
+      min-width: 0;
+      /* This prevents flex items from overflowing */
+    }
+
+    .dropdown-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .select-wrapper {
+      position: relative;
+    }
+
+    .select-wrapper::after {
+      content: '';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #666;
+      pointer-events: none;
+    }
+
+    .dropdown-select-year,
+    .dropdown-select-make,
+    .dropdown-select-trim,
+    .dropdown-select-model,
+    .dropdown-select-cabsize {
+      width: 100%;
+      padding: 10px 40px 10px 12px;
+      border-radius: 4px;
+      border: 2px solid #000;
+      background-color: white;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      font-size: 14px;
+      color: #333;
+      font-weight: 700;
+    }
+
+    .dropdown-select-year:hover,
+    .dropdown-select-make:hover,
+    .dropdown-select-cabsize:hover,
+    .dropdown-select-model:hover {
+      border-color: #666;
+    }
+
+    .dropdown-select-year:focus,
+    .dropdown-select-make:focus,
+    .dropdown-select-model:focus,
+    .dropdown-select-cabsize:focus,
+    .dropdown-select-trim:focus {
+      outline: none;
+      border-color: #333;
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const data = window.dataVehicle;
+      const yearSelect = document.querySelector('.dropdown-select-year');
+      const makeSelect = document.querySelector('.dropdown-select-make');
+      const modelSelect = document.querySelector('.dropdown-select-model');
+      const currentYear = new Date().getFullYear();
+      const startYear = 1999;
+
+      function clearSelectExceptFirst(selectEl) {
+        while (selectEl.children.length > 1) {
+          selectEl.removeChild(selectEl.lastElementChild);
+        }
+      }
+
+      // Clear existing options except the first one
+      while (yearSelect.options.length > 1) {
+        yearSelect.remove(1);
+      }
+
+      // Add years from 1999 to current year
+      for (let year = currentYear; year >= startYear; year--) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        yearSelect.appendChild(option);
+      }
+
+      // Handle year selection change
+      yearSelect.addEventListener('change', function () {
+        // Clear existing make/model options except the first one (also removes optgroups)
+        clearSelectExceptFirst(makeSelect);
+        clearSelectExceptFirst(modelSelect);
+        clearTrimSelects();
+
+        const selectedYear = this.value;
+        if (selectedYear && data[selectedYear]) {
+          // Add makes for the selected year (grouped)
+          const makes = data[selectedYear];
+          const topSellers = makes.slice(0, 6);
+          const allOthers = makes.slice(6);
+
+          const topGroup = document.createElement('optgroup');
+          topGroup.label = 'Top sellers';
+          topSellers.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.make;
+            option.textContent = item.make;
+            topGroup.appendChild(option);
+          });
+
+          const otherGroup = document.createElement('optgroup');
+          otherGroup.label = 'All others';
+          allOthers.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.make;
+            option.textContent = item.make;
+            otherGroup.appendChild(option);
+          });
+
+          makeSelect.appendChild(topGroup);
+          if (allOthers.length) makeSelect.appendChild(otherGroup);
+        }
+      });
+
+      // Handle make selection change
+      makeSelect.addEventListener('change', function () {
+        // Clear existing model options except the first one (also removes optgroups)
+        clearSelectExceptFirst(modelSelect);
+        clearTrimSelects();
+
+        const selectedYear = yearSelect.value;
+        const selectedMake = this.value;
+
+        if (selectedYear && selectedMake && data[selectedYear]) {
+          console.log('selectedMake', selectedMake)
+          const isTopSellerMake = data[selectedYear].slice(0, 6).some(item => item.make === selectedMake);
+          const selectedMakeData = data[selectedYear].find(item => item.make === selectedMake);
+          if (selectedMakeData) {
+            if (isTopSellerMake && selectedMake !== "Honda") {
+              const sliceModel = ["Ford", "Chevrolet", "GMC", "Honda"].includes(selectedMake) ? 4 : 3;
+              const models = selectedMakeData.models || [];
+              const topSellers = models.slice(0, sliceModel);
+              const allOthers = models.slice(sliceModel);
+
+              const topGroup = document.createElement('optgroup');
+              topGroup.label = 'Top sellers';
+              topSellers.forEach(model => {
+                const option = document.createElement('option');
+                const displayName = typeof model === 'string' ? model : model.name;
+                option.value = displayName;
+                option.textContent = displayName;
+                topGroup.appendChild(option);
+              });
+
+              const otherGroup = document.createElement('optgroup');
+              otherGroup.label = 'All others';
+              allOthers.forEach(model => {
+                const option = document.createElement('option');
+                const displayName = typeof model === 'string' ? model : model.name;
+                option.value = displayName;
+                option.textContent = displayName;
+                otherGroup.appendChild(option);
+              });
+
+              modelSelect.appendChild(topGroup);
+              if (allOthers.length) modelSelect.appendChild(otherGroup);
+            } else {
+              selectedMakeData.models.forEach((model, index) => {
+                const option = document.createElement('option');
+                const displayName = typeof model === 'string' ? model : model.name;
+                option.value = displayName;
+                option.textContent = displayName;
+                modelSelect.appendChild(option);
+              });
+            }
+          }
+        }
+      });
+
+      // Trim selects container and helpers
+      const trimContainer = document.getElementById('trim-selects-container');
+
+      function clearTrimSelects() {
+        trimContainer.innerHTML = '';
+      }
+
+      function hasValidSubTrims(trims) {
+        if (!trims || !Array.isArray(trims) || trims.length === 0) return false;
+        const valid = trims.filter(t => t !== '' && t != null);
+        return valid.length > 0;
+      }
+
+      function getTrimOptions(trimItem) {
+        if (typeof trimItem === 'string') return trimItem;
+        return trimItem.name;
+      }
+
+      function getSubTrims(trimItem) {
+        if (typeof trimItem === 'string') return null;
+        return trimItem.trims || null;
+      }
+
+      function renderTrimLevel(parentTrims, levelIndex, onTrimChange) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'dropdown-wrapper';
+        wrapper.dataset.trimLevel = levelIndex;
+
+        const selectWrapper = document.createElement('div');
+        selectWrapper.className = 'select-wrapper';
+
+        const select = document.createElement('select');
+        select.className = levelIndex === 0 ? 'dropdown-select-trim' : 'dropdown-select-cabsize';
+        select.setAttribute(
+          'form',
+          document.querySelector('.dropdown-select-model')?.getAttribute('form') || ''
+        );
+        select.form = document.querySelector('.dropdown-select-model')?.form || '';
+        select.required = true;
+        const placeholder = levelIndex === 0 ? 'Trim' : 'Cab Size';
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = placeholder;
+        defaultOption.className = 'text-bold';
+        select.appendChild(defaultOption);
+
+        parentTrims.forEach((trimItem) => {
+          const opt = document.createElement('option');
+          const label = getTrimOptions(trimItem);
+          opt.value = label;
+          opt.textContent = label;
+          select.appendChild(opt);
+        });
+
+        select.addEventListener('change', function () {
+          const value = this.value;
+          if (!value) {
+            removeTrimLevelsAfter(levelIndex);
+            return;
+          }
+          const selectedTrim = parentTrims.find(t => getTrimOptions(t) === value);
+          const subTrims = getSubTrims(selectedTrim);
+
+          removeTrimLevelsAfter(levelIndex);
+
+          if (subTrims && hasValidSubTrims(subTrims)) {
+            renderTrimLevel(subTrims, levelIndex + 1, onTrimChange);
+          }
+          if (onTrimChange) onTrimChange();
+        });
+
+        selectWrapper.appendChild(select);
+        wrapper.appendChild(selectWrapper);
+        trimContainer.appendChild(wrapper);
+      }
+
+      function removeTrimLevelsAfter(levelIndex) {
+        const toRemove = trimContainer.querySelectorAll(`[data-trim-level]`);
+        toRemove.forEach(el => {
+          if (parseInt(el.dataset.trimLevel, 10) > levelIndex) el.remove();
+        });
+      }
+
+      modelSelect.addEventListener('change', function () {
+        clearTrimSelects();
+        const selectedYear = yearSelect.value;
+        const selectedMake = makeSelect.value;
+        const modelName = this.value;
+
+        if (!modelName || !selectedYear || !selectedMake || !data[selectedYear]) return;
+
+        const selectedMakeData = data[selectedYear].find(item => item.make === selectedMake);
+        if (!selectedMakeData) return;
+
+        const model = selectedMakeData.models.find(m => {
+          return (typeof m === 'string' ? m : m.name) === modelName;
+        });
+        if (!model) return;
+
+        const trims = typeof model === 'object' && model.trims ? model.trims : null;
+        if (trims && hasValidSubTrims(trims)) {
+          renderTrimLevel(trims, 0);
+        }
+      });
+    });
+  </script>

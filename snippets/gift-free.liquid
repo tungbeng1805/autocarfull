@@ -1,0 +1,194 @@
+
+
+    <style>
+        .header-bar {
+            height: 4px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .main-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 500;
+            color: black;
+            margin-bottom: 15px;
+            font-family: Arial, sans-serif;
+        }
+
+        .gifts-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .gift-item {
+            width: 100%;
+        }
+
+        .offer-box {
+            width: 100%;
+            height: auto;
+            min-height: 136px;
+            border-radius: 8px;
+        }
+        .offer-text {
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .product-box {
+            width: 100%;
+            height: auto;
+            background-color: white;
+            border: 2px dashed #FDA751;
+            border-radius: 8px;
+            position: relative;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
+        .price-tag {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #FFD700;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            min-width: 95px;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            color: #666;
+        }
+
+        .price-free {
+            color: #000;
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+        }
+
+        .steering-wheel {
+            width: 100px;
+            height: 100px;
+            background-color: #333;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .steering-wheel::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: #666;
+            border-radius: 50%;
+        }
+
+        .towel {
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(45deg, #666, #888);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .towel::before {
+            content: "S";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FFD700;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .towel::after {
+            content: "LUXE MICROFIBER TOWEL";
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            color: white;
+            background-color: black;
+            padding: 2px 4px;
+            border-radius: 2px;
+            white-space: nowrap;
+        }
+
+        .gift-label {
+            color: black;
+            font-size: 14px;
+            font-weight: normal;
+            margin-top: 10px;
+            text-align: center;
+        }
+        @media(max-width: 575px){
+        
+            .gifts-container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            .main-title {
+                font-size: 14px;
+            }
+            .offer-box {
+                min-height: auto;
+            }
+        }
+    </style>
+
+        <div class="header-bar"></div>
+    
+    <h1 class="main-title">Current Offer! FREE Gifts With Your Order</h1>
+    <div class="gifts-container">
+        <!-- This Month's Offer -->
+        <div class="gift-item">
+            <div class="offer-box">
+                <img src="https://cdn.shopify.com/s/files/1/0918/9654/5652/files/image_2.jpg?v=1776160967" width="100%" height="auto">
+            </div>
+            <div class="gift-label">Free Gifts With Offer</div>
+        </div>
+
+        <!-- Steering Wheel Cover -->
+        <div class="gift-item">
+            <div class="product-box">
+                <div class="price-tag">
+                    <span class="price-original">69.99$</span> <span class="price-free">FREE</span>
+                </div>
+                <div class="product-image">
+                    <img src="https://cdn.shopify.com/s/files/1/0918/9654/5652/files/Thi_tk_ch_acoten_27.png?v=1753449997" width="100%" height="auto">
+                </div>
+            </div>
+            <div class="gift-label">2 Premium Neck Pillows</div>
+        </div>
+        <div class="gift-item">
+            <div class="product-box">
+                <div class="price-tag">
+                    <span class="price-original">39,99</span> <span class="price-free">FREE</span>
+                </div>
+                <div class="product-image">
+                    <img src="https://cdn.shopify.com/s/files/1/0918/9654/5652/files/9mau-bocvolang_ad7590c6-0169-461a-a200-350b8ca71f34.png?v=1778946045" width="100%" height="auto">
+                </div>
+            </div>
+            <div class="gift-label">Free Steering Wheel Covers</div>
+        </div>
+    </div>

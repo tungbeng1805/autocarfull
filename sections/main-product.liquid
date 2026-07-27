@@ -178,6 +178,70 @@
               </p>
             {%- when 'custom_liquid' -%}
               {{ block.settings.custom_liquid }}
+            {%- when 'liquid' -%}
+              {{ block.settings.liquid }}
+            {%- when 'badges' -%}
+              <div class="product__text caption-with-letter-spacing" {{ block.shopify_attributes }}>
+                {%- if product.compare_at_price_max > product.price -%}
+                  <span>{{ 'products.product.on_sale' | t }}</span>
+                {%- endif -%}
+                {%- unless product.available -%}
+                  <span>{{ 'products.product.sold_out' | t }}</span>
+                {%- endunless -%}
+              </div>
+            {%- when 'line_item_property' -%}
+              <div class="product__custom-property" {{ block.shopify_attributes }}>
+                <label class="form__label" for="LineItemProperty-{{ block.id }}">{{ block.settings.label }}</label>
+                <input
+                  id="LineItemProperty-{{ block.id }}"
+                  class="field__input"
+                  type="{% if block.settings.type == 'checkbox' %}checkbox{% else %}text{% endif %}"
+                  {% if block.settings.type != 'checkbox' %}
+                    name="properties[{{ block.settings.label | escape }}]"
+                    value=""
+                  {% else %}
+                    name="properties[{{ block.settings.label | escape }}]"
+                    value="Yes"
+                  {% endif %}
+                  form="{{ product_form_id }}"
+                  {% if block.settings.required %}required{% endif %}
+                  {% if block.settings.max_length != blank %}maxlength="{{ block.settings.max_length }}"{% endif %}
+                >
+              </div>
+            {%- when 'dropdown_data' -%}
+              {{ 'data-vehicle.js' | asset_url | script_tag }}
+              {% render 'dropdown_data', block: block, form: product_form_id %}
+            {%- when 'gift_free' -%}
+              {% render 'gift-free' %}
+            {%- when 'shipping' -%}
+              {% render 'shipping' %}
+            {%- when 'top_comment' -%}
+              {% render 'top-comment' %}
+            {%- when 'offer' -%}
+              {% render 'offer', block: block %}
+            {%- when 'image' -%}
+              {%- if block.settings.image != blank -%}
+                <div class="product__custom-image" {{ block.shopify_attributes }}>
+                  {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+                </div>
+              {%- endif -%}
+            {%- when 'collapsible_text' -%}
+              <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
+                <details id="Details-{{ block.id }}-{{ section.id }}">
+                  <summary>
+                    <div class="summary__title">
+                      <h2 class="h4 accordion__title inline-richtext">
+                        {{ block.settings.title | default: block.settings.page.title }}
+                      </h2>
+                    </div>
+                    {% render 'icon-caret' %}
+                  </summary>
+                  <div class="accordion__content rte">
+                    {{ block.settings.content }}
+                    {{ block.settings.page.content }}
+                  </div>
+                </details>
+              </div>
             {%- when 'collapsible_tab' -%}
               <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                 <details id="Details-{{ block.id }}-{{ section.id }}">
@@ -577,6 +641,226 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "badges",
+      "name": "Badges",
+      "limit": 1
+    },
+    {
+      "type": "liquid",
+      "name": "Custom liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "liquid",
+          "label": "Liquid"
+        }
+      ]
+    },
+    {
+      "type": "line_item_property",
+      "name": "Line item property",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Your Vehicle"
+        },
+        {
+          "type": "select",
+          "id": "type",
+          "label": "Type",
+          "options": [
+            { "value": "text", "label": "Text" },
+            { "value": "checkbox", "label": "Checkbox" }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "allow_long_text",
+          "label": "Allow long text",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "max_length",
+          "min": 10,
+          "max": 500,
+          "step": 10,
+          "label": "Max length",
+          "default": 120
+        }
+      ]
+    },
+    {
+      "type": "dropdown_data",
+      "name": "Vehicle dropdown",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "dropdown_data",
+          "label": "Data source"
+        }
+      ]
+    },
+    {
+      "type": "gift_free",
+      "name": "Gift free"
+    },
+    {
+      "type": "shipping",
+      "name": "Shipping"
+    },
+    {
+      "type": "top_comment",
+      "name": "Top comment"
+    },
+    {
+      "type": "offer",
+      "name": "Offer",
+      "settings": [
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "options": [
+            { "value": "start", "label": "Left" },
+            { "value": "center", "label": "Center" }
+          ],
+          "default": "start"
+        },
+        {
+          "type": "select",
+          "id": "icon_position",
+          "label": "Icon position",
+          "options": [
+            { "value": "aligned", "label": "Aligned" },
+            { "value": "stacked", "label": "Stacked" }
+          ],
+          "default": "aligned"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon",
+          "default": "truck"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon"
+        },
+        {
+          "type": "range",
+          "id": "icon_width",
+          "min": 20,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "label": "Icon width",
+          "default": 20
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Shipping"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Alignment",
+          "options": [
+            { "value": "start", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "end", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "range",
+          "id": "max_width",
+          "min": 50,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "label": "Width",
+          "default": 150
+        }
+      ]
+    },
+    {
+      "type": "collapsible_text",
+      "name": "Collapsible text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Details"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Page"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon",
+          "default": "none"
+        },
+        {
+          "type": "range",
+          "id": "icon_width",
+          "min": 16,
+          "max": 48,
+          "step": 2,
+          "unit": "px",
+          "label": "Icon width",
+          "default": 20
+        }
+      ]
     },
     {
       "type": "text",

@@ -1,0 +1,80 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .compare-wrapper {
+    max-width: 96rem;
+    margin: 0 auto;
+    padding: 48px 1.5rem;
+  }
+{%- endstyle -%}
+
+<section class="compare-wrapper" id="{{ section.settings.anchor_id | escape }}">
+  {% if section.settings.title != blank or section.settings.subtitle != blank %}
+    <div class="compare-heading">
+      {% if section.settings.title != blank %}
+        <h2 class="compare-title h1">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.subtitle != blank %}
+        <p class="compare-subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="compare-grid">
+    <div></div>
+    <div class="col-header"><span>{{ section.settings.other_title }}</span></div>
+    <div class="col-header">
+      {%- if section.settings.logo_image != blank -%}
+        {{ section.settings.logo_image | image_url: width: 240 | image_tag: loading: 'lazy' }}
+      {%- else -%}
+        <span>Our Covers</span>
+      {%- endif -%}
+    </div>
+
+    {% for block in section.blocks %}
+      <div class="cell title {% if forloop.last %}last{% endif %}" {{ block.shopify_attributes }}>
+        {{ block.settings.title }}
+      </div>
+      <div class="cell other {% if forloop.last %}last{% endif %}">
+        {{ block.settings.other }}
+      </div>
+      <div class="cell highlight {% if forloop.last %}last{% endif %}">
+        {% if block.settings.svg_icon != blank %}
+          <div class="icon">{{ block.settings.svg_icon }}</div>
+        {% endif %}
+        <span>{{ block.settings.highlight }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Compare Table",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "compare-table" },
+    { "type": "text", "id": "title", "label": "Section Title", "default": "Why Choose Us" },
+    { "type": "text", "id": "subtitle", "label": "Section Subtitle", "default": "Compare our product with others" },
+    { "type": "text", "id": "other_title", "label": "Column title (Others)", "default": "Others" },
+    { "type": "image_picker", "id": "logo_image", "label": "Logo Image (column 3)" }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row item",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title (left column)" },
+        { "type": "text", "id": "other", "label": "Others value" },
+        { "type": "text", "id": "highlight", "label": "Highlight value" },
+        { "type": "textarea", "id": "svg_icon", "label": "SVG Icon (column 3)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Compare Table",
+      "blocks": [{ "type": "row" }, { "type": "row" }, { "type": "row" }]
+    }
+  ]
+}
+{% endschema %}

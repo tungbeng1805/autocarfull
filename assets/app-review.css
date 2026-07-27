@@ -1,0 +1,1032 @@
+
+/* Custom scrollbar cho webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.container-app-review {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+.star-app-review {
+    width: 50px;
+    height: 50px;
+    background: gold; /* nền vàng cho toàn bộ sao */
+    clip-path: polygon(
+      50% 0%,
+      61% 35%,
+      98% 35%,
+      68% 57%,
+      79% 91%,
+      50% 70%,
+      21% 91%,
+      32% 57%,
+      2% 35%,
+      39% 35%
+    );
+}
+
+.haft-start-app-review {
+    width: 50px;
+    height: 50px;
+}
+
+.start.white-app-review {
+    background-color: white;
+}
+.title-container-app-review {
+    font-size: 42px;
+    color: #000000;
+    font-weight: bold;
+    margin-bottom: 80px;
+}
+
+.reviews-section-app-review {
+    background: white;
+}
+
+.rating-summary-app-review {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0 100px 30px 100px;
+    margin-bottom: 30px;
+}
+
+.rating-left-app-review {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.rating-stars-app-review {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.rating-number-app-review {
+    font-size: 60px;
+    font-weight: bold;
+    color: #000000;
+    line-height: 1;
+}
+
+.stars-app-review {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+
+.review-count-app-review {
+    color: #7f8c8d;
+    font-size: 15px;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.rating-right-app-review {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -45px;
+}
+
+.recommendation-app-review {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.recommendation-circle-app-review {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recommendation-circle-app-review span {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.recommendation-app-review p {
+    color: #000000;
+    font-weight: 600;
+    font-size: 28px;
+}
+
+/* Video Section */
+.video-section-app-review {
+    margin-bottom: 40px;
+}
+
+.section-title-app-review {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.video-reviews-app-review {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-height: 300px;
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+    cursor: grab;
+    user-select: none;
+}
+
+.video-reviews-app-review:active {
+    cursor: grabbing;
+}
+
+/* Custom scrollbar cho video container - ẩn scrollbar */
+.video-reviews-app-review::-webkit-scrollbar {
+    display: none;
+}
+
+.video-reviews-app-review {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.video-reviews-container-app-review {
+    display: flex;
+    gap: 25px;
+    padding: 10px 0;
+    min-width: max-content;
+}
+
+.video-item-app-review {
+    flex: 0 0 160px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 285px;
+    width: 160px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.video-item-app-review:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.video-thumbnail-app-review {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.video-thumbnail-app-review video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    min-width: 160px;
+    min-height: 285px;
+}
+
+.play-button-app-review {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.play-button-app-review:hover {
+    background: rgba(0,0,0,0.9);
+}
+
+.duration-app-review {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.video-rating-app-review {
+    position: absolute;
+    bottom: 10px;
+    padding: 15px 15px 0px;
+}
+
+.video-rating-app-review .stars-app-review {
+    margin-bottom: 10px;
+}
+
+.video-rating-app-review .star-app-review {
+    width: 14px;
+    height: 14px;
+}
+
+.video-description-app-review {
+    padding: 0 15px 15px;
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Carousel navigation buttons - removed for horizontal scroll */
+
+.image-section-app-review {
+    margin-top: 40px;
+}
+
+.image-reviews-app-review {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+    cursor: grab;
+    user-select: none;
+}
+
+.image-reviews-app-review:active {
+    cursor: grabbing;
+}
+
+/* Custom scrollbar cho image container - ẩn scrollbar */
+.image-reviews-app-review::-webkit-scrollbar {
+    display: none;
+}
+
+.image-reviews-app-review {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.image-reviews-container-app-review {
+    display: flex;
+    gap: 20px;
+    padding: 10px 0;
+    min-width: max-content;
+}
+
+.image-item-app-review {
+    flex: 0 0 200px;
+    position: relative;
+    aspect-ratio: 1;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.image-item-app-review:hover {
+    transform: scale(1.05);
+}
+
+.image-item-app-review img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    border-radius: 5px;
+}
+
+.customer-review-app-review {
+    margin-top: 20px;
+}
+
+.review-card-app-review {
+    background: white;
+    /* border-radius: 12px; */
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid #e5e7eb;
+}
+
+.review-title-app-review {
+    font-size: 30px;
+    color: #09090b;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.review-meta-app-review {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+}
+
+.review-meta-app-review .star-app-review {
+    width: 20px;
+    height: 20px;
+}
+
+.review-date-app-review {
+    color: #737373;
+    font-size: 14px;
+}
+
+.badge-app-review {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-app-review.verified-app-review {
+    color: #1d8044;
+    margin-right: 10px;
+}
+
+.badge-app-review.recommend-app-review {
+    color: #1d8044;
+}
+
+.review-content-app-review p {
+    font-size: 18px;
+    color: #1a1a1a;
+}
+
+.review-author-app-review {
+    margin: 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #767676;
+}
+
+.review-gallery-app-review {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.review-gallery-app-review img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+}
+
+.review-actions-app-review {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+    cursor: pointer;
+}
+
+.view-more-app-review {
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Modal Styles */
+.modal-app-review {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+.modal-content-app-review {
+    background-color: #fefefe;
+    margin: 5vh auto;
+    padding: 0;
+    border-radius: 12px;
+    width: 92%;
+    max-width: 1280px;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+.modal-content-app-review::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content-app-review::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.modal-content-app-review::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.modal-content-app-review::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.close-app-review {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 8px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.close-app-review:hover,
+.close-app-review:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+.modal-header-app-review {
+    padding: 20px 30px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header-app-review h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.8rem;
+}
+
+.modal-body-app-review {
+    padding: 20px 30px 30px;
+}
+
+.modal-rating-app-review {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.modal-rating-app-review .stars-app-review {
+    display: flex;
+    gap: 3px;
+}
+
+.modal-rating-app-review .stars-app-review i {
+    font-size: 1.3rem;
+    color: #fde047;
+}
+
+.rating-text-app-review {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.modal-meta-app-review {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.meta-item-app-review {
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 4px solid #218649;
+}
+
+.meta-item-app-review strong {
+    color: #2c3e50;
+    margin-right: 8px;
+}
+
+.modal-description-app-review {
+    margin-bottom: 25px;
+}
+
+.modal-description-app-review h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.modal-description-app-review p {
+    line-height: 1.6;
+    color: #555;
+    font-size: 1rem;
+}
+
+.modal-gallery-app-review h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.gallery-grid-app-review {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.gallery-item-app-review {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.gallery-item-app-review:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item-app-review img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Lightbox Styles */
+.lightbox-app-review {
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.lightbox-content-app-review {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.lightbox-close-app-review {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+}
+
+.lightbox-content-app-review img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.review-modal-app-review {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-topbar-app-review {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+}
+
+.modal-topbar-app-review .back-btn-app-review {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.modal-topbar-app-review .topbar-title-app-review {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111;
+}
+
+.review-modal-body-app-review {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 24px;
+    padding: 20px 24px 24px;
+}
+
+.modal-media-app-review {
+    display: flex;
+    flex-direction: column;
+}
+
+.media-viewer-app-review {
+    position: relative;
+    background: #000;
+    overflow: hidden;
+}
+
+.media-viewer-app-review img {
+    width: 100%;
+    /* height: 520px; */
+    height: auto;
+    background: #000;
+    display: block;
+}
+
+.media-nav-app-review {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    cursor: pointer;
+}
+
+.media-nav-app-review.prev-app-review { left: 12px; }
+.media-nav-app-review.next-app-review { right: 12px; }
+
+.media-thumbs-app-review {
+    display: flex;
+    gap: 10px;
+    padding-top: 12px;
+    overflow-x: auto;
+}
+
+.media-thumbs-app-review img {
+    width: 90px;
+    height: 90px;
+    border: 2px solid transparent;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.media-thumbs-app-review img.active-app-review {
+    border-color: #111;
+    opacity: 1;
+}
+
+.modal-details-app-review .detail-title-app-review {
+    font-size: 2rem;
+    line-height: 1.2;
+    color: #111;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.detail-meta-line-app-review {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    margin-bottom: 14px;
+}
+
+.detail-meta-line-app-review .star-app-review { 
+    width: 20px; 
+    height: 20px;
+}
+.detail-meta-line-app-review .review-date-app-review { color: #737373; font-size: 14px; }
+
+.detail-text-app-review {
+    font-size: 16px;
+    color: #1a1a1a;
+    line-height: 1.6;
+}
+
+.detail-footer-app-review {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.detail-footer-app-review .author-app-review { color: #767676; font-weight: 600; }
+.detail-footer-app-review .helpful-app-review { cursor: pointer; }
+
+@media (max-width: 1024px) {
+    .rating-right-app-review {
+        margin-top: -25px;
+        margin-left: -5px;
+    }
+    .review-modal-body-app-review {
+        grid-template-columns: 1fr;
+    }
+    .media-viewer-app-review img { height: auto; }
+}
+
+@media (max-width: 600px) {
+    .media-viewer-app-review img { height: auto; }
+    .modal-details-app-review .detail-title-app-review { font-size: 1.5rem; }
+    .review-modal-body-app-review {
+        display: flex;
+        flex-direction: column; /* giữ layout dọc */
+        width: 100%
+    }
+}
+
+.review-images-app-review {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    padding: 10px;
+}
+
+.review-images-app-review img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 1024px) {
+    .review-images-app-review {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+@media (max-width: 600px) {
+    .review-images-app-review {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media(max-width: 991px){
+    .modal-media-app-review {
+        order: 1;
+    }
+    .media-thumbs-app-review {
+        order: 2;
+    }
+
+    .modal-image-details-app-review  .modal-topbar-app-review,
+    .modal-image-details-app-review .review-modal-body-app-review {
+        background-color: black;
+    }
+
+    .modal-image-details-app-review .back-btn-app-review,
+    .modal-image-details-app-review .topbar-title-app-review,
+    .modal-image-details-app-review .close-app-review,
+    .modal-image-details-app-review .detail-title-app-review,
+    .modal-image-details-app-review .detail-text-app-review,
+    .modal-image-details-app-review .author-app-review,
+    .modal-image-details-app-review .helpful-app-review {
+        color: white !important;
+    }  
+}
+
+@media (max-width: 768px) {
+    .image-item-app-review {
+        flex: 0 0 80px;
+    }
+    .container-app-review {
+        padding: 15px;
+    }
+
+    .title-container-app-review {
+        font-size: 30px;
+    }
+    
+    .rating-summary-app-review {
+        text-align: center;
+        padding: 0px 0px 20px;
+        margin-bottom: 20px;
+    }
+
+    .review-content-app-review p {
+        font-size: 14px;
+        color: #1a1a1a;
+    }
+
+    .review-author-app-review {
+        font-size: 14px;
+    }
+    
+    .rating-number-app-review {
+        font-size: 2.5rem;
+    }
+    
+    .recommendation-circle-app-review {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .recommendation-circle-app-review span {
+        font-size: 1.5rem;
+    }
+    
+    .section-title-app-review {
+        font-size: 1.5rem;
+    }
+    
+    .review-card-app-review {
+        padding: 20px;
+    }
+    .review-title-app-review {
+        font-size: 16px;
+    }
+
+    .review-gallery-app-review img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .modal-header-app-review {
+        padding: 15px 20px 10px;
+    }
+    
+    .modal-body-app-review {
+        padding: 15px 20px 20px;
+    }
+    
+    .modal-header-app-review h2 {
+        font-size: 1.5rem;
+    }
+    
+    .modal-meta-app-review {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .gallery-grid-app-review {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+    }
+}
+@media(max-width: 575px){
+    .modal-content-app-review {
+        margin: 0px;
+        height: 100vh;
+        max-height: 100vh;
+        max-width: 100% !important;
+        width: 100%;
+        border-radius: 0px;
+    }
+    .media-viewer-app-review video {
+        height: 100% !important;
+    }
+    .review-gallery-app-review img {
+        width: 100%;
+        height: auto;
+    }
+    .review-gallery-app-review {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+
+    .title-container-app-review {
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+    
+    .rating-summary-app-review {
+        padding: 0px 0px 20px;
+        margin-bottom: 0px;
+    }
+
+    .review-content-app-review p {
+        font-size: 14px;
+        color: #1a1a1a;
+    }
+
+    .review-author-app-review {
+        font-size: 14px;
+    }
+    
+    .rating-number-app-review {
+        font-size: 2rem;
+    }
+    
+    .rating-stars-app-review .star-app-review {
+        width: 26px;
+        height: 26px;
+    }
+
+    .haft-start-app-review {
+        width: 26px;
+        height: 26px;
+    }
+    
+    .recommendation-circle-app-review {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .recommendation-circle-app-review span {
+        font-size: 1.2rem;
+    }
+
+    .recommendation-app-review p {
+        font-size: 18px;
+    }
+    
+    .video-section-app-review, .image-section-app-review {
+        margin-bottom: 30px;
+    }
+
+    .review-title-app-review {
+        font-size: 16px;
+    }
+    .review-actions-app-review {
+        justify-content: flex-start;
+    }
+
+    .modal-content-app-review.modal-image-app-review {
+        width: 100% !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        margin: 0 !important;
+        border-radius: 0px !important;
+    }
+    
+    .modal-header-app-review {
+        padding: 12px 15px 8px;
+    }
+    
+    .modal-body-app-review {
+        padding: 12px 15px 15px;
+    }
+    
+    .modal-header-app-review h2 {
+        font-size: 1.3rem;
+    }
+    
+    .gallery-grid-app-review {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 8px;
+    }
+}
+
+.top-review .review-gallery-app-review {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+.top-review .review-gallery-app-review img {
+    width: auto;
+    height: auto;
+}

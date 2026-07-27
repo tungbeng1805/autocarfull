@@ -1,0 +1,159 @@
+{%- assign detail_id = section.settings.detail_id | strip -%}
+{%- assign reviews_id = section.settings.reviews_id | strip -%}
+{%- assign qa_id = section.settings.qa_id | strip -%}
+{%- assign related_id = section.settings.related_id | strip -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .toolbar-prod-detail {
+    position: relative;
+    z-index: 4;
+    background: {{ section.settings.background | default: '#ffffff' }};
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  #shopify-section-{{ section.id }} .toolbar-prod-detail.is-sticky {
+    position: sticky;
+    top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .toolbar-prod-detail__inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .toolbar-prod-detail__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+    padding: 1rem 0;
+  }
+
+  #shopify-section-{{ section.id }} .toolbar-prod-detail__link {
+    color: {{ section.settings.text_color | default: '#1f1f1f' }};
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 0.15rem;
+  }
+
+  #shopify-section-{{ section.id }} .toolbar-prod-detail__link.is-active {
+    color: {{ section.settings.active_text_color | default: '#ee6819' }};
+    border-bottom-color: {{ section.settings.active_text_color | default: '#ee6819' }};
+  }
+{%- endstyle -%}
+
+<section class="toolbar-prod-detail{% if section.settings.enable_sticky %} is-sticky{% endif %}" data-section-id="{{ section.id }}">
+  <div class="toolbar-prod-detail__inner">
+    <nav class="toolbar-prod-detail__links" aria-label="{{ section.settings.title | escape }}">
+      {%- if detail_id != blank -%}
+        <a class="toolbar-prod-detail__link is-active" href="#{{ detail_id }}">Details</a>
+      {%- endif -%}
+      {%- if reviews_id != blank -%}
+        <a class="toolbar-prod-detail__link" href="#{{ reviews_id }}" id="review-tool-bar">Reviews</a>
+      {%- endif -%}
+      {%- if qa_id != blank -%}
+        <a class="toolbar-prod-detail__link" href="#{{ qa_id }}">Q&amp;A</a>
+      {%- endif -%}
+      {%- if related_id != blank -%}
+        <a class="toolbar-prod-detail__link" href="#{{ related_id }}">Related Products</a>
+      {%- endif -%}
+    </nav>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var section = document.querySelector('#shopify-section-{{ section.id }} .toolbar-prod-detail');
+    if (!section) return;
+
+    var links = Array.prototype.slice.call(section.querySelectorAll('.toolbar-prod-detail__link'));
+
+    links.forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        var href = link.getAttribute('href');
+        if (!href || href.charAt(0) !== '#') return;
+
+        var target = document.querySelector(href);
+        if (!target) return;
+
+        event.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        links.forEach(function (item) {
+          item.classList.remove('is-active');
+        });
+        link.classList.add('is-active');
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "ToolBar",
+  "tag": "section",
+  "class": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Label",
+      "default": "Product toolbar"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky",
+      "label": "Enable sticky toolbar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "detail_id",
+      "label": "Detail anchor ID",
+      "default": "detail"
+    },
+    {
+      "type": "text",
+      "id": "reviews_id",
+      "label": "Reviews anchor ID",
+      "default": "rating-summary-app-review"
+    },
+    {
+      "type": "text",
+      "id": "qa_id",
+      "label": "Q&A anchor ID",
+      "default": "faq"
+    },
+    {
+      "type": "text",
+      "id": "related_id",
+      "label": "Related products anchor ID",
+      "default": "related-products"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "active_text_color",
+      "label": "Active text color",
+      "default": "#ee6819"
+    }
+  ],
+  "presets": [
+    {
+      "name": "ToolBar"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,22 @@
+<div id="{{ section.settings.anchor_id | escape }}"></div>
+
+{% schema %}
+{
+  "name": "Id Scroll",
+  "tag": "section",
+  "class": "section section-scroll-position",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "detail"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Id Scroll"
+    }
+  ]
+}
+{% endschema %}
