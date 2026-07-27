@@ -54,9 +54,20 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+  {% assign product_media_size = section.settings.media_size %}
+  {% assign product_media_position = section.settings.media_position %}
+  {% assign product_gallery_layout = section.settings.gallery_layout %}
+  {% assign product_mobile_thumbnails = section.settings.mobile_thumbnails %}
 
-  <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-    <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
+  {% if template.name == 'product' and template.suffix == 'seat-covers1' %}
+    {% assign product_media_size = 'large' %}
+    {% assign product_media_position = 'left' %}
+    {% assign product_gallery_layout = 'thumbnail' %}
+    {% assign product_mobile_thumbnails = 'show' %}
+  {% endif %}
+
+  <div class="product product--{{ product_media_size }} product--{{ product_media_position }} product--{{ product_gallery_layout }} product--mobile-{{ product_mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
+    <div class="grid__item product__media-wrapper{% if product_media_position == 'right' %} medium-hide large-up-hide{% endif %}">
       {% render 'product-media-gallery', variant_images: variant_images %}
     </div>
     <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -504,7 +515,7 @@
         </a>
       </product-info>
     </div>
-    {%- if section.settings.media_position == 'right' -%}
+    {%- if product_media_position == 'right' -%}
       {% comment %} Duplicate gallery to display after product content on tablet/desktop breakpoint {% endcomment %}
       <div class="grid__item product__media-wrapper small-hide">
         {% render 'product-media-gallery', variant_images: variant_images, is_duplicate: true %}

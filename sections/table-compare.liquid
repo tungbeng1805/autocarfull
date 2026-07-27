@@ -1,80 +1,41 @@
 {%- style -%}
-  #shopify-section-{{ section.id }} .compare-wrapper {
-    max-width: 96rem;
-    margin: 0 auto;
-    padding: 48px 1.5rem;
+  #shopify-section-{{ section.id }} .seat-cover-compare { max-width: 960px; margin: 0 auto; padding: 52px 24px; background: #fff; overflow: hidden; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__heading { margin-bottom: 24px; text-align: center; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__heading h2 { margin: 0 0 8px; font-size: clamp(2.8rem, 4vw, 3.6rem); font-weight: 700; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__heading p { margin: 0; color: #666; font-size: 1.6rem; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__grid { display: grid; grid-template-columns: 1fr 1.2fr 1.5fr; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__header { display: flex; min-height: 60px; align-items: center; justify-content: center; text-align: center; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__header span { color: #767676; font-size: 2rem; font-weight: 700; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__header img { max-width: 130px; max-height: 46px; object-fit: contain; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__cell { display: flex; min-height: 98px; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 14px 10px; border-bottom: 1px dashed #d3d3d3; text-align: center; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__cell--title { border-right: 1px solid #d3d3d3; color: #1a1a1a; font-weight: 700; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__cell--other { background: #fbfbfb; color: #5c5c5c; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__cell--highlight { background: #efefef; color: #1a1a1a; font-weight: 700; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__icon { width: 32px; height: 32px; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__icon svg { display: block; width: 100% !important; height: 100% !important; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__icon svg * { fill: #ef6d23 !important; stroke: #ef6d23 !important; }
+  #shopify-section-{{ section.id }} .seat-cover-compare__cell--last { border-bottom: 0; }
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .seat-cover-compare { padding: 36px 16px; }
+    #shopify-section-{{ section.id }} .seat-cover-compare__grid { grid-template-columns: .9fr 1fr 1fr; }
+    #shopify-section-{{ section.id }} .seat-cover-compare__header span { font-size: 1.4rem; }
+    #shopify-section-{{ section.id }} .seat-cover-compare__cell { min-height: 78px; padding: 10px 5px; font-size: 1.2rem; }
+    #shopify-section-{{ section.id }} .seat-cover-compare__icon { width: 25px; height: 25px; }
   }
 {%- endstyle -%}
 
-<section class="compare-wrapper" id="{{ section.settings.anchor_id | escape }}">
-  {% if section.settings.title != blank or section.settings.subtitle != blank %}
-    <div class="compare-heading">
-      {% if section.settings.title != blank %}
-        <h2 class="compare-title h1">{{ section.settings.title }}</h2>
-      {% endif %}
-      {% if section.settings.subtitle != blank %}
-        <p class="compare-subtitle">{{ section.settings.subtitle }}</p>
-      {% endif %}
-    </div>
-  {% endif %}
-
-  <div class="compare-grid">
-    <div></div>
-    <div class="col-header"><span>{{ section.settings.other_title }}</span></div>
-    <div class="col-header">
-      {%- if section.settings.logo_image != blank -%}
-        {{ section.settings.logo_image | image_url: width: 240 | image_tag: loading: 'lazy' }}
-      {%- else -%}
-        <span>Our Covers</span>
-      {%- endif -%}
-    </div>
-
-    {% for block in section.blocks %}
-      <div class="cell title {% if forloop.last %}last{% endif %}" {{ block.shopify_attributes }}>
-        {{ block.settings.title }}
-      </div>
-      <div class="cell other {% if forloop.last %}last{% endif %}">
-        {{ block.settings.other }}
-      </div>
-      <div class="cell highlight {% if forloop.last %}last{% endif %}">
-        {% if block.settings.svg_icon != blank %}
-          <div class="icon">{{ block.settings.svg_icon }}</div>
-        {% endif %}
-        <span>{{ block.settings.highlight }}</span>
-      </div>
-    {% endfor %}
+<section class="seat-cover-compare" id="{{ section.settings.anchor_id | escape }}">
+  {%- if section.settings.title != blank or section.settings.subtitle != blank -%}<div class="seat-cover-compare__heading"><h2>{{ section.settings.title | escape }}</h2><p>{{ section.settings.subtitle | escape }}</p></div>{%- endif -%}
+  <div class="seat-cover-compare__grid">
+    <div></div><div class="seat-cover-compare__header"><span>{{ section.settings.other_title | escape }}</span></div><div class="seat-cover-compare__header">{% if section.settings.logo_image != blank %}{{ section.settings.logo_image | image_url: width: 260 | image_tag: loading: 'lazy' }}{% else %}<span>Our Covers</span>{% endif %}</div>
+    {%- for block in section.blocks -%}
+      <div class="seat-cover-compare__cell seat-cover-compare__cell--title{% if forloop.last %} seat-cover-compare__cell--last{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.title | escape }}</div>
+      <div class="seat-cover-compare__cell seat-cover-compare__cell--other{% if forloop.last %} seat-cover-compare__cell--last{% endif %}">{{ block.settings.other | escape }}</div>
+      <div class="seat-cover-compare__cell seat-cover-compare__cell--highlight{% if forloop.last %} seat-cover-compare__cell--last{% endif %}">{% if block.settings.svg_icon != blank %}<div class="seat-cover-compare__icon">{{ block.settings.svg_icon }}</div>{% endif %}<span>{{ block.settings.highlight | escape }}</span></div>
+    {%- endfor -%}
   </div>
 </section>
 
 {% schema %}
-{
-  "name": "Compare Table",
-  "tag": "section",
-  "class": "section",
-  "settings": [
-    { "type": "text", "id": "anchor_id", "label": "Anchor ID", "default": "compare-table" },
-    { "type": "text", "id": "title", "label": "Section Title", "default": "Why Choose Us" },
-    { "type": "text", "id": "subtitle", "label": "Section Subtitle", "default": "Compare our product with others" },
-    { "type": "text", "id": "other_title", "label": "Column title (Others)", "default": "Others" },
-    { "type": "image_picker", "id": "logo_image", "label": "Logo Image (column 3)" }
-  ],
-  "blocks": [
-    {
-      "type": "row",
-      "name": "Row item",
-      "settings": [
-        { "type": "text", "id": "title", "label": "Title (left column)" },
-        { "type": "text", "id": "other", "label": "Others value" },
-        { "type": "text", "id": "highlight", "label": "Highlight value" },
-        { "type": "textarea", "id": "svg_icon", "label": "SVG Icon (column 3)" }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Compare Table",
-      "blocks": [{ "type": "row" }, { "type": "row" }, { "type": "row" }]
-    }
-  ]
-}
+{"name":"Compare Table","tag":"section","class":"section","settings":[{"type":"text","id":"anchor_id","label":"Anchor ID","default":"compare-table"},{"type":"text","id":"title","label":"Section Title","default":"Why Choose Us"},{"type":"text","id":"subtitle","label":"Section Subtitle","default":"Compare our product with others"},{"type":"text","id":"other_title","label":"Column title (Others)","default":"Others"},{"type":"image_picker","id":"logo_image","label":"Logo Image (column 3)"}],"blocks":[{"type":"row","name":"Row item","settings":[{"type":"text","id":"title","label":"Title (left column)"},{"type":"text","id":"other","label":"Others value"},{"type":"text","id":"highlight","label":"Highlight value"},{"type":"textarea","id":"svg_icon","label":"SVG Icon (column 3)"}]}],"presets":[{"name":"Compare Table","blocks":[{"type":"row"},{"type":"row"},{"type":"row"}]}]}
 {% endschema %}

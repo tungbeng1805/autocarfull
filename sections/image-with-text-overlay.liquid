@@ -1,183 +1,30 @@
 {%- assign overlay_alpha = section.settings.overlay_opacity | divided_by: 100.0 -%}
 {%- style -%}
-  #shopify-section-{{ section.id }} .image-overlay-section__inner {
-    position: relative;
-    overflow: hidden;
-    max-width: {% if section.settings.full_width %}100%{% else %}var(--page-width){% endif %};
-    margin: 0 auto;
-    border-radius: {% if section.settings.full_width %}0{% else %}1.6rem{% endif %};
-    min-height: 36rem;
-  }
-
-  #shopify-section-{{ section.id }} .image-overlay-section__overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba({{ section.settings.overlay_color.red }}, {{ section.settings.overlay_color.green }}, {{ section.settings.overlay_color.blue }}, {{ overlay_alpha }});
-  }
-
-  #shopify-section-{{ section.id }} .image-overlay-section__content {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    color: {{ section.settings.text_color }};
-    text-align: center;
-  }
+  #shopify-section-{{ section.id }} .seat-cover-image-banner { padding: 0; background: #d4d4d4; }
+  #shopify-section-{{ section.id }} .seat-cover-image-banner__inner { position: relative; width: {% if section.settings.full_width %}100%{% else %}min(100%, var(--page-width)){% endif %}; margin: 0 auto; overflow: hidden; }
+  #shopify-section-{{ section.id }} .seat-cover-image-banner__media,
+  #shopify-section-{{ section.id }} .seat-cover-image-banner__media picture { display: block; width: 100%; }
+  #shopify-section-{{ section.id }} .seat-cover-image-banner__media img,
+  #shopify-section-{{ section.id }} .seat-cover-image-banner__media svg { display: block; width: 100%; height: auto; min-height: {% case section.settings.image_size %}{% when 'sm' %}320px{% when 'md' %}440px{% when 'lg' %}560px{% when 'fill' %}70vh{% else %}0{% endcase %}; object-fit: cover; }
+  #shopify-section-{{ section.id }} .seat-cover-image-banner__overlay { position: absolute; inset: 0; background: rgba({{ section.settings.overlay_color.red }}, {{ section.settings.overlay_color.green }}, {{ section.settings.overlay_color.blue }}, {{ overlay_alpha }}); pointer-events: none; }
+  #shopify-section-{{ section.id }} .seat-cover-image-banner__content { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; padding: 24px; color: {{ section.settings.text_color }}; text-align: center; }
+  #shopify-section-{{ section.id }} .seat-cover-image-banner__content-inner { max-width: 760px; }
+  #shopify-section-{{ section.id }} .seat-cover-image-banner__button { display: inline-block; margin-top: 18px; padding: 12px 24px; border: 1px solid currentColor; color: inherit; text-decoration: none; }
+  @media screen and (max-width: 749px) { #shopify-section-{{ section.id }} .seat-cover-image-banner__inner { width: 100%; } }
 {%- endstyle -%}
 
-<section class="image-overlay-section">
-  <div class="image-overlay-section__inner">
-    <div class="image-overlay-section__media">
-      {%- if section.settings.mobile_image != blank -%}
-        <picture>
-          <source media="(max-width: 749px)" srcset="{{ section.settings.mobile_image | image_url: width: 1200 }}">
-          {%- if section.settings.image != blank -%}
-            {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'lazy' }}
-          {%- else -%}
-            {{ 'lifestyle-1' | placeholder_svg_tag }}
-          {%- endif -%}
-        </picture>
-      {%- elsif section.settings.image != blank -%}
-        {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'lazy' }}
-      {%- else -%}
-        {{ 'lifestyle-1' | placeholder_svg_tag }}
-      {%- endif -%}
-      <div class="image-overlay-section__overlay"></div>
+<section class="seat-cover-image-banner">
+  <div class="seat-cover-image-banner__inner">
+    <div class="seat-cover-image-banner__media">
+      {%- if section.settings.mobile_image != blank -%}<picture><source media="(max-width: 749px)" srcset="{{ section.settings.mobile_image | image_url: width: 1200 }}">{%- endif -%}
+      {%- if section.settings.image != blank -%}{{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '400,600,800,1000,1200,1600,2000,2400' }}{%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag }}{%- endif -%}
+      {%- if section.settings.mobile_image != blank -%}</picture>{%- endif -%}
     </div>
-
-    <div class="image-overlay-section__content">
-      <div class="image-overlay-section__content-inner rte">
-        {%- for block in section.blocks -%}
-          {%- case block.type -%}
-            {%- when 'subheading' -%}
-              <p {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</p>
-            {%- when 'heading' -%}
-              <{{ block.settings.heading_tag }} {{ block.shopify_attributes }}>{{ block.settings.text }}</{{ block.settings.heading_tag }}>
-            {%- when 'richtext' -%}
-              <div {{ block.shopify_attributes }}>{{ block.settings.content }}</div>
-            {%- when 'liquid' -%}
-              <div {{ block.shopify_attributes }}>{{ block.settings.liquid }}</div>
-            {%- when 'button' -%}
-              <a class="image-overlay-section__button" href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</a>
-          {%- endcase -%}
-        {%- endfor -%}
-      </div>
-    </div>
+    <div class="seat-cover-image-banner__overlay"></div>
+    {%- if section.blocks.size > 0 -%}<div class="seat-cover-image-banner__content"><div class="seat-cover-image-banner__content-inner rte">{%- for block in section.blocks -%}{%- case block.type -%}{%- when 'subheading' -%}<p {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</p>{%- when 'heading' -%}<{{ block.settings.heading_tag }} {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</{{ block.settings.heading_tag }}>{%- when 'richtext' -%}<div {{ block.shopify_attributes }}>{{ block.settings.content }}</div>{%- when 'liquid' -%}<div {{ block.shopify_attributes }}>{{ block.settings.liquid }}</div>{%- when 'button' -%}<a class="seat-cover-image-banner__button" href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</a>{%- endcase -%}{%- endfor -%}</div></div>{%- endif -%}
   </div>
 </section>
 
 {% schema %}
-{
-  "name": "Image with text overlay",
-  "tag": "section",
-  "class": "section",
-  "max_blocks": 6,
-  "settings": [
-    { "type": "checkbox", "id": "full_width", "label": "Full width", "default": true },
-    { "type": "checkbox", "id": "allow_transparent_header", "label": "Allow transparent header", "default": false },
-    { "type": "checkbox", "id": "enable_parallax", "label": "Enable parallax effect", "default": false },
-    {
-      "type": "select",
-      "id": "image_size",
-      "label": "Image size",
-      "options": [
-        { "value": "auto", "label": "Original image ratio" },
-        { "value": "sm", "label": "Small" },
-        { "value": "md", "label": "Medium" },
-        { "value": "lg", "label": "Large" },
-        { "value": "fill", "label": "Fill screen" }
-      ],
-      "default": "auto"
-    },
-    { "type": "image_picker", "id": "image", "label": "Image" },
-    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image" },
-    {
-      "type": "select",
-      "id": "mobile_text_position",
-      "label": "Mobile content position",
-      "options": [{ "value": "place-self-center text-center", "label": "Middle center" }],
-      "default": "place-self-center text-center"
-    },
-    {
-      "type": "select",
-      "id": "desktop_text_position",
-      "label": "Desktop content position",
-      "options": [{ "value": "sm:place-self-center sm:text-center", "label": "Middle center" }],
-      "default": "sm:place-self-center sm:text-center"
-    },
-    { "type": "color", "id": "text_color", "label": "Text", "default": "#ffffff" },
-    { "type": "color", "id": "overlay_color", "label": "Overlay", "default": "#000000" },
-    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 30 }
-  ],
-  "blocks": [
-    {
-      "type": "subheading",
-      "name": "Subheading",
-      "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "Subheading" }]
-    },
-    {
-      "type": "heading",
-      "name": "Heading",
-      "settings": [
-        { "type": "text", "id": "text", "label": "Text", "default": "Heading" },
-        {
-          "type": "select",
-          "id": "heading_tag",
-          "label": "Style",
-          "options": [
-            { "value": "h1", "label": "X-Large" },
-            { "value": "h2", "label": "Large" },
-            { "value": "h3", "label": "Medium" },
-            { "value": "h4", "label": "Small" },
-            { "value": "h5", "label": "X-Small" },
-            { "value": "h6", "label": "XX-Small" }
-          ],
-          "default": "h1"
-        }
-      ]
-    },
-    {
-      "type": "richtext",
-      "name": "Paragraph",
-      "settings": [{ "type": "richtext", "id": "content", "label": "Content", "default": "<p>Use this text to share information about your brand with your customers.</p>" }]
-    },
-    {
-      "type": "liquid",
-      "name": "Liquid",
-      "settings": [{ "type": "liquid", "id": "liquid", "label": "Liquid" }]
-    },
-    {
-      "type": "button",
-      "name": "Button",
-      "settings": [
-        {
-          "type": "select",
-          "id": "style",
-          "label": "Style",
-          "options": [{ "value": "outline", "label": "Outline" }, { "value": "fill", "label": "Fill" }],
-          "default": "fill"
-        },
-        {
-          "type": "select",
-          "id": "size",
-          "label": "Size",
-          "options": [{ "value": "sm", "label": "Small" }, { "value": "base", "label": "Medium" }, { "value": "lg", "label": "Large" }, { "value": "xl", "label": "X-Large" }],
-          "default": "lg"
-        },
-        { "type": "text", "id": "text", "label": "Text", "default": "Button text" },
-        { "type": "url", "id": "url", "label": "Link" },
-        { "type": "color", "id": "background", "label": "Background" },
-        { "type": "color", "id": "text_color", "label": "Text" }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Image with text overlay",
-      "blocks": [{ "type": "subheading" }, { "type": "heading", "settings": { "text": "Image with text overlay" } }, { "type": "richtext" }]
-    }
-  ]
-}
+{"name":"Image with text overlay","tag":"section","class":"section","max_blocks":6,"settings":[{"type":"checkbox","id":"full_width","label":"Full width","default":true},{"type":"checkbox","id":"allow_transparent_header","label":"Allow transparent header","default":false},{"type":"checkbox","id":"enable_parallax","label":"Enable parallax effect","default":false},{"type":"select","id":"image_size","label":"Image size","options":[{"value":"auto","label":"Original image ratio"},{"value":"sm","label":"Small"},{"value":"md","label":"Medium"},{"value":"lg","label":"Large"},{"value":"fill","label":"Fill screen"}],"default":"auto"},{"type":"image_picker","id":"image","label":"Image"},{"type":"image_picker","id":"mobile_image","label":"Mobile image"},{"type":"select","id":"mobile_text_position","label":"Mobile content position","options":[{"value":"place-self-center text-center","label":"Middle center"}],"default":"place-self-center text-center"},{"type":"select","id":"desktop_text_position","label":"Desktop content position","options":[{"value":"sm:place-self-center sm:text-center","label":"Middle center"}],"default":"sm:place-self-center sm:text-center"},{"type":"color","id":"text_color","label":"Text","default":"#ffffff"},{"type":"color","id":"overlay_color","label":"Overlay","default":"#000000"},{"type":"range","id":"overlay_opacity","label":"Overlay opacity","min":0,"max":100,"step":1,"unit":"%","default":30}],"blocks":[{"type":"subheading","name":"Subheading","settings":[{"type":"text","id":"text","label":"Text","default":"Subheading"}]},{"type":"heading","name":"Heading","settings":[{"type":"text","id":"text","label":"Text","default":"Heading"},{"type":"select","id":"heading_tag","label":"Style","options":[{"value":"h1","label":"X-Large"},{"value":"h2","label":"Large"},{"value":"h3","label":"Medium"},{"value":"h4","label":"Small"},{"value":"h5","label":"X-Small"},{"value":"h6","label":"XX-Small"}],"default":"h1"}]},{"type":"richtext","name":"Paragraph","settings":[{"type":"richtext","id":"content","label":"Content","default":"<p>Use this text to share information about your brand with your customers.</p>"}]},{"type":"liquid","name":"Liquid","settings":[{"type":"liquid","id":"liquid","label":"Liquid"}]},{"type":"button","name":"Button","settings":[{"type":"select","id":"style","label":"Style","options":[{"value":"outline","label":"Outline"},{"value":"fill","label":"Fill"}],"default":"fill"},{"type":"select","id":"size","label":"Size","options":[{"value":"sm","label":"Small"},{"value":"base","label":"Medium"},{"value":"lg","label":"Large"},{"value":"xl","label":"X-Large"}],"default":"lg"},{"type":"text","id":"text","label":"Text","default":"Button text"},{"type":"url","id":"url","label":"Link"},{"type":"color","id":"background","label":"Background"},{"type":"color","id":"text_color","label":"Text"}]}],"presets":[{"name":"Image with text overlay","blocks":[{"type":"subheading"},{"type":"heading","settings":{"text":"Image with text overlay"}},{"type":"richtext"}]}]}
 {% endschema %}
