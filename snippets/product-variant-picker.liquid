@@ -22,9 +22,33 @@
       {{ block.shopify_attributes }}
     >
       {%- for option in product.options_with_values -%}
-        <fieldset class="js product-form__input">
-          <legend class="form__label">{{ option.name }}</legend>
-          {% render 'product-variant-options', product: product, option: option, block: block %}
+        {%- liquid
+          assign option_downcase = option.name | downcase
+          assign option_values_class = ''
+          if template.name == 'product' and template.suffix == 'seat-covers1'
+            if option_downcase contains 'color' or option_downcase contains 'step 2'
+              assign option_values_class = 'product-form__option-values product-form__option-values--variant-image'
+            elsif option_downcase contains 'seat' or option_downcase contains 'step 1'
+              assign option_values_class = 'product-form__option-values product-form__option-values--seat-steps'
+            else
+              assign option_values_class = 'product-form__option-values'
+            endif
+          endif
+        -%}
+        <fieldset class="js product-form__input{% if template.name == 'product' and template.suffix == 'seat-covers1' %} product-form__input--seat-covers{% endif %}">
+          <legend class="form__label text-subdued">
+            {%- if template.name == 'product' and template.suffix == 'seat-covers1' -%}
+              <span class="h-stack gap-2 product-form__option-heading">
+                <span class="product-form__option-name">{{ option.name }}:</span>
+                <span class="product-form__selected-value" data-selected-value>{{ option.selected_value }}</span>
+              </span>
+            {%- else -%}
+              {{ option.name }}
+            {%- endif -%}
+          </legend>
+          <div class="{{ option_values_class }}">
+            {% render 'product-variant-options', product: product, option: option, block: block %}
+          </div>
         </fieldset>
       {%- endfor -%}
       <script type="application/json">

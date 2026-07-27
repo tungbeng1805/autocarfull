@@ -1,4 +1,4 @@
-<strong>SELECT YOUR VEHICLE:</strong>
+<strong class="vehicle-select-label">SELECT YOUR VEHICLE:</strong>
   <div class="dropdown-container">
     <div class="dropdown-wrapper">
       <div class="select-wrapper">
@@ -88,6 +88,7 @@
       appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
+      font-family: Roboto, sans-serif;
       font-size: 14px;
       color: #333;
       font-weight: 700;
@@ -332,7 +333,49 @@
 
         const trims = typeof model === 'object' && model.trims ? model.trims : null;
         if (trims && hasValidSubTrims(trims)) {
-          renderTrimLevel(trims, 0);
+          renderTrimLevel(trims, 0, updateVehicleProperty);
+        }
+        updateVehicleProperty();
+      });
+
+      function updateVehicleProperty() {
+        const propertyInput = document.querySelector('.product__vehicle-property-input');
+        const requiredText = document.querySelector('.required-text-vehicle');
+        if (!propertyInput) return;
+
+        const trimSelect = document.querySelector('.dropdown-select-trim');
+        const cabSizeSelect = document.querySelector('.dropdown-select-cabsize');
+        let isRequired = true;
+
+        if (yearSelect.value && makeSelect.value && modelSelect.value) {
+          if (trimSelect && !trimSelect.value) {
+            isRequired = true;
+          } else if (cabSizeSelect && !cabSizeSelect.value) {
+            isRequired = true;
+          } else {
+            isRequired = false;
+            const selections = `${yearSelect.value}-${makeSelect.value}-${modelSelect.value}`;
+            const extra = [];
+            if (trimSelect?.value) extra.push(trimSelect.value);
+            if (cabSizeSelect?.value) extra.push(cabSizeSelect.value);
+            propertyInput.value = extra.length ? `${selections}-${extra.join('-')}` : selections;
+          }
+        }
+
+        if (requiredText) {
+          requiredText.style.color = isRequired ? 'red' : 'black';
+          requiredText.dataset.required = isRequired ? 'true' : 'false';
+        }
+      }
+
+      yearSelect.addEventListener('change', updateVehicleProperty);
+      makeSelect.addEventListener('change', updateVehicleProperty);
+      document.addEventListener('change', (e) => {
+        if (
+          e.target.matches('.dropdown-select-trim') ||
+          e.target.matches('.dropdown-select-cabsize')
+        ) {
+          updateVehicleProperty();
         }
       });
     });

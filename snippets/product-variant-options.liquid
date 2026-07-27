@@ -6,7 +6,6 @@
   - option: {Object} current product_option object.
   - block: {Object} block object.
 
-
   Usage:
   {% render 'product-variant-options',
     product: product,
@@ -21,11 +20,30 @@
   assign variants_option3_arr = product.variants | map: 'option3'
 
   assign product_form_id = 'product-form-' | append: section.id
+
+  assign option_downcase = option.name | downcase
+  assign is_seat_covers = false
+  if template.name == 'product' and template.suffix == 'seat-covers1'
+    assign is_seat_covers = true
+  endif
+
+  assign is_color_option = false
+  assign is_seat_option = false
+  if is_seat_covers
+    if option_downcase contains 'color' or option_downcase contains 'step 2'
+      assign is_color_option = true
+    endif
+    if option_downcase contains 'seat' or option_downcase contains 'step 1'
+      assign is_seat_option = true
+    endif
+  endif
 -%}
 
 {%- for value in option.values -%}
   {%- liquid
     assign option_disabled = true
+    assign variant_image = nil
+    assign matched_variant = nil
 
     for option1_name in variants_option1_arr
       case option.position
@@ -33,16 +51,29 @@
           if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
             assign option_disabled = false
           endif
+          if variants_option1_arr[forloop.index0] == value and matched_variant == nil
+            assign matched_variant = product.variants[forloop.index0]
+          endif
         when 2
           if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
             assign option_disabled = false
+          endif
+          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and matched_variant == nil
+            assign matched_variant = product.variants[forloop.index0]
           endif
         when 3
           if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
             assign option_disabled = false
           endif
+          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and matched_variant == nil
+            assign matched_variant = product.variants[forloop.index0]
+          endif
       endcase
     endfor
+
+    if matched_variant and matched_variant.featured_media
+      assign variant_image = matched_variant.featured_media
+    endif
   -%}
 
   {%- if block.settings.picker_type == 'button' -%}
@@ -59,10 +90,114 @@
         class="disabled"
       {% endif %}
     >
-    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
-      {{ value -}}
-      <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
-    </label>
+    {%- liquid
+      assign use_seat_banner = false
+      if is_seat_option
+        if value == 'Front Seats' or value == 'Bundle' or value == 'Bundle-448'
+          assign use_seat_banner = true
+        endif
+      endif
+    -%}
+    {%- if use_seat_banner -%}
+      <label
+        class="block-swatch seat-step-swatch{% if option_disabled %} is-disabled{% endif %}"
+        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+      >
+        {%- if value == 'Front Seats' -%}
+          <div class="tb-banner">
+            <div class="tb-left">
+              <div class="tb-green-dot"></div>
+              <div>
+                <div class="tb-tag">
+                  Hot Summer Deal
+                  <span style="font-size:14px;">☀️</span>
+                </div>
+                <div class="tb-title">FRONT SEATS</div>
+              </div>
+            </div>
+            <div class="tb-right">
+              <div class="tb-price-row">
+                <span class="tb-old-price">$540</span>
+                <span class="tb-new-price">$269.99</span>
+                <span class="tb-save-badge">Save $269 Today!</span>
+              </div>
+            </div>
+          </div>
+        {%- elsif value == 'Bundle' -%}
+          <div class="tb-banner">
+            <div class="tb-best-value-badge">🏆 Best Value</div>
+            <div class="tb-left">
+              <div class="tb-green-dot"></div>
+              <div>
+                <div class="tb-tag">
+                  Hot Summer Deal
+                  <span style="font-size:14px;">☀️</span>
+                </div>
+                <div class="tb-title">FRONT &amp; REAR SEATS</div>
+              </div>
+            </div>
+            <div class="tb-right">
+              <div class="tb-price-row">
+                <span class="tb-old-price">$718</span>
+                <span class="tb-new-price">$358.95</span>
+                <span class="tb-save-badge">Save $350 Today!</span>
+              </div>
+            </div>
+          </div>
+        {%- elsif value == 'Bundle-448' -%}
+          <div class="tb-banner">
+            <div class="tb-best-value-badge">🏆 Best Value</div>
+            <div class="tb-left">
+              <div class="tb-green-dot"></div>
+              <div>
+                <div class="tb-tag">
+                  Spring Refresh Deal
+                  <span style="font-size:14px;">🔥</span>
+                </div>
+                <div class="tb-title">Front &amp; Rear Seats</div>
+              </div>
+            </div>
+            <div class="tb-right">
+              <div class="tb-price-row">
+                <span class="tb-old-price">$737</span>
+                <span class="tb-new-price">$448</span>
+                <span class="tb-save-badge">Save $448 Today!</span>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+        <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
+      </label>
+    {%- elsif is_color_option and variant_image != blank -%}
+      <label
+        class="thumbnail-swatch border{% if option_disabled %} is-disabled{% endif %}"
+        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+      >
+        <span class="visually-hidden">{{ value }}</span>
+        <div>
+          {{
+            variant_image
+            | image_url: width: 200
+            | image_tag: loading: 'lazy', sizes: '100px', widths: '100,200', class: 'thumbnail-swatch__image'
+          }}
+          <div class="thumbnail-swatch__label">{{ value }}</div>
+        </div>
+        <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
+      </label>
+    {%- elsif is_seat_covers -%}
+      <label
+        class="block-swatch{% if option_disabled %} is-disabled{% endif %}"
+        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+      >
+        {{ value -}}
+        <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
+      </label>
+    {%- else -%}
+      <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+        {{ value -}}
+        <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
+      </label>
+    {%- endif -%}
   {%- elsif block.settings.picker_type == 'dropdown' -%}
     <option
       value="{{ value | escape }}"

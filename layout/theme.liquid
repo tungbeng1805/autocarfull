@@ -241,6 +241,9 @@
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'autofull-foundation.css' | asset_url | stylesheet_tag }}
     {%- if template.name == 'product' and template.suffix == 'seat-covers1' -%}
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
       {{ 'seat-covers1-typography.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
 

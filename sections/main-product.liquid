@@ -92,39 +92,76 @@
               </p>
             {%- when 'title' -%}
               <div class="product__title" {{ block.shopify_attributes }}>
-                <h1>{{ product.title | escape }}</h1>
-                <a href="{{ product.url }}" class="product__title">
-                  <h2 class="h1">
-                    {{ product.title | escape }}
-                  </h2>
-                </a>
+                {%- if template.name == 'product' and template.suffix == 'seat-covers1' -%}
+                  <h1 class="product-info__title h4">{{ product.title | escape }}</h1>
+                {%- else -%}
+                  <h1>{{ product.title | escape }}</h1>
+                  <a href="{{ product.url }}" class="product__title">
+                    <h2 class="h1">
+                      {{ product.title | escape }}
+                    </h2>
+                  </a>
+                {%- endif -%}
               </div>
             {%- when 'price' -%}
-              <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                {%- render 'price',
-                  product: product,
-                  use_variant: true,
-                  show_badges: true,
-                  price_class: 'price--large'
+              {%- if template.name == 'product' and template.suffix == 'seat-covers1' -%}
+                {%- liquid
+                  assign seat_variant = product.selected_or_first_available_variant
+                  assign seat_price = seat_variant.price
+                  assign seat_compare = seat_variant.compare_at_price
+                  assign seat_save = 0
+                  if seat_compare > seat_price
+                    assign seat_save = seat_compare | minus: seat_price | times: 100.0 | divided_by: seat_compare | round
+                  endif
                 -%}
-              </div>
-              {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
-                <div class="product__tax caption rte">
-                  {%- if cart.taxes_included -%}
-                    {{ 'products.product.include_taxes' | t }}
-                  {%- endif -%}
-                  {%- if shop.shipping_policy.body != blank -%}
-                    {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
-                  {%- endif -%}
+                <div class="product-info__price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                  <div class="rating-with-text">
+                    <div class="price-list price-list--lg">
+                      <span class="sale-price text-lg text-on-sale">
+                        <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+                        {{ seat_price | money }}
+                      </span>
+                      {%- if seat_compare > seat_price -%}
+                        <s class="compare-at-price text-red line-through">
+                          <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                          {{ seat_compare | money }}
+                        </s>
+                      {%- endif -%}
+                    </div>
+                    {%- if seat_compare > seat_price -%}
+                      <div class="product-info__badge-list">
+                        <span class="badge badge--on-sale">Save {{ seat_save }}%</span>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- else -%}
+                <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                  {%- render 'price',
+                    product: product,
+                    use_variant: true,
+                    show_badges: true,
+                    price_class: 'price--large'
+                  -%}
+                </div>
+                {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
+                  <div class="product__tax caption rte">
+                    {%- if cart.taxes_included -%}
+                      {{ 'products.product.include_taxes' | t }}
+                    {%- endif -%}
+                    {%- if shop.shipping_policy.body != blank -%}
+                      {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+                <div {{ block.shopify_attributes }}>
+                  {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+                  {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                    {{ form | payment_terms }}
+                  {%- endform -%}
                 </div>
               {%- endif -%}
-              <div {{ block.shopify_attributes }}>
-                {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
-                {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
-                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                  {{ form | payment_terms }}
-                {%- endform -%}
-              </div>
             {%- when 'inventory' -%}
               <p
                 class="product__inventory no-js-hidden{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
@@ -190,22 +227,36 @@
             {%- when 'custom_liquid' -%}
               {{ block.settings.custom_liquid }}
             {%- when 'liquid' -%}
-              {{ block.settings.liquid }}
+              {%- if template.name == 'product' and template.suffix == 'seat-covers1' -%}
+                <div class="product-info__liquid" {{ block.shopify_attributes }}>
+                  {{ block.settings.liquid }}
+                </div>
+              {%- else -%}
+                {{ block.settings.liquid }}
+              {%- endif -%}
             {%- when 'badges' -%}
-              <div class="product__text caption-with-letter-spacing" {{ block.shopify_attributes }}>
-                {%- if product.compare_at_price_max > product.price -%}
-                  <span>{{ 'products.product.on_sale' | t }}</span>
-                {%- endif -%}
-                {%- unless product.available -%}
-                  <span>{{ 'products.product.sold_out' | t }}</span>
-                {%- endunless -%}
-              </div>
+              {%- if template.name == 'product' and template.suffix == 'seat-covers1' -%}
+                {%- comment -%}Old Impact seat-covers badges block is empty (custom metafields only).{%- endcomment -%}
+                <div class="product-info__block-item product-info__block-item--badges" {{ block.shopify_attributes }}></div>
+              {%- else -%}
+                <div class="product__badge-list product__text caption-with-letter-spacing" {{ block.shopify_attributes }}>
+                  {%- if product.compare_at_price_max > product.price -%}
+                    <span class="badge badge--sale">{{ 'products.product.on_sale' | t }}</span>
+                  {%- endif -%}
+                  {%- unless product.available -%}
+                    <span class="badge badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
+                  {%- endunless -%}
+                </div>
+              {%- endif -%}
             {%- when 'line_item_property' -%}
-              <div class="product__custom-property" {{ block.shopify_attributes }}>
+              <div
+                class="product__custom-property{% if template.name == 'product' and template.suffix == 'seat-covers1' %} product__custom-property--hidden{% endif %}"
+                {{ block.shopify_attributes }}
+              >
                 <label class="form__label" for="LineItemProperty-{{ block.id }}">{{ block.settings.label }}</label>
                 <input
                   id="LineItemProperty-{{ block.id }}"
-                  class="field__input"
+                  class="field__input product__vehicle-property-input"
                   type="{% if block.settings.type == 'checkbox' %}checkbox{% else %}text{% endif %}"
                   {% if block.settings.type != 'checkbox' %}
                     name="properties[{{ block.settings.label | escape }}]"
