@@ -292,14 +292,16 @@
     },
     "video_yUqejJ": {
       "type": "video",
-      "custom_css": [
-        ".section,.banner,.video-section {background: #1a1a1a !important;}",
-        ".video,.media,.media__wrapper {background: #1a1a1a !important;}"
-      ],
       "name": "Video",
       "settings": {
+        "heading": "",
+        "autoplay": true,
+        "enable_video_looping": true,
         "video": "shopify://files/videos/0629.mp4",
-        "full_width": false
+        "full_width": false,
+        "section_background": "#1a1a1a",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "table_compare_cRE9g6": {
@@ -354,8 +356,8 @@
           "type": "row",
           "settings": {
             "title": "Install Time",
-            "other": "4â€“8 Hours",
-            "highlight": "15â€“20 Minutes",
+            "other": "4–8 Hours",
+            "highlight": "15–20 Minutes",
             "svg_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 40 40\" fill=\"none\" class=\"h-full w-full\" data-sentry-element=\"svg\" data-sentry-component=\"InstallIcon\" data-sentry-source-file=\"InstallIcon.tsx\" plerdy-tracking-id=\"20830904901\"><path d=\"M26.2609 5.30833C25.6661 5.30833 25.1637 5.10295 24.7537 4.69219C24.3436 4.28143 24.1385 3.77865 24.1385 3.18385C24.1385 2.58906 24.3439 2.08663 24.7547 1.67656C25.1655 1.26684 25.6682 1.06198 26.263 1.06198C26.8578 1.06198 27.3602 1.26736 27.7703 1.67812C28.1804 2.08854 28.3854 2.59132 28.3854 3.18646C28.3854 3.78125 28.18 4.28368 27.7693 4.69375C27.3585 5.10347 26.8557 5.30833 26.2609 5.30833ZM26.2005 38.5214C25.6057 38.5214 25.1035 38.316 24.6938 37.9052C24.2837 37.4948 24.0786 36.992 24.0786 36.3969C24.0786 35.8021 24.284 35.2997 24.6948 34.8896C25.1056 34.4799 25.6083 34.275 26.2031 34.275C26.7979 34.275 27.3003 34.4804 27.7104 34.8912C28.1201 35.3019 28.325 35.8047 28.325 36.3995C28.325 36.9943 28.1198 37.4967 27.7094 37.9068C27.2986 38.3165 26.7957 38.5214 26.2005 38.5214ZM34.5339 12.3599C33.9391 12.3599 33.4368 12.1545 33.0271 11.7437C32.617 11.333 32.412 10.8302 32.412 10.2354C32.412 9.64063 32.6174 9.1382 33.0281 8.72813C33.4389 8.31806 33.9417 8.11302 34.5365 8.11302C35.1313 8.11302 35.6337 8.3184 36.0438 8.72917C36.4535 9.13993 36.6583 9.64271 36.6583 10.2375C36.6583 10.8323 36.4531 11.3347 36.0427 11.7448C35.632 12.1549 35.129 12.3599 34.5339 12.3599ZM34.474 31.5302C33.8792 31.5302 33.3767 31.3248 32.9667 30.9141C32.5566 30.5036 32.3516 30.0009 32.3516 29.4057C32.3516 28.8109 32.5569 28.3085 32.9677 27.8984C33.3785 27.4887 33.8813 27.2839 34.476 27.2839C35.0712 27.2839 35.5736 27.4892 35.9833 27.9C36.3934 28.3104 36.5984 28.8132 36.5984 29.4083C36.5984 30.0031 36.3931 30.5056 35.9823 30.9156C35.5715 31.3253 35.0688 31.5302 34.474 31.5302ZM37.4589 21.9151C36.8641 21.9151 36.3616 21.7097 35.9516 21.299C35.5415 20.8882 35.3365 20.3854 35.3365 19.7906C35.3365 19.1958 35.5418 18.6934 35.9526 18.2833C36.3634 17.8733 36.8661 17.6682 37.4609 17.6682C38.0557 17.6682 38.5582 17.8736 38.9682 18.2844C39.3783 18.6951 39.5833 19.1979 39.5833 19.7927C39.5833 20.3875 39.378 20.8899 38.9672 21.3C38.5564 21.7101 38.0536 21.9151 37.4589 21.9151ZM19.7917 39.5833C17.0566 39.5833 14.4847 39.0639 12.076 38.025C9.66736 36.9861 7.57222 35.5762 5.79063 33.7953C4.00903 32.0144 2.59844 29.9201 1.55885 27.5125C0.519618 25.1049 0 22.5325 0 19.7953C0 17.0578 0.519618 14.4847 1.55885 12.076C2.59774 9.66736 4.00781 7.57222 5.78906 5.79063C7.57031 4.00903 9.66493 2.59844 12.0729 1.55885C14.4809 0.519618 17.0538 0 19.7917 0V3.125C15.1389 3.125 11.1979 4.73958 7.96875 7.96875C4.73958 11.1979 3.125 15.1389 3.125 19.7917C3.125 24.4444 4.73958 28.3854 7.96875 31.6146C11.1979 34.8438 15.1389 36.4583 19.7917 36.4583V39.5833ZM19.7917 23.4375C18.7795 23.4375 17.9188 23.083 17.2094 22.374C16.5004 21.6646 16.1458 20.8038 16.1458 19.7917C16.1458 19.5781 16.1613 19.3691 16.1922 19.1646C16.2227 18.9604 16.2861 18.7648 16.3823 18.5776L12.1995 14.375L14.375 12.1995L18.5776 16.3823C18.73 16.3208 19.1347 16.242 19.7917 16.1458C20.8038 16.1458 21.6646 16.5003 22.374 17.2094C23.083 17.9188 23.4375 18.7795 23.4375 19.7917C23.4375 20.8038 23.083 21.6646 22.374 22.374C21.6646 23.083 20.8038 23.4375 19.7917 23.4375Z\" fill=\"#FF6B6F\" data-sentry-element=\"path\" data-sentry-source-file=\"InstallIcon.tsx\"></path></svg>"
           }
         }
@@ -370,10 +372,11 @@
       ],
       "name": "Compare Table",
       "settings": {
+        "anchor_id": "compare-table",
         "title": "Why Choose Us",
         "subtitle": "Compare our product with others",
         "other_title": "Others",
-        "logo_image": "shopify://shop_images/Thi_t_k_ch_a_co_ten_4_289b7ffb-c269-4c18-ae89-0f39785842ce.png"
+        "cover_title": "Our Covers"
       }
     },
     "rich_text_prXzMH": {
@@ -398,29 +401,33 @@
         "richtext_YUrNMb"
       ],
       "custom_css": [
+        ".rich-text,.rich-text.gradient,.content-container {background: #1a1a1a !important; color: #ffffff !important;}",
+        ".rich-text__heading,.rich-text h1,.rich-text h2,.rich-text h6,.rich-text p,.rich-text__text,.rte {color: #ffffff !important;}",
         ".rich-text__heading,.rich-text h1,.rich-text h2,.rich-text .h1,.rich-text .h2 {font-style: italic !important;}",
-        ".h2 {margin-top: 20px !important; font-weight: 600;}"
+        ".h2 {margin-top: 0 !important; font-weight: 600;}"
       ],
       "name": "Rich text",
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
-        "color_scheme": "background-1",
+        "color_scheme": "accent-1",
         "full_width": true,
-        "padding_top": 20,
-        "padding_bottom": 20
+        "padding_top": 40,
+        "padding_bottom": 12
       }
     },
     "video_k46yNF": {
       "type": "video",
-      "custom_css": [
-        ".section,.banner,.video-section {background: #1a1a1a !important;}",
-        ".video,.media,.media__wrapper {background: #1a1a1a !important;}"
-      ],
       "name": "Video",
       "settings": {
+        "heading": "",
+        "autoplay": true,
+        "enable_video_looping": true,
         "video": "shopify://files/videos/0929.mp4",
-        "full_width": false
+        "full_width": false,
+        "section_background": "#1a1a1a",
+        "padding_top": 12,
+        "padding_bottom": 48
       }
     },
     "rich_text_3cyka6": {
@@ -436,26 +443,32 @@
       "block_order": [
         "richtext_g7d74y"
       ],
+      "custom_css": [
+        ".rich-text,.rich-text.gradient,.content-container {background: #1a1a1a !important; color: #ffffff !important;}",
+        ".rich-text h6,.rich-text p,.rich-text__text,.rte {color: #ffffff !important;}"
+      ],
       "name": "Rich text",
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
-        "color_scheme": "background-1",
+        "color_scheme": "accent-1",
         "full_width": true,
-        "padding_top": 20,
-        "padding_bottom": 20
+        "padding_top": 36,
+        "padding_bottom": 12
       }
     },
     "video_BrmkLX": {
       "type": "video",
-      "custom_css": [
-        ".section,.banner,.video-section {background: #1a1a1a !important;}",
-        ".video,.media,.media__wrapper {background: #1a1a1a !important;}"
-      ],
       "name": "Video",
       "settings": {
+        "heading": "",
+        "autoplay": true,
+        "enable_video_looping": true,
         "video": "shopify://files/videos/nu.mp4",
-        "full_width": false
+        "full_width": false,
+        "section_background": "#1a1a1a",
+        "padding_top": 12,
+        "padding_bottom": 48
       }
     },
     "rich_text_KQEt6j": {
@@ -471,26 +484,32 @@
       "block_order": [
         "richtext_NWj3Mk"
       ],
+      "custom_css": [
+        ".rich-text,.rich-text.gradient,.content-container {background: #1a1a1a !important; color: #ffffff !important;}",
+        ".rich-text h6,.rich-text p,.rich-text__text,.rte {color: #ffffff !important;}"
+      ],
       "name": "Rich text",
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
-        "color_scheme": "background-1",
+        "color_scheme": "accent-1",
         "full_width": true,
-        "padding_top": 20,
-        "padding_bottom": 20
+        "padding_top": 36,
+        "padding_bottom": 12
       }
     },
     "video_ppPnUm": {
       "type": "video",
-      "custom_css": [
-        ".section,.banner,.video-section {background: #1a1a1a !important;}",
-        ".video,.media,.media__wrapper {background: #1a1a1a !important;}"
-      ],
       "name": "Video",
       "settings": {
+        "heading": "",
+        "autoplay": true,
+        "enable_video_looping": true,
         "video": "shopify://files/videos/0821.mp4",
-        "full_width": false
+        "full_width": false,
+        "section_background": "#1a1a1a",
+        "padding_top": 12,
+        "padding_bottom": 48
       }
     },
     "rich_text_hJaxGp": {
@@ -507,16 +526,18 @@
         "richtext_wqYdAf"
       ],
       "custom_css": [
+        ".rich-text,.rich-text.gradient,.content-container {background: #1a1a1a !important; color: #ffffff !important;}",
+        ".rich-text h6,.rich-text p,.rich-text__text,.rte {color: #ffffff !important;}",
         ".rich-text {padding-bottom: 32px;}"
       ],
       "name": "Rich text",
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
-        "color_scheme": "background-1",
+        "color_scheme": "accent-1",
         "full_width": true,
-        "padding_top": 20,
-        "padding_bottom": 20
+        "padding_top": 36,
+        "padding_bottom": 32
       }
     },
     "rich_text_hkWhNU": {
@@ -702,7 +723,7 @@
         "title": "Reviews",
         "rating_value": "4.8",
         "review_count_text": "400+ reviews",
-        "recommend_percent": "98%",
+        "recommend_percent": "98",
         "recommend_text": "98% would recommend",
         "video_title": "Reviews with videos",
         "image_title": "Reviews with images",

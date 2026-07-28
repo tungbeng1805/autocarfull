@@ -110,13 +110,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -45px;
+    margin-top: 0;
 }
 
 .recommendation-app-review {
     display: flex;
     align-items: center;
-    text-align: center;
+    text-align: left;
+    gap: 12px;
 }
 
 .recommendation-circle-app-review {
@@ -124,6 +125,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+}
+
+.recommendation-circle-app-review svg {
+    display: block;
+    width: 100px;
+    height: 100px;
 }
 
 .recommendation-circle-app-review span {
@@ -136,6 +146,8 @@
     color: #000000;
     font-weight: 600;
     font-size: 28px;
+    margin: 0;
+    line-height: 1.2;
 }
 
 /* Video Section */
@@ -341,8 +353,10 @@
 .review-title-app-review {
     font-size: 30px;
     color: #09090b;
-    margin-bottom: 12px;
+    margin: 0 0 12px;
     font-weight: 700;
+    letter-spacing: normal;
+    line-height: 1.3;
 }
 
 .review-meta-app-review {
@@ -351,6 +365,7 @@
     flex-wrap: wrap;
     color: #7f8c8d;
     margin-bottom: 5px;
+    gap: 4px 0;
 }
 
 .review-meta-app-review .star-app-review {
@@ -361,6 +376,7 @@
 .review-date-app-review {
     color: #737373;
     font-size: 14px;
+    line-height: 1.4;
 }
 
 .badge-app-review {
@@ -368,8 +384,9 @@
     align-items: center;
     gap: 6px;
     border-radius: 999px;
-    font-size: 0.85rem;
+    font-size: 14px; /* Impact 0.85rem @ 16px root — avoid Dawn 62.5% rem */
     font-weight: 600;
+    line-height: 1.4;
 }
 
 .badge-app-review.verified-app-review {
@@ -384,6 +401,8 @@
 .review-content-app-review p {
     font-size: 18px;
     color: #1a1a1a;
+    line-height: 1.6;
+    margin: 0;
 }
 
 .review-author-app-review {
@@ -391,6 +410,26 @@
     font-size: 18px;
     font-weight: 600;
     color: #767676;
+    line-height: 1.4;
+}
+
+.review-actions-app-review {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 14px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #1a1a1a;
+    line-height: 1.4;
+}
+
+.like-icon-app-review {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    color: #1a1a1a;
 }
 
 .review-gallery-app-review {
@@ -403,13 +442,6 @@
     width: 160px;
     height: 160px;
     object-fit: cover;
-}
-
-.review-actions-app-review {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 14px;
-    cursor: pointer;
 }
 
 .view-more-app-review {
@@ -1022,11 +1054,33 @@
     }
 }
 
+/* Top Review gallery — keep thumbs inside the card (Dawn lacks Impact's global img max-width) */
+.top-review {
+    max-width: 100%;
+    min-width: 0;
+}
+.top-review .customer-review-app-review,
+.top-review .review-card-app-review {
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
 .top-review .review-gallery-app-review {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-top: 10px;
+    box-sizing: border-box;
 }
 .top-review .review-gallery-app-review img {
-    width: auto;
+    width: 100%;
+    max-width: 100%;
     height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
 }

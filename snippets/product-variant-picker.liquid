@@ -36,12 +36,9 @@
           endif
         -%}
         <fieldset class="js product-form__input{% if template.name == 'product' and template.suffix == 'seat-covers1' %} product-form__input--seat-covers{% endif %}">
-          <legend class="form__label text-subdued">
+          <legend class="form__label{% if template.name == 'product' and template.suffix == 'seat-covers1' %} product-form__option-name{% else %} text-subdued{% endif %}">
             {%- if template.name == 'product' and template.suffix == 'seat-covers1' -%}
-              <span class="h-stack gap-2 product-form__option-heading">
-                <span class="product-form__option-name">{{ option.name }}:</span>
-                <span class="product-form__selected-value" data-selected-value>{{ option.selected_value }}</span>
-              </span>
+              {{ option.name }}:
             {%- else -%}
               {{ option.name }}
             {%- endif -%}

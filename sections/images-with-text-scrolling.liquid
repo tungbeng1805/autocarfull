@@ -1,92 +1,132 @@
+{{ 'section-images-with-text-scrolling.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'images-with-text-scrolling.js' | asset_url }}" defer="defer"></script>
+
 {%- style -%}
-  #shopify-section-{{ section.id }} .seat-cover-story {
-    background: {{ section.settings.background_gradient | default: section.settings.background | default: '#1a1a1a' }};
-    color: {{ section.settings.text_color | default: '#ffffff' }};
-    padding: 64px 0;
+  #shopify-section-{{ section.id }} {
+    --images-scrolling-block-count: {{ section.blocks.size }};
+    --images-scrolling-text: {{ section.settings.text_color | default: '#ffffff' }};
+    --images-scrolling-heading: {{ section.settings.heading_color | default: section.settings.text_color | default: '#ffffff' }};
+    --images-scrolling-bg: {% if section.settings.background_gradient != blank %}{{ section.settings.background_gradient }}{% else %}{{ section.settings.background | default: '#1a1a1a' }}{% endif %};
+    --sticky-area-height: 6.4rem;
   }
 
-  #shopify-section-{{ section.id }} .seat-cover-story__inner {
-    width: min(100%, var(--page-width));
-    margin: 0 auto;
-    padding: 0 5rem;
+  @media screen and (max-width: 699px) {
+    #shopify-section-{{ section.id }} {
+      --images-scrolling-grid: {% if section.settings.stack_on_mobile %}none{% else %}auto / auto-flow 73vw{% endif %};
+    }
+    {% if section.settings.stack_on_mobile %}
+    #shopify-section-{{ section.id }} .images-scrolling-mobile {
+      display: grid;
+      grid-template-columns: 1fr;
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+    {% endif %}
   }
 
-  #shopify-section-{{ section.id }} .seat-cover-story__item {
-    display: grid;
-    grid-template-columns: minmax(0, .8fr) minmax(0, 1fr);
-    align-items: center;
-    gap: clamp(3rem, 7vw, 11rem);
-    min-height: 540px;
-  }
-
-  #shopify-section-{{ section.id }} .seat-cover-story__item + .seat-cover-story__item {
-    margin-top: 56px;
-  }
-
-  #shopify-section-{{ section.id }} .seat-cover-story__item--image-start {
-    grid-template-columns: minmax(0, 1fr) minmax(0, .8fr);
-  }
-
-  #shopify-section-{{ section.id }} .seat-cover-story__item--image-start .seat-cover-story__media { order: -1; }
-
-  #shopify-section-{{ section.id }} .seat-cover-story__media {
-    width: 100%;
-    overflow: hidden;
-  }
-
-  #shopify-section-{{ section.id }} .seat-cover-story__media img,
-  #shopify-section-{{ section.id }} .seat-cover-story__media svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-height: 620px;
-    object-fit: cover;
-  }
-
-  #shopify-section-{{ section.id }} .seat-cover-story__counter {
-    display: block;
-    margin-bottom: 12px;
-    color: #ee6819;
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: .12em;
-  }
-
-  #shopify-section-{{ section.id }} .seat-cover-story__content { max-width: 480px; }
-  #shopify-section-{{ section.id }} .seat-cover-story__content h2 { color: {{ section.settings.heading_color | default: section.settings.text_color | default: '#ffffff' }}; margin: 0 0 16px; }
-  #shopify-section-{{ section.id }} .seat-cover-story__content p { margin: 0; font-size: 1.7rem; line-height: 1.65; }
-  #shopify-section-{{ section.id }} .seat-cover-story__icon { display: block; width: auto; height: auto; margin-bottom: 18px; }
-
-  @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} .seat-cover-story { padding: 36px 0; }
-    #shopify-section-{{ section.id }} .seat-cover-story__inner { padding: 0 2rem; }
-    #shopify-section-{{ section.id }} .seat-cover-story__item,
-    #shopify-section-{{ section.id }} .seat-cover-story__item--image-start { grid-template-columns: 1fr; gap: 24px; min-height: 0; }
-    #shopify-section-{{ section.id }} .seat-cover-story__item--image-start .seat-cover-story__media { order: 0; }
-    #shopify-section-{{ section.id }} .seat-cover-story__item + .seat-cover-story__item { margin-top: 40px; }
-    #shopify-section-{{ section.id }} .seat-cover-story__media img { max-height: none; }
+  @media screen and (min-width: 700px) {
+    #shopify-section-{{ section.id }} {
+      --images-scrolling-grid-template-columns: {% if section.settings.image_position == 'start' %}[media] minmax(0, 1fr) [content] minmax(0, 0.8fr){% else %}[content] minmax(0, 0.8fr) [media] minmax(0, 1fr){% endif %};
+    }
   }
 {%- endstyle -%}
 
-<section class="seat-cover-story">
-  <div class="seat-cover-story__inner">
-    {%- for block in section.blocks -%}
-      <article class="seat-cover-story__item{% if section.settings.image_position == 'start' %} seat-cover-story__item--image-start{% endif %}" {{ block.shopify_attributes }}>
-        <div class="seat-cover-story__content rte">
-          {%- if section.settings.show_counter -%}<span class="seat-cover-story__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>{%- endif -%}
-          {%- if block.settings.custom_icon != blank -%}{{ block.settings.custom_icon | image_url: width: block.settings.icon_width | image_tag: class: 'seat-cover-story__icon', loading: 'lazy' }}{%- endif -%}
-          {%- if block.settings.title != blank -%}<h2 class="h1">{{ block.settings.title | escape }}</h2>{%- endif -%}
-          {{ block.settings.content }}
-        </div>
-        <div class="seat-cover-story__media">
+<section class="images-scrolling-section">
+  <div class="images-scrolling-section__inner">
+    {%- comment -%} Mobile {%- endcomment -%}
+    <images-with-text-scrolling class="images-scrolling-mobile">
+      {%- for block in section.blocks -%}
+        <div class="images-scrolling-mobile__item" {{ block.shopify_attributes }}>
           {%- if block.settings.image != blank -%}
-            {{ block.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '400,600,800,1000,1200,1600' }}
+            {{
+              block.settings.image
+              | image_url: width: block.settings.image.width
+              | image_tag:
+                loading: 'lazy',
+                sizes: '(max-width: 699px) 100vw, 650px',
+                widths: '200,300,400,600,800,1000,1200,1400,1600'
+            }}
           {%- else -%}
             {{ 'lifestyle-1' | placeholder_svg_tag }}
           {%- endif -%}
+
+          <div class="images-scrolling__content">
+            {%- if section.settings.show_counter -%}
+              <span class="images-scrolling__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>
+            {%- endif -%}
+
+            <div class="images-scrolling__copy" style="--images-scrolling-item-icon-width: {{ block.settings.icon_width }}px">
+              {%- if block.settings.custom_icon != blank -%}
+                {{
+                  block.settings.custom_icon
+                  | image_url: width: block.settings.custom_icon.width
+                  | image_tag: loading: 'lazy', class: 'images-scrolling__icon'
+                }}
+              {%- endif -%}
+
+              {%- if block.settings.title != blank -%}
+                <h2 class="images-scrolling__heading">{{ block.settings.title | escape }}</h2>
+              {%- endif -%}
+
+              {%- if block.settings.content != blank -%}
+                <div class="images-scrolling__body">{{ block.settings.content }}</div>
+              {%- endif -%}
+            </div>
+          </div>
         </div>
-      </article>
-    {%- endfor -%}
+      {%- endfor -%}
+    </images-with-text-scrolling>
+
+    {%- comment -%} Desktop: sticky media, content drives image swap on scroll {%- endcomment -%}
+    <images-with-text-scrolling
+      scrolling-experience="{{ section.settings.desktop_image_effect }}"
+      class="images-scrolling-desktop"
+    >
+      <div class="images-scrolling-desktop__content-list">
+        {%- for block in section.blocks -%}
+          <div class="images-scrolling__content">
+            {%- if section.settings.show_counter -%}
+              <span class="images-scrolling__counter">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>
+            {%- endif -%}
+
+            <div class="images-scrolling__copy" style="--images-scrolling-item-icon-width: {{ block.settings.icon_width }}px">
+              {%- if block.settings.custom_icon != blank -%}
+                {{
+                  block.settings.custom_icon
+                  | image_url: width: block.settings.custom_icon.width
+                  | image_tag: loading: 'lazy', class: 'images-scrolling__icon'
+                }}
+              {%- endif -%}
+
+              {%- if block.settings.title != blank -%}
+                <h2 class="images-scrolling__heading">{{ block.settings.title | escape }}</h2>
+              {%- endif -%}
+
+              {%- if block.settings.content != blank -%}
+                <div class="images-scrolling__body">{{ block.settings.content }}</div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="images-scrolling-desktop__media-wrapper">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.image != blank -%}
+            {{
+              block.settings.image
+              | image_url: width: block.settings.image.width
+              | image_tag:
+                loading: 'lazy',
+                sizes: '(max-width: 699px) 100vw, 650px',
+                widths: '200,300,400,600,800,1000,1200,1400,1600'
+            }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag }}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </images-with-text-scrolling>
   </div>
 </section>
 
@@ -94,30 +134,80 @@
 {
   "name": "Images and text scrolling",
   "tag": "section",
-  "class": "section",
+  "class": "section section-images-with-text-scrolling",
   "max_blocks": 15,
   "settings": [
     { "type": "checkbox", "id": "full_width", "label": "Full width", "default": true },
     { "type": "checkbox", "id": "stack_on_mobile", "label": "Stack on mobile", "default": false },
     { "type": "checkbox", "id": "show_counter", "label": "Show counter", "default": true },
-    { "type": "select", "id": "desktop_image_effect", "label": "Desktop image transition", "options": [{ "value": "reveal", "label": "Reveal" }, { "value": "fade", "label": "Fade" }], "default": "reveal" },
-    { "type": "select", "id": "image_position", "label": "Image position", "options": [{ "value": "start", "label": "Left" }, { "value": "end", "label": "Right" }], "default": "end" },
-    { "type": "color", "id": "background", "label": "Background" },
+    {
+      "type": "select",
+      "id": "desktop_image_effect",
+      "label": "Desktop image transition",
+      "options": [
+        { "value": "reveal", "label": "Reveal" },
+        { "value": "fade", "label": "Fade" }
+      ],
+      "default": "reveal"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "start", "label": "Left" },
+        { "value": "end", "label": "Right" }
+      ],
+      "default": "end"
+    },
+    { "type": "color", "id": "background", "label": "Background", "default": "#1a1a1a" },
     { "type": "color_background", "id": "background_gradient", "label": "Background gradient" },
-    { "type": "color", "id": "text_color", "label": "Text" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#ffffff" },
     { "type": "color", "id": "heading_color", "label": "Heading color" },
     { "type": "color_background", "id": "heading_gradient", "label": "Heading gradient" }
   ],
   "blocks": [
-    { "type": "item", "name": "Item", "settings": [
-      { "type": "image_picker", "id": "image", "label": "Image" },
-      { "type": "select", "id": "icon", "label": "Icon", "options": [{ "value": "none", "label": "None" }], "default": "none" },
-      { "type": "image_picker", "id": "custom_icon", "label": "Custom icon" },
-      { "type": "range", "id": "icon_width", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Icon width", "default": 48 },
-      { "type": "text", "id": "title", "label": "Heading", "default": "Heading" },
-      { "type": "richtext", "id": "content", "label": "Content", "default": "<p>Share product highlights and benefits here.</p>" }
-    ] }
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "1200 x 1600px .jpg recommended" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [{ "value": "none", "label": "None" }],
+          "default": "none"
+        },
+        { "type": "image_picker", "id": "custom_icon", "label": "Custom icon" },
+        {
+          "type": "range",
+          "id": "icon_width",
+          "min": 24,
+          "max": 120,
+          "step": 4,
+          "unit": "px",
+          "label": "Icon width",
+          "default": 48
+        },
+        { "type": "text", "id": "title", "label": "Heading", "default": "Heading" },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Share product highlights and benefits here.</p>"
+        }
+      ]
+    }
   ],
-  "presets": [{ "name": "Images and text scrolling", "blocks": [{ "type": "item" }, { "type": "item", "settings": { "title": "Heading 2" } }] }]
+  "presets": [
+    {
+      "name": "Images and text scrolling",
+      "blocks": [
+        { "type": "item", "settings": { "title": "Heading 1" } },
+        { "type": "item", "settings": { "title": "Heading 2" } }
+      ]
+    }
+  ]
 }
 {% endschema %}
