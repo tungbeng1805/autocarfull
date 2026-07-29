@@ -34,14 +34,23 @@
   }
 
   #shopify-section-{{ section.id }} .rating-stars-app-review .star-app-review {
+    display: block !important;
     width: 28px;
     height: 28px;
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .rating-stars-app-review .stars-app-review {
+    display: flex;
+    align-items: center;
+    gap: 2px;
   }
 
   #shopify-section-{{ section.id }} .haft-start-app-review {
     width: 28px;
     height: 28px;
     display: block;
+    flex-shrink: 0;
   }
 
   @media screen and (max-width: 768px) {
@@ -92,10 +101,10 @@
             <div class="rating-number-app-review">{{ section.settings.rating_value | escape }}</div>
             <div>
               <div class="stars-app-review">
-                <div class="star-app-review"></div>
-                <div class="star-app-review"></div>
-                <div class="star-app-review"></div>
-                <div class="star-app-review"></div>
+                <div class="star-app-review">&nbsp;</div>
+                <div class="star-app-review">&nbsp;</div>
+                <div class="star-app-review">&nbsp;</div>
+                <div class="star-app-review">&nbsp;</div>
                 <svg class="haft-start-app-review" viewBox="0 0 60 60" aria-hidden="true">
                   <defs>
                     <linearGradient id="half-gold-white-{{ section.id }}" x1="0" y1="0" x2="60" y2="0" gradientUnits="userSpaceOnUse">

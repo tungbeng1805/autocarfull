@@ -48,7 +48,7 @@ function getVideo() {
                         </div>
                         <div class="video-rating-app-review">
                             <div class="stars-app-review">
-                                ${[...Array(5)].map(() => '<div class="star-app-review"></div>').join('')}
+                                ${[...Array(5)].map(() => '<div class="star-app-review">&nbsp;</div>').join('')}
                             </div>
                         </div>
                     `;
@@ -178,7 +178,7 @@ function getData(pageIndex, isShowMore) {
                         <h2 class="review-title-app-review">${review.title}</h2>
                         <div class="review-meta-app-review">
                             <div class="stars-app-review" style="margin-right: 10px;">
-                                ${[...Array(review.rate)].map(() => '<div class="star-app-review"></div>').join('')}
+                                ${[...Array(review.rate)].map(() => '<div class="star-app-review">&nbsp;</div>').join('')}
                                 ${[...Array(5 - review.rate)].map(() => `
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
                                         <polygon 
@@ -382,7 +382,7 @@ function showModalDetail(review) {
                     <div class="detail-title-app-review">${review.title}</div>
                     <div class="detail-meta-line-app-review">
                         <div class="stars-app-review">
-                        ${[...Array(review.rate)].map(() => '<div class="star-app-review"></div>').join('')}
+                        ${[...Array(review.rate)].map(() => '<div class="star-app-review">&nbsp;</div>').join('')}
                         ${[...Array(5 - review.rate)].map(() => `
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
                                 <polygon 

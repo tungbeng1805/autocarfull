@@ -872,7 +872,7 @@
         "background_gradient": "",
         "text_color": "",
         "heading_color": "",
-        "button_background": "",
+        "button_background": "#1a1a1a",
         "button_text_color": "#ee6819",
         "accordion_background": "",
         "accordion_text_color": ""

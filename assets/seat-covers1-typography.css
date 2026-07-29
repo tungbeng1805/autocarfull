@@ -129,17 +129,29 @@ body.seat-covers1-template .h6 { font-size: var(--text-h6) !important; line-heig
 
 body.seat-covers1-template .seat-cover-story__content h2,
 body.seat-covers1-template .faq-section__title {
-  font-size: var(--text-h1);
-  line-height: 1.1;
+  font-size: 42px !important;
+  line-height: 1.15 !important;
+  font-weight: 700 !important;
 }
 
 body.seat-covers1-template .seat-cover-story__content,
 body.seat-covers1-template .seat-cover-story__content p,
 body.seat-covers1-template .faq-section,
-body.seat-covers1-template .faq-section__answer,
-body.seat-covers1-template .faq-section__item summary {
+body.seat-covers1-template .faq-section__answer {
   font-size: var(--text-base);
   line-height: 1.6;
+}
+
+body.seat-covers1-template .faq-section__item summary {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.45 !important;
+}
+
+body.seat-covers1-template .faq-section__group-title {
+  color: #c95656 !important;
+  font-size: 24px !important;
+  font-weight: 400 !important;
 }
 
 /* Product accordion — Impact uses body text + bold, not .h4 heading scale
@@ -285,6 +297,8 @@ body.seat-covers1-template .star-app-review {
   flex-shrink: 0;
 }
 body.seat-covers1-template .star-app-review {
+  /* Override Dawn div:empty { display: none } */
+  display: block !important;
   background: gold;
   clip-path: polygon(
     50% 0%,
@@ -449,6 +463,7 @@ body.seat-covers1-template .top-review .review-meta-app-review .stars-app-review
   margin-right: 10px;
 }
 body.seat-covers1-template .top-review .review-meta-app-review .star-app-review {
+  display: block !important;
   width: 20px !important;
   height: 20px !important;
   background: gold;

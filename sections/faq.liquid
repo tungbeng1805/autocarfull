@@ -1,19 +1,18 @@
 {%- style -%}
   #shopify-section-{{ section.id }} .faq-section {
-    background: {{ section.settings.background_gradient | default: section.settings.background }};
-    color: {{ section.settings.text_color }};
-    padding: 48px 0;
+    background: {{ section.settings.background_gradient | default: section.settings.background | default: '#ffffff' }};
+    color: {{ section.settings.text_color | default: '#1a1a1a' }};
+    padding: 56px 0 64px;
   }
 
   #shopify-section-{{ section.id }} .faq-section__inner {
-    max-width: var(--page-width);
+    max-width: 960px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 24px;
   }
 
   #shopify-section-{{ section.id }} .faq-section__intro {
-    max-width: 72rem;
-    margin: 0 auto 2.4rem;
+    margin: 0 0 40px;
     text-align: {{ section.settings.text_alignment }};
   }
 
@@ -25,53 +24,199 @@
     opacity: 0.7;
   }
 
-  #shopify-section-{{ section.id }} .faq-section__title {
-    margin: 0 0 1.2rem;
-    color: {{ section.settings.heading_color | default: section.settings.text_color }};
+  #shopify-section-{{ section.id }} .faq-section__title,
+  #shopify-section-{{ section.id }} .faq-section__title.h1 {
+    margin: 0 !important;
+    font-family: Roboto, sans-serif !important;
+    font-size: 42px !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+    letter-spacing: normal !important;
+    color: {{ section.settings.heading_color | default: '#000000' }} !important;
   }
 
-  #shopify-section-{{ section.id }} .faq-section__button {
-    display: inline-block;
-    margin-top: 0.8rem;
-    padding: 1rem 1.8rem;
-    border-radius: 999px;
-    background: {{ section.settings.button_background | default: '#ee6819' }};
-    color: {{ section.settings.button_text_color | default: '#ffffff' }};
-    text-decoration: none;
-    font-weight: 600;
+  /* Hide Dawn/theme decorative bars under headings */
+  #shopify-section-{{ section.id }} .faq-section__title::before,
+  #shopify-section-{{ section.id }} .faq-section__title::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__intro .rte {
+    margin-top: 12px;
   }
 
   #shopify-section-{{ section.id }} .faq-section__items {
-    max-width: 88rem;
-    margin: 0 auto;
+    width: 100%;
   }
 
+  /* Category headers — Impact .header-group-box */
   #shopify-section-{{ section.id }} .faq-section__group-title {
-    margin: 2.4rem 0 0.8rem;
+    margin: 0;
+    padding: 28px 0 16px;
     color: #c95656;
-    font-size: 24px;
-    font-weight: 700;
+    font-family: Roboto, sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 400 !important;
+    line-height: 1.3 !important;
+    letter-spacing: normal !important;
   }
 
+  #shopify-section-{{ section.id }} .faq-section__group-title:first-child {
+    padding-top: 0;
+  }
+
+  /* Flat accordion rows with horizontal rules (not cards) */
   #shopify-section-{{ section.id }} .faq-section__item {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 1.2rem;
-    background: {{ section.settings.accordion_background | default: '#ffffff' }};
-    color: {{ section.settings.accordion_text_color | default: section.settings.text_color }};
-    margin-bottom: 1rem;
-    overflow: hidden;
+    margin: 0;
+    border: none;
+    border-top: 1px solid #e5e5e5;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__item:last-child {
+    border-bottom: 1px solid #e5e5e5;
   }
 
   #shopify-section-{{ section.id }} .faq-section__item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
     cursor: pointer;
     list-style: none;
-    padding: 1.6rem 1.8rem;
-    font-size: 16px;
-    font-weight: 600;
+    padding: 18px 4px 18px 0;
+    font-family: Roboto, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    line-height: 1.45 !important;
+    color: {{ section.settings.accordion_text_color | default: '#1a1a1a' }} !important;
+    background: transparent;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__item summary::marker {
+    content: '';
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__question {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #c95656;
+    transform: rotate(0deg);
+    transition: transform 0.45s cubic-bezier(0.34, 1.15, 0.64, 1);
+    will-change: transform;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__icon .icon-plus,
+  #shopify-section-{{ section.id }} .faq-section__icon svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+  }
+
+  /* Full spin (360°) + 45° so + becomes × */
+  #shopify-section-{{ section.id }} .faq-section__item[open] > summary .faq-section__icon {
+    transform: rotate(405deg);
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__panel {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+      height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.35s ease;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__item[open] > .faq-section__panel {
+    opacity: 1;
   }
 
   #shopify-section-{{ section.id }} .faq-section__answer {
-    padding: 0 1.8rem 1.8rem;
+    padding: 0 28px 18px 0;
+    color: {{ section.settings.accordion_text_color | default: '#1a1a1a' }};
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__answer p {
+    margin: 0 0 0.75em;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .faq-section__icon,
+    #shopify-section-{{ section.id }} .faq-section__panel {
+      transition: none;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__footer {
+    margin-top: 36px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    background: {{ section.settings.button_background | default: '#1a1a1a' }};
+    color: {{ section.settings.button_text_color | default: '#ee6819' }} !important;
+    text-decoration: none !important;
+    font-family: Roboto, sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+    letter-spacing: normal !important;
+    box-shadow: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .faq-section__button:hover {
+    opacity: 0.9;
+    color: {{ section.settings.button_text_color | default: '#ee6819' }} !important;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .faq-section__title,
+    #shopify-section-{{ section.id }} .faq-section__title.h1 {
+      font-size: 32px !important;
+    }
+
+    #shopify-section-{{ section.id }} .faq-section__group-title {
+      font-size: 20px !important;
+      padding: 24px 0 12px;
+    }
+
+    #shopify-section-{{ section.id }} .faq-section__item summary {
+      font-size: 15px !important;
+      padding: 16px 0;
+    }
   }
 {%- endstyle -%}
 
@@ -82,13 +227,10 @@
         <p class="faq-section__subheading">{{ section.settings.subheading | escape }}</p>
       {%- endif -%}
       {%- if section.settings.title != blank -%}
-        <h2 class="faq-section__title h1">{{ section.settings.title }}</h2>
+        <h2 class="faq-section__title">{{ section.settings.title | escape }}</h2>
       {%- endif -%}
       {%- if section.settings.content != blank -%}
         <div class="rte">{{ section.settings.content }}</div>
-      {%- endif -%}
-      {%- if section.settings.button_text != blank and section.settings.button_url != blank -%}
-        <a class="faq-section__button" href="{{ section.settings.button_url }}">{{ section.settings.button_text | escape }}</a>
       {%- endif -%}
     </div>
 
@@ -102,15 +244,112 @@
           {%- when 'item' -%}
             {%- if block.settings.title != blank -%}
               <details class="faq-section__item" {{ block.shopify_attributes }}>
-                <summary>{{ block.settings.title | escape }}</summary>
-                <div class="faq-section__answer rte">{{ block.settings.content }}</div>
+                <summary>
+                  <span class="faq-section__question">{{ block.settings.title | escape }}</span>
+                  <span class="faq-section__icon" aria-hidden="true">{% render 'icon-plus' %}</span>
+                </summary>
+                {%- if block.settings.content != blank -%}
+                  <div class="faq-section__panel">
+                    <div class="faq-section__answer rte">{{ block.settings.content }}</div>
+                  </div>
+                {%- endif -%}
               </details>
             {%- endif -%}
         {%- endcase -%}
       {%- endfor -%}
     </div>
+
+    {%- if section.settings.button_text != blank and section.settings.button_url != blank -%}
+      <div class="faq-section__footer">
+        <a class="faq-section__button" href="{{ section.settings.button_url }}">{{ section.settings.button_text | escape }}</a>
+      </div>
+    {%- endif -%}
   </div>
 </section>
+
+<script>
+  (function () {
+    var root = document.getElementById('shopify-section-{{ section.id }}');
+    if (!root) return;
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    root.querySelectorAll('.faq-section__item').forEach(function (details) {
+      var summary = details.querySelector('summary');
+      var panel = details.querySelector('.faq-section__panel');
+      if (!summary || !panel) return;
+
+      panel.style.height = details.open ? 'auto' : '0px';
+
+      summary.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (details.dataset.animating === '1') return;
+
+        if (reduceMotion) {
+          if (details.open) {
+            details.removeAttribute('open');
+            panel.style.height = '0px';
+          } else {
+            details.setAttribute('open', '');
+            panel.style.height = 'auto';
+          }
+          return;
+        }
+
+        details.dataset.animating = '1';
+
+        if (details.open) {
+          panel.style.height = panel.scrollHeight + 'px';
+          panel.offsetHeight;
+          panel.style.height = '0px';
+
+          var onClose = function (ev) {
+            if (ev.target !== panel || ev.propertyName !== 'height') return;
+            panel.removeEventListener('transitionend', onClose);
+            details.removeAttribute('open');
+            details.dataset.animating = '0';
+          };
+          panel.addEventListener('transitionend', onClose);
+        } else {
+          details.setAttribute('open', '');
+          panel.style.height = '0px';
+          panel.offsetHeight;
+          panel.style.height = panel.scrollHeight + 'px';
+
+          var onOpen = function (ev) {
+            if (ev.target !== panel || ev.propertyName !== 'height') return;
+            panel.removeEventListener('transitionend', onOpen);
+            panel.style.height = 'auto';
+            details.dataset.animating = '0';
+          };
+          panel.addEventListener('transitionend', onOpen);
+        }
+      });
+    });
+  })();
+</script>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {%- assign faq_items = section.blocks | where: 'type', 'item' -%}
+      {%- for block in faq_items -%}
+        {%- if block.settings.title != blank -%}
+          {
+            "@type": "Question",
+            "name": {{ block.settings.title | json }},
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": {{ block.settings.content | strip_html | json }}
+            }
+          }{% unless forloop.last %},{% endunless %}
+        {%- endif -%}
+      {%- endfor -%}
+    ]
+  }
+</script>
 
 {% schema %}
 {
@@ -170,8 +409,7 @@
     {
       "type": "richtext",
       "id": "content",
-      "label": "Content",
-      "default": "<p>Use this section to answer common product, shipping, and installation questions.</p>"
+      "label": "Content"
     },
     {
       "type": "text",
@@ -202,8 +440,8 @@
     { "type": "color_background", "id": "background_gradient", "label": "Background gradient" },
     { "type": "color", "id": "text_color", "label": "Text color" },
     { "type": "color", "id": "heading_color", "label": "Heading color" },
-    { "type": "color", "id": "button_background", "label": "Button background", "default": "#ee6819" },
-    { "type": "color", "id": "button_text_color", "label": "Button text color", "default": "#ffffff" },
+    { "type": "color", "id": "button_background", "label": "Button background", "default": "#1a1a1a" },
+    { "type": "color", "id": "button_text_color", "label": "Button text color", "default": "#ee6819" },
     { "type": "color", "id": "accordion_background", "label": "Accordion background" },
     { "type": "color", "id": "accordion_text_color", "label": "Accordion text color" }
   ],
@@ -211,6 +449,7 @@
     {
       "name": "FAQ",
       "blocks": [
+        { "type": "header" },
         { "type": "item" },
         { "type": "item", "settings": { "title": "How long does shipping take?", "content": "<p>Orders are usually delivered in 7-15 days for custom seat covers.</p>" } }
       ]
