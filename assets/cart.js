@@ -125,6 +125,10 @@ class CartItems extends HTMLElement {
             section.selector
           );
         });
+
+        if (cartDrawerWrapper && typeof window.initCartDealCountdown === 'function') {
+          window.initCartDealCountdown();
+        }
         const updatedValue = parsedState.items[line - 1] ? parsedState.items[line - 1].quantity : undefined;
         let message = '';
         if (items.length === parsedState.items.length && updatedValue !== parseInt(quantityElement.value)) {

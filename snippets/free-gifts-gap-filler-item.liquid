@@ -1,0 +1,54 @@
+{%- comment -%}
+  Phone gap filler free gift — ảnh/title theo màu ghế trong giỏ.
+  Variables: color_label (string), badge_qty (number)
+  Cập nhật URL ảnh gf-* bên dưới (tương tự sw-* của vô lăng).
+{%- endcomment -%}
+
+{%- liquid
+  assign free_gift_gap_compare_cents = 6999
+  assign color_handle = color_label | handleize
+  assign gap_title = 'Memory Foam Neck Pillows (2 pack)'
+  assign gap_image = 'https://cdn.shopify.com/s/files/1/0918/9654/5652/files/image_2.jpg?v=1776160967'
+
+  case color_handle
+    when 'black-red'
+      assign gap_image = 'https://cdn.shopify.com/s/files/1/0918/9654/5652/files/black_red.png?v=1778927854'
+    when 'black-grey'
+      assign gap_image = 'https://cdn.shopify.com/s/files/1/0918/9654/5652/files/black_grey.png?v=1778927854'
+    when 'black-red-line'
+      assign gap_image = 'https://cdn.shopify.com/s/files/1/0918/9654/5652/files/black_red_line.png?v=1778927854'
+    when 'black'
+      assign gap_image = 'https://cdn.shopify.com/s/files/1/0918/9654/5652/files/black.png?v=1778927855'
+    when 'beige'
+      assign gap_image = 'https://cdn.shopify.com/s/files/1/0918/9654/5652/files/beige.png?v=1778927854'
+    when 'black-blue'
+      assign gap_image = 'https://cdn.shopify.com/s/files/1/0918/9654/5652/files/black_blue.png?v=1778927855'
+    when 'wine-red'
+      assign gap_image = 'https://cdn.shopify.com/s/files/1/0918/9654/5652/files/wine_red.png?v=1778927855'
+    when 'black-white'
+      assign gap_image = 'https://cdn.shopify.com/s/files/1/0918/9654/5652/files/black_white.png?v=1778927854'
+    when 'brown-coffe', 'brown-coffee'
+      assign gap_image = 'https://cdn.shopify.com/s/files/1/0918/9654/5652/files/brown_coffe.png?v=1778927855'
+  endcase
+-%}
+
+<article class="free-gifts-grid__item free-gifts-grid__item--gap-filler" data-gap-filler-color="{{ color_handle }}">
+  <div class="free-gifts-grid__media">
+    <span class="free-gifts-grid__badge">{{ badge_qty }}</span>
+    <img
+      class="free-gifts-grid__image"
+      src="{{ gap_image }}"
+      alt="{{ gap_title }}"
+      width="72"
+      height="72"
+      loading="lazy"
+    >
+  </div>
+  <div class="free-gifts-grid__info">
+    <h3 class="free-gifts-grid__title">{{ gap_title }}</h3>
+    <p class="free-gifts-grid__prices">
+      <span class="free-gifts-grid__price-current">$0.00</span>
+      <span class="free-gifts-grid__price-compare">{{ free_gift_gap_compare_cents | money }}</span>
+    </p>
+  </div>
+</article>

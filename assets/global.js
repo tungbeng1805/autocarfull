@@ -1069,12 +1069,29 @@ class VariantSelects extends HTMLElement {
     const addButtonText = productForm.querySelector('[name="add"] > span');
     if (!addButton) return;
 
+    const stickyButtons = [
+      document.getElementById(`StickySubmitButton-${this.dataset.section}`),
+      document.getElementById(`StickySubmitButtonMobile-${this.dataset.section}`),
+    ];
+
     if (disable) {
       addButton.setAttribute('disabled', 'disabled');
       if (text) addButtonText.textContent = text;
+      stickyButtons.forEach((button) => {
+        if (!button) return;
+        button.setAttribute('disabled', 'disabled');
+        const label = button.querySelector('span');
+        if (label && text) label.textContent = text;
+      });
     } else {
       addButton.removeAttribute('disabled');
       addButtonText.textContent = window.variantStrings.addToCart;
+      stickyButtons.forEach((button) => {
+        if (!button) return;
+        button.removeAttribute('disabled');
+        const label = button.querySelector('span');
+        if (label) label.textContent = window.variantStrings.addToCart;
+      });
     }
 
     if (!modifyClass) return;

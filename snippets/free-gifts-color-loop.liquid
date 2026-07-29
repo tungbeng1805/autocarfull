@@ -1,0 +1,62 @@
+{%- comment -%}
+  Loop each unique cart color and render a gift snippet.
+  Badge qty = sum of paid item quantities for that color (Impact theme cũ).
+  Variables:
+    - gift_snippet: snippet name (e.g. 'free-gifts-steering-item')
+    - color_handles: comma-wrapped handles string (e.g. ',black-red,wine-red,')
+    - fallback_color_label: when no colors in cart
+    - fallback_badge_qty: badge when using fallback
+{%- endcomment -%}
+
+{%- assign handles_list = color_handles | split: ',' -%}
+
+{%- if color_handles != blank -%}
+  {%- for color_handle in handles_list -%}
+    {%- if color_handle == blank -%}
+      {%- continue -%}
+    {%- endif -%}
+
+    {%- liquid
+      assign color_label = ''
+      assign color_badge_qty = 0
+
+      for item in cart.items
+        if item.price > 0
+          assign item_cart_color = item.variant.title
+          assign item_variant_parts = item.variant.title | split: ' / '
+          if item_variant_parts.size > 1
+            assign item_cart_color = item_variant_parts | last
+          endif
+
+          for option in item.options_with_values
+            assign option_name_downcase = option.name | downcase
+            if option_name_downcase contains 'color' or option_name_downcase contains 'step 2'
+              assign item_cart_color = option.value
+              break
+            endif
+          endfor
+
+          assign item_color_handle = item_cart_color | handleize
+          if item_color_handle == color_handle
+            assign color_label = item_cart_color
+            assign color_badge_qty = color_badge_qty | plus: item.quantity
+          endif
+        endif
+      endfor
+    -%}
+
+    {%- case gift_snippet -%}
+      {%- when 'free-gifts-steering-item' -%}
+        {%- render 'free-gifts-steering-item', color_label: color_label, badge_qty: color_badge_qty -%}
+      {%- when 'free-gifts-gap-filler-item' -%}
+        {%- render 'free-gifts-gap-filler-item', color_label: color_label, badge_qty: color_badge_qty -%}
+    {%- endcase -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- case gift_snippet -%}
+    {%- when 'free-gifts-steering-item' -%}
+      {%- render 'free-gifts-steering-item', color_label: fallback_color_label, badge_qty: fallback_badge_qty -%}
+    {%- when 'free-gifts-gap-filler-item' -%}
+      {%- render 'free-gifts-gap-filler-item', color_label: fallback_color_label, badge_qty: fallback_badge_qty -%}
+  {%- endcase -%}
+{%- endif -%}

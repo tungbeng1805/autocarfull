@@ -197,7 +197,8 @@
       ],
       "custom_css": [],
       "settings": {
-        "enable_video_looping": true
+        "enable_video_looping": true,
+        "show_fixed_add_to_cart": true
       }
     },
     "custom_html_eQfD4R": {

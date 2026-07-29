@@ -1,0 +1,32 @@
+{%- comment -%}
+  Total savings in cents — matches checkout "TOTAL SAVINGS".
+  Uses Shopify cart discounts when free-gift lines exist; otherwise adds
+  projected gift value at exact compare prices ($39.00 + $69.99 per seat).
+  Output: plain integer (for capture | plus: 0 in parent).
+{%- endcomment -%}
+
+{%- liquid
+  assign free_gifts_total_savings = cart.total_discount
+  assign has_free_gift_lines = false
+
+  for item in cart.items
+    if item.price == 0
+      assign has_free_gift_lines = true
+      break
+    endif
+  endfor
+
+  unless has_free_gift_lines
+    assign steering_unit_price = 3900
+    assign gap_unit_price = 6999
+    assign gift_pair_savings = steering_unit_price | plus: gap_unit_price
+
+    for item in cart.items
+      if item.price > 0
+        assign item_gift_savings = gift_pair_savings | times: item.quantity
+        assign free_gifts_total_savings = free_gifts_total_savings | plus: item_gift_savings
+      endif
+    endfor
+  endunless
+-%}
+{{- free_gifts_total_savings -}}

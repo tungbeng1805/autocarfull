@@ -1,0 +1,169 @@
+<div class="deal-bar">
+  <div class="deal-left">
+    🔥 <span> Hot Summer Deal Ends In</span> 🔔
+  </div>
+
+  <div class="deal-timer">
+    <div class="time-box">
+      <span class="deal-timer__days">00</span>
+      <small>DAYS</small>
+    </div>
+    <div class="time-box">
+      <span class="deal-timer__hours">00</span>
+      <small>HRS</small>
+    </div>
+    <div class="time-box">
+      <span class="deal-timer__minutes">00</span>
+      <small>MIN</small>
+    </div>
+    <div class="time-box">
+      <span class="deal-timer__seconds">00</span>
+      <small>SEC</small>
+    </div>
+  </div>
+</div>
+
+<style>
+.deal-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFF5E3;
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+  padding: 0 !important;
+  margin-top: 15px;
+}
+
+.deal-left {
+  background: #000;
+  color: #fff;
+  padding: 8px 20px 8px 6px;
+  position: relative;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.deal-left::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 16.75px solid transparent;
+  border-bottom: 16.75px solid transparent;
+  border-right: 16.75px solid #fff5e3;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.deal-left span {
+  margin: 0 5px;
+}
+
+.deal-timer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding-right: 8px;
+}
+
+.time-box {
+  background: #ef6d23;
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.time-box span {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.time-box small {
+  font-size: 8px;
+}
+
+@media (max-width: 575px) {
+  .deal-bar {
+    gap: 10px;
+  }
+
+  .deal-left {
+    font-size: 10px;
+    padding: 6px 20px 7px 0;
+  }
+
+  .time-box {
+    padding: 4px;
+  }
+
+  .time-box small {
+    line-height: 1;
+  }
+
+  .deal-timer {
+    gap: 3px;
+  }
+}
+</style>
+
+<script>
+window.initCartDealCountdown = function initCartDealCountdown() {
+  const KEY = 'deal_14_days';
+  const bars = document.querySelectorAll('.deal-bar');
+  if (!bars.length) return;
+
+  let end = localStorage.getItem(KEY);
+  if (!end || Date.now() > parseInt(end, 10)) {
+    end = Date.now() + 14 * 24 * 60 * 60 * 1000;
+    localStorage.setItem(KEY, String(end));
+  } else {
+    end = parseInt(end, 10);
+  }
+
+  if (window.__cartDealCountdownTimer) {
+    clearInterval(window.__cartDealCountdownTimer);
+  }
+
+  function pad(value) {
+    return value < 10 ? '0' + value : String(value);
+  }
+
+  function update() {
+    let diff = end - Date.now();
+    if (diff <= 0) {
+      end = Date.now() + 14 * 24 * 60 * 60 * 1000;
+      localStorage.setItem(KEY, String(end));
+      diff = end - Date.now();
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.querySelectorAll('.deal-bar').forEach((bar) => {
+      const d = bar.querySelector('.deal-timer__days');
+      const h = bar.querySelector('.deal-timer__hours');
+      const m = bar.querySelector('.deal-timer__minutes');
+      const s = bar.querySelector('.deal-timer__seconds');
+      if (d) d.textContent = pad(days);
+      if (h) h.textContent = pad(hours);
+      if (m) m.textContent = pad(minutes);
+      if (s) s.textContent = pad(seconds);
+    });
+  }
+
+  update();
+  window.__cartDealCountdownTimer = setInterval(update, 1000);
+};
+
+document.addEventListener('DOMContentLoaded', function () {
+  window.initCartDealCountdown();
+});
+</script>

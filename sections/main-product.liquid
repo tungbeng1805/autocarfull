@@ -697,6 +697,76 @@
       ]
     }
   </script>
+
+  {%- liquid
+    assign buy_buttons_block = section.blocks | where: 'type', 'buy_buttons' | first
+    assign sticky_variant = product.selected_or_first_available_variant
+    assign sticky_image = sticky_variant.featured_media | default: product.featured_media
+  -%}
+  {%- if section.settings.show_fixed_add_to_cart and product.available and buy_buttons_block != blank and sticky_variant.available -%}
+    {{ 'sticky-add-to-cart.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'sticky-add-to-cart.js' | asset_url }}" defer="defer"></script>
+
+    <sticky-add-to-cart
+      id="StickyAddToCart-{{ section.id }}"
+      class="sticky-atc"
+      form="{{ product_form_id }}"
+      data-section="{{ section.id }}"
+    >
+      <div class="sticky-atc__mobile medium-hide large-up-hide">
+        <button
+          type="submit"
+          form="{{ product_form_id }}"
+          name="add"
+          id="StickySubmitButtonMobile-{{ section.id }}"
+          class="sticky-atc__button button"
+        >
+          <span>{{ 'products.product.add_to_cart' | t }}</span>
+        </button>
+      </div>
+
+      <div class="sticky-atc__desktop small-hide{% if sticky_image == blank %} sticky-atc__desktop--no-image{% endif %}">
+        {%- if sticky_image != blank -%}
+          <div class="sticky-atc__media" id="StickyMedia-{{ section.id }}">
+            {{
+              sticky_image
+              | image_url: width: 160
+              | image_tag:
+                loading: 'lazy',
+                widths: '80,160',
+                sizes: '80px',
+                class: 'sticky-atc__image',
+                alt: product.title
+            }}
+          </div>
+        {%- endif -%}
+
+        <div class="sticky-atc__info">
+          <a href="{{ product.url }}" class="sticky-atc__title">{{ product.title | escape }}</a>
+          <div class="sticky-atc__price" id="StickyPrice-{{ section.id }}">
+            {%- liquid
+              assign sticky_price = sticky_variant.price
+              assign sticky_compare = sticky_variant.compare_at_price
+            -%}
+            <span class="sticky-atc__sale-price">{{ sticky_price | money }}</span>
+            {%- if sticky_compare > sticky_price -%}
+              <s class="sticky-atc__compare-price">{{ sticky_compare | money }}</s>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          form="{{ product_form_id }}"
+          name="add"
+          id="StickySubmitButton-{{ section.id }}"
+          class="sticky-atc__button button"
+        >
+          <span>{{ 'products.product.add_to_cart' | t }}</span>
+        </button>
+      </div>
+    </sticky-add-to-cart>
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -2256,6 +2326,12 @@
       "id": "enable_sticky_info",
       "default": true,
       "label": "t:sections.main-product.settings.enable_sticky_info.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_fixed_add_to_cart",
+      "default": false,
+      "label": "Show sticky add to cart"
     },
     {
       "type": "header",

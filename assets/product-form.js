@@ -8,7 +8,7 @@ if (!customElements.get('product-form')) {
         this.form = this.querySelector('form');
         this.form.querySelector('[name=id]').disabled = false;
         this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
-        this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
+        this.cart = document.querySelector('cart-drawer') || document.querySelector('cart-notification');
         this.submitButton = this.querySelector('[type="submit"]');
         if (document.querySelector('cart-drawer')) this.submitButton.setAttribute('aria-haspopup', 'dialog');
 
@@ -18,6 +18,8 @@ if (!customElements.get('product-form')) {
       onSubmitHandler(evt) {
         evt.preventDefault();
         if (this.submitButton.getAttribute('aria-disabled') === 'true') return;
+
+        if (!this.validateVehicleDropdowns()) return;
 
         this.handleErrorMessage();
 
@@ -92,6 +94,63 @@ if (!customElements.get('product-form')) {
             if (!this.error) this.submitButton.removeAttribute('aria-disabled');
             this.querySelector('.loading-overlay__spinner').classList.add('hidden');
           });
+      }
+
+      /**
+       * Matches Impact seat-covers validation: Year/Make/Model required,
+       * plus Trim/Cab Size when those dropdowns exist.
+       */
+      validateVehicleDropdowns() {
+        const yearSelect = document.querySelector('.dropdown-select-year');
+        if (!yearSelect) return true;
+
+        const selects = [
+          yearSelect,
+          document.querySelector('.dropdown-select-make'),
+          document.querySelector('.dropdown-select-model'),
+          document.querySelector('.dropdown-select-trim'),
+          document.querySelector('.dropdown-select-cabsize'),
+        ].filter(Boolean);
+
+        const requiredText = document.querySelector('.required-text-vehicle');
+        let allValid = true;
+        let firstInvalid = null;
+
+        for (const select of selects) {
+          if (!select.value || (typeof select.checkValidity === 'function' && !select.checkValidity())) {
+            allValid = false;
+            if (!firstInvalid) firstInvalid = select;
+          }
+        }
+
+        if (requiredText && requiredText.dataset.required === 'true') {
+          allValid = false;
+          requiredText.style.color = 'red';
+        }
+
+        if (allValid) return true;
+
+        if (firstInvalid && typeof firstInvalid.reportValidity === 'function') {
+          firstInvalid.reportValidity();
+        }
+
+        this.scrollToVehicleSelection();
+        return false;
+      }
+
+      scrollToVehicleSelection() {
+        const target =
+          document.querySelector('.dropdown-container') ||
+          document.querySelector('.required-text-vehicle') ||
+          document.querySelector('.rating-with-text') ||
+          document.querySelector('.product-info__price');
+
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+          });
+        }
       }
 
       handleErrorMessage(errorMessage = false) {

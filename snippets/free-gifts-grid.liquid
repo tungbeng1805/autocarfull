@@ -1,0 +1,246 @@
+{%- comment -%}
+  FREE GIFTS grid. Steering + neck pillows: one box per unique seat color.
+  Badge qty = total paid quantity for that color (matches Impact theme cũ).
+  Usage: {% render 'free-gifts-grid' %}
+{%- endcomment -%}
+
+{%- liquid
+  assign free_gifts_badge_qty = 0
+  assign steering_color_handles = ''
+
+  unless quantity != blank
+    for item in cart.items
+      if item.price > 0
+        assign free_gifts_badge_qty = free_gifts_badge_qty | plus: item.quantity
+
+        assign cart_color = item.variant.title
+        assign variant_title_parts = item.variant.title | split: ' / '
+
+        if variant_title_parts.size > 1
+          assign cart_color = variant_title_parts | last
+        endif
+
+        for option in item.options_with_values
+          assign option_name_downcase = option.name | downcase
+          if option_name_downcase contains 'color' or option_name_downcase contains 'step 2'
+            assign cart_color = option.value
+            break
+          endif
+        endfor
+
+        assign color_handle = cart_color | handleize
+        assign handle_marker = ',' | append: color_handle | append: ','
+
+        unless steering_color_handles contains handle_marker
+          assign steering_color_handles = steering_color_handles | append: handle_marker
+        endunless
+      endif
+    endfor
+  else
+    assign free_gifts_badge_qty = quantity
+  endunless
+-%}
+
+<style>
+  .free-gifts-grid__heading {
+    margin: 0 0 12px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #333;
+    font-family: inherit;
+  }
+
+  .free-gifts-grid__box {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px 8px;
+    padding: 12px;
+    background: #fff;
+    border: 1.5px solid #3d5a35;
+    border-radius: 10px;
+  }
+
+  .free-gifts-grid__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    text-align: center;
+  }
+
+  .free-gifts-grid__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+  }
+
+  .free-gifts-grid__badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    background: #82a178;
+    border-radius: 4px;
+  }
+
+  .free-gifts-grid__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    background: #f5f5f5;
+  }
+
+  .free-gifts-grid__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .free-gifts-grid__title {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #333;
+    text-align: center;
+  }
+
+  .free-gifts-grid__prices {
+    font-size: 10px;
+    line-height: 1;
+  }
+
+  .free-gifts-grid__price-current {
+    font-weight: 600;
+    color: #5e7d4c;
+    font-size: 14px;
+  }
+
+  .free-gifts-grid__price-compare {
+    font-size: 13px;
+    color: red;
+    text-decoration: line-through;
+  }
+
+  @media screen and (min-width: 700px) {
+    .free-gifts-grid__heading {
+      font-size: 18px;
+    }
+
+    .free-gifts-grid__box {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px 24px;
+      padding: 20px;
+    }
+
+    .free-gifts-grid__item {
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .free-gifts-grid__media {
+      flex-shrink: 0;
+      width: 72px;
+      height: 72px;
+      aspect-ratio: auto;
+    }
+
+    .free-gifts-grid__badge {
+      min-width: 22px;
+      height: 22px;
+      padding: 0 5px;
+      font-size: 12px;
+    }
+
+    .free-gifts-grid__image {
+      width: 72px;
+      height: 72px;
+    }
+
+    .free-gifts-grid__info {
+      align-items: flex-start;
+      line-height: 1;
+    }
+
+    .free-gifts-grid__title {
+      font-size: 12px;
+      line-height: 1.35;
+      text-align: left;
+    }
+
+    .free-gifts-grid__prices {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px;
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+  }
+
+  @media (max-width: 575px) {
+    .free-gifts-grid__info {
+      flex-direction: column-reverse;
+    }
+  }
+</style>
+
+<div class="free-gifts-grid" aria-label="Free gifts" style="padding-top: 3px;">
+  <div class="free-gifts-grid__box">
+    {%- render 'free-gifts-color-loop',
+      gift_snippet: 'free-gifts-steering-item',
+      color_handles: steering_color_handles,
+      fallback_color_label: 'Solid Black',
+      fallback_badge_qty: free_gifts_badge_qty
+    -%}
+
+    {%- render 'free-gifts-color-loop',
+      gift_snippet: 'free-gifts-gap-filler-item',
+      color_handles: steering_color_handles,
+      fallback_color_label: 'Solid Black',
+      fallback_badge_qty: free_gifts_badge_qty
+    -%}
+
+    <article class="free-gifts-grid__item">
+      <div class="free-gifts-grid__media">
+        <span class="free-gifts-grid__badge">{{ free_gifts_badge_qty }}</span>
+        <img
+          class="free-gifts-grid__image"
+          src="https://cdn.shopify.com/s/files/1/0918/9654/5652/files/3-year-warranty.jpg?v=1778925143"
+          alt="2 Year Warranty"
+          width="72"
+          height="72"
+          loading="lazy"
+        >
+      </div>
+      <div class="free-gifts-grid__info">
+        <h3 class="free-gifts-grid__title">2 Year Warranty</h3>
+        <p class="free-gifts-grid__prices">
+          <span class="free-gifts-grid__price-current">$0.00</span>
+          <span class="free-gifts-grid__price-compare">$100.00</span>
+        </p>
+      </div>
+    </article>
+  </div>
+</div>
