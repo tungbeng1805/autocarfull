@@ -227,11 +227,14 @@
       "name": "ToolBar",
       "settings": {
         "title": "ToolBar",
-        "enable_sticky": true,
+        "enable_sticky": false,
         "detail_id": "detail",
         "reviews_id": "rating-summary-app-review",
         "qa_id": "faq",
-        "related_id": "related-products"
+        "related_id": "related-products",
+        "background": "#ffffff",
+        "text_color": "#000000",
+        "active_text_color": "#EF6D23"
       }
     },
     "images_with_text_scrolling_NKiKTY": {

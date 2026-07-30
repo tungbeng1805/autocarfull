@@ -1158,3 +1158,29 @@ body.seat-covers1-template .related-products .card__badge .badge {
     transform: scale(1.03);
   }
 }
+
+/* All images: border-radius 6px */
+body.seat-covers1-template img {
+  border-radius: 6px;
+}
+
+body.seat-covers1-template .product__media,
+body.seat-covers1-template .product__media-item,
+body.seat-covers1-template .product__media-wrapper .media,
+body.seat-covers1-template .card__media,
+body.seat-covers1-template .card__media .media,
+body.seat-covers1-template .media,
+body.seat-covers1-template .global-media-settings,
+body.seat-covers1-template .thumbnail,
+body.seat-covers1-template .thumbnail-list__item,
+body.seat-covers1-template .image-with-text__media,
+body.seat-covers1-template .image-with-text-overlay__media,
+body.seat-covers1-template .video-section__media,
+body.seat-covers1-template .images-with-text-scrolling__media,
+body.seat-covers1-template .top-review .review-gallery-app-review,
+body.seat-covers1-template .video-item-app-review,
+body.seat-covers1-template .image-item-app-review,
+body.seat-covers1-template .gallery-item-app-review {
+  border-radius: 6px;
+  overflow: hidden;
+}
