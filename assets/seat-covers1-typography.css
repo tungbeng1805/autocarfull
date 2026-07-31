@@ -1184,3 +1184,101 @@ body.seat-covers1-template .gallery-item-app-review {
   border-radius: 6px;
   overflow: hidden;
 }
+
+/* Product gallery — mobile layout matching the Impact reference. */
+@media screen and (max-width: 749px) {
+  body.seat-covers1-template .product__media-wrapper {
+    width: calc(100% + 3rem);
+    max-width: none;
+    margin-left: -1.5rem;
+  }
+
+  body.seat-covers1-template .product__media-wrapper > media-gallery > slider-component:first-of-type {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  body.seat-covers1-template .product__media-list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    scroll-padding-left: 0;
+  }
+
+  body.seat-covers1-template .product__media-list .product__media-item,
+  body.seat-covers1-template .product__media-list .product__media-item:first-of-type {
+    width: 100%;
+    min-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body.seat-covers1-template .product__media,
+  body.seat-covers1-template .product__media-item,
+  body.seat-covers1-template .product__media-wrapper .media,
+  body.seat-covers1-template .product__media-wrapper .global-media-settings,
+  body.seat-covers1-template .product__media-wrapper .product__media img {
+    border-radius: 0;
+  }
+
+  body.seat-covers1-template .product__media-icon {
+    left: auto;
+    right: 1.8rem;
+    top: 1.8rem;
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+
+  body.seat-covers1-template .thumbnail-slider {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1.8rem 2.2rem 1.2rem;
+  }
+
+  body.seat-covers1-template .thumbnail-slider > .slider-button {
+    display: none;
+  }
+
+  body.seat-covers1-template .thumbnail-slider .thumbnail-list.slider {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.8rem;
+    padding: 0;
+    overflow-x: auto;
+    scroll-padding-left: 0;
+    scrollbar-width: none;
+  }
+
+  body.seat-covers1-template .thumbnail-slider .thumbnail-list.slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  body.seat-covers1-template .thumbnail-list__item.slider__slide {
+    flex: 0 0 5.6rem;
+    width: 5.6rem;
+    height: 5.6rem;
+  }
+
+  body.seat-covers1-template .thumbnail-list__item,
+  body.seat-covers1-template .thumbnail {
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  body.seat-covers1-template .thumbnail {
+    border: 0;
+    border-bottom: 0.2rem solid transparent;
+    box-shadow: none;
+  }
+
+  body.seat-covers1-template .thumbnail[aria-current] {
+    border-color: #151515;
+    box-shadow: none;
+  }
+
+  body.seat-covers1-template .thumbnail img {
+    border-radius: 0;
+    padding-bottom: 0.3rem;
+  }
+}

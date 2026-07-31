@@ -61,7 +61,6 @@ body {
 
 /* Header follows the quieter, single-row navigation from the reference theme. */
 .header-wrapper {
-  border-top: 4px solid #3a2b27;
   border-bottom: 1px solid var(--autofull-line);
   background: #fff;
 }
@@ -109,6 +108,12 @@ body {
 .header__icon .icon {
   height: 2.1rem;
   width: 2.1rem;
+}
+
+/* Cart glyph fills only part of its 40x40 viewBox, so it needs the larger box. */
+.header__icon--cart .icon {
+  height: 4.4rem;
+  width: 4.4rem;
 }
 
 /* Footer is intentionally spacious and aligned to exactly the same container. */

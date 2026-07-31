@@ -215,19 +215,12 @@
         "text_color": ""
       }
     },
-    "scroll_position_qJ4yrt": {
-      "type": "scroll-position",
-      "name": "Id Scroll",
-      "settings": {
-        "anchor_id": "detail"
-      }
-    },
     "toolbar_prod_detail_RhfF9r": {
       "type": "toolbar-prod-detail",
       "name": "ToolBar",
       "settings": {
         "title": "ToolBar",
-        "enable_sticky": false,
+        "enable_sticky": true,
         "detail_id": "detail",
         "reviews_id": "rating-summary-app-review",
         "qa_id": "faq",
@@ -282,6 +275,7 @@
       ],
       "name": "Images and text scrolling",
       "settings": {
+        "anchor_id": "detail",
         "full_width": true,
         "stack_on_mobile": false,
         "show_counter": true,
@@ -567,7 +561,8 @@
       ],
       "custom_css": [
         ".rich-text__heading,.rich-text h1,.rich-text h2,.rich-text .h1,.rich-text .h2 {font-style: italic !important;}",
-        ".h2 {margin-top: 20px !important; font-weight: 600;}"
+        ".h2 {margin-top: 20px !important; font-weight: 600;}",
+        ".isolate,.rich-text,.rich-text.gradient,.content-container {background: #d4d4d4 !important;}"
       ],
       "name": "Rich text",
       "settings": {
@@ -611,6 +606,9 @@
       },
       "block_order": [
         "richtext_CAPqxX"
+      ],
+      "custom_css": [
+        ".isolate,.rich-text,.rich-text.gradient,.content-container {background: #d4d4d4 !important;}"
       ],
       "name": "Rich text",
       "settings": {
@@ -656,7 +654,7 @@
         "richtext_KbKeMJ"
       ],
       "custom_css": [
-        ".bg-custom {background: #d4d4d4 !important;}"
+        ".isolate,.rich-text,.rich-text.gradient,.content-container {background: #d4d4d4 !important;}"
       ],
       "name": "Rich text",
       "settings": {
@@ -703,7 +701,7 @@
       ],
       "custom_css": [
         ".rich-text {padding: 0px 0 32px;}",
-        ".bg-custom {background: #d4d4d4 !important;}"
+        ".isolate,.rich-text,.rich-text.gradient,.content-container {background: #d4d4d4 !important;}"
       ],
       "name": "Rich text",
       "settings": {
@@ -904,7 +902,6 @@
   "order": [
     "main",
     "custom_html_eQfD4R",
-    "scroll_position_qJ4yrt",
     "toolbar_prod_detail_RhfF9r",
     "images_with_text_scrolling_NKiKTY",
     "video_yUqejJ",

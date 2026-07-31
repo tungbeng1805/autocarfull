@@ -109,7 +109,15 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   padding-block: 3.6rem;
+}
+
+.images-scrolling-mobile::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .images-scrolling-mobile__item {
