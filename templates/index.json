@@ -15,6 +15,65 @@
         "slide_z8R7dt": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/banner_23.jpg",
+            "mobile_image": "shopify://shop_images/O1CN01IEcn5y24Z5QaBBdyA__2208113757404-0-cib.webp",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_xaMPMy": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Buture_VAC01_Vacuum.jpg",
+            "mobile_image": "shopify://shop_images/O1CN01RdMxXU24Z5QYKKjtL__2208113757404-0-cib.webp",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_hy7J6h": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/buture-x9-banner_pc.jpg",
+            "mobile_image": "shopify://shop_images/compressed_under_20mb.gif",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_VacBky": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Buture_Beta07_Car_Jump_Starter_Banner.jpg",
+            "mobile_image": "shopify://shop_images/O1CN019dgHUf1FSB2s1dssR__2218520485-0-cib_2438b3d6-ded5-4cfd-b457-3746e91da08d.jpg",
             "heading": "",
             "heading_size": "h1",
             "subheading": "",
@@ -31,7 +90,10 @@
         }
       },
       "block_order": [
-        "slide_z8R7dt"
+        "slide_z8R7dt",
+        "slide_xaMPMy",
+        "slide_hy7J6h",
+        "slide_VacBky"
       ],
       "name": "t:sections.slideshow.presets.name",
       "settings": {
