@@ -162,7 +162,7 @@
 @media screen and (min-width: 750px) {
   .media-grid {
     --calculated-row-height: max(150px, min(100vw / 5, var(--media-grid-row-height)));
-    gap: 32px;
+    gap: 30px;
     grid: auto-flow dense var(--calculated-row-height) / repeat(4, minmax(0, 1fr));
   }
 
