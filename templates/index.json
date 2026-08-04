@@ -1,1 +1,242 @@
-{"sections":{"image_banner":{"type":"image-banner","blocks":{"heading":{"type":"heading","settings":{"heading":"Browse our latest products","heading_size":"h0"}},"button":{"type":"buttons","settings":{"button_label_1":"Shop all","button_link_1":"shopify:\/\/collections\/all","button_style_secondary_1":true,"button_label_2":"","button_link_2":"","button_style_secondary_2":false}}},"block_order":["heading","button"],"settings":{"image_overlay_opacity":40,"image_height":"large","desktop_content_position":"bottom-center","show_text_box":false,"desktop_content_alignment":"center","color_scheme":"inverse","image_behavior":"none","mobile_content_alignment":"center","stack_images_on_mobile":false,"show_text_below":false}},"featured_collection":{"type":"featured-collection","settings":{"title":"Featured products","heading_size":"h2","description":"","show_description":false,"description_style":"body","collection":"all","products_to_show":8,"columns_desktop":4,"full_width":false,"show_view_all":true,"view_all_style":"solid","enable_desktop_slider":false,"color_scheme":"background-1","image_ratio":"adapt","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":false,"enable_quick_add":false,"columns_mobile":"2","swipe_on_mobile":false,"padding_top":44,"padding_bottom":36}}},"order":["image_banner","featured_collection"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_JhUfxA": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_z8R7dt": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/banner_23.jpg",
+            "mobile_image": "shopify://shop_images/O1CN01IEcn5y24Z5QaBBdyA__2208113757404-0-cib.webp",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_xaMPMy": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Buture_VAC01_Vacuum.jpg",
+            "mobile_image": "shopify://shop_images/O1CN01RdMxXU24Z5QYKKjtL__2208113757404-0-cib.webp",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_hy7J6h": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/buture-x9-banner_pc.jpg",
+            "mobile_image": "shopify://shop_images/compressed_under_20mb.gif",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_VacBky": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Buture_Beta07_Car_Jump_Starter_Banner.jpg",
+            "mobile_image": "shopify://shop_images/O1CN019dgHUf1FSB2s1dssR__2218520485-0-cib_2438b3d6-ded5-4cfd-b457-3746e91da08d.jpg",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "slide_z8R7dt",
+        "slide_xaMPMy",
+        "slide_hy7J6h",
+        "slide_VacBky"
+      ],
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "medium",
+        "slider_visual": "counter",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "image_behavior": "none",
+        "show_text_below": true,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "media_grid_6Yhwdm": {
+      "type": "media-grid",
+      "blocks": {
+        "image_EPFdjR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/resized_image_1080x1080_68269f2b-6f9b-44dc-86fa-12a2c93f87c3.png",
+            "title": "",
+            "heading_tag": "h2",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "middle-center",
+            "desktop_column_span": 2,
+            "desktop_row_span": 2,
+            "desktop_text_position": "middle-center",
+            "background": "#000000",
+            "background_gradient": "",
+            "text_color": "#ffffff",
+            "button_background": "#e67e22",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_7rDeKV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten_13.png",
+            "title": "Seat Covers",
+            "heading_tag": "h3",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_8z4JAJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Car_Jump_Starters.jpg",
+            "title": "Jump Starter",
+            "heading_tag": "h6",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_Vtkahm": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten_15.png",
+            "title": "Car Accessories",
+            "heading_tag": "h6",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_34e66z": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Flash_Deals.jpg",
+            "title": "Flash Sale",
+            "heading_tag": "h6",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "image_EPFdjR",
+        "image_7rDeKV",
+        "image_8z4JAJ",
+        "image_Vtkahm",
+        "image_34e66z"
+      ],
+      "name": "Media grid",
+      "settings": {
+        "full_width": false,
+        "gap": 40,
+        "card_radius": 8,
+        "desktop_row_height": 270,
+        "mobile_row_height": 150,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "slideshow_JhUfxA",
+    "media_grid_6Yhwdm"
+  ]
+}
