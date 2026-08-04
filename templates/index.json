@@ -226,7 +226,7 @@
       "name": "Media grid",
       "settings": {
         "full_width": false,
-        "gap": 16,
+        "gap": 40,
         "card_radius": 8,
         "desktop_row_height": 270,
         "mobile_row_height": 150,
