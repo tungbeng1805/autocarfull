@@ -106,9 +106,137 @@
         "show_text_below": true,
         "accessibility_info": "Slideshow about our brand"
       }
+    },
+    "media_grid_6Yhwdm": {
+      "type": "media-grid",
+      "blocks": {
+        "image_EPFdjR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/resized_image_1080x1080_68269f2b-6f9b-44dc-86fa-12a2c93f87c3.png",
+            "title": "",
+            "heading_tag": "h2",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "middle-center",
+            "desktop_column_span": 2,
+            "desktop_row_span": 2,
+            "desktop_text_position": "middle-center",
+            "background": "#000000",
+            "background_gradient": "",
+            "text_color": "#ffffff",
+            "button_background": "#e67e22",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_7rDeKV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten_13.png",
+            "title": "Seat Covers",
+            "heading_tag": "h3",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_8z4JAJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Car_Jump_Starters.jpg",
+            "title": "Jump Starter",
+            "heading_tag": "h6",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_Vtkahm": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Thi_t_k_ch_a_co_ten_15.png",
+            "title": "Car Accessories",
+            "heading_tag": "h6",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_34e66z": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Flash_Deals.jpg",
+            "title": "Flash Sale",
+            "heading_tag": "h6",
+            "link_url": "",
+            "link_text": "",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "image_EPFdjR",
+        "image_7rDeKV",
+        "image_8z4JAJ",
+        "image_Vtkahm",
+        "image_34e66z"
+      ],
+      "name": "Media grid",
+      "settings": {
+        "full_width": true,
+        "gap": 16,
+        "card_radius": 8,
+        "desktop_row_height": 270,
+        "mobile_row_height": 150,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "slideshow_JhUfxA"
+    "slideshow_JhUfxA",
+    "media_grid_6Yhwdm"
   ]
 }
