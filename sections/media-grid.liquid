@@ -1,0 +1,591 @@
+{{ 'section-media-grid.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --media-grid-row-height: {{ section.settings.mobile_row_height }}px;
+    --media-grid-gap: {{ section.settings.gap }}px;
+    --media-grid-radius: {{ section.settings.card_radius }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      --media-grid-row-height: {{ section.settings.desktop_row_height }}px;
+    }
+  }
+
+  {%- for block in section.blocks -%}
+    #media-grid-{{ block.id }} {
+      --media-grid-bg: {{ block.settings.background.red }}, {{ block.settings.background.green }}, {{ block.settings.background.blue }};
+      --media-grid-text: {{ block.settings.text_color.red }}, {{ block.settings.text_color.green }}, {{ block.settings.text_color.blue }};
+      --media-grid-button-bg: {{ block.settings.button_background.red }}, {{ block.settings.button_background.green }}, {{ block.settings.button_background.blue }};
+      --media-grid-button-text: {{ block.settings.button_text_color.red }}, {{ block.settings.button_text_color.green }}, {{ block.settings.button_text_color.blue }};
+      --media-grid-overlay: {{ block.settings.overlay_color.red }}, {{ block.settings.overlay_color.green }}, {{ block.settings.overlay_color.blue }};
+      --media-grid-overlay-opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+      {%- if block.settings.background_gradient != blank -%}
+        background: {{ block.settings.background_gradient }};
+      {%- endif -%}
+    }
+  {%- endfor -%}
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="media-grid-section section-{{ section.id }}-padding">
+  <div class="media-grid-section__inner{% if section.settings.full_width %} media-grid-section__inner--full-width{% endif %}">
+    <div class="media-grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign tag = 'div'
+          if block.settings.link_url != blank
+            assign tag = 'a'
+          endif
+        -%}
+        <{{ tag }}
+          {% if tag == 'a' %}href="{{ block.settings.link_url }}"{% endif %}
+          class="media-grid__item"
+          style="--media-grid-column-span: {{ block.settings.desktop_column_span }}; --media-grid-row-span: {{ block.settings.desktop_row_span }};"
+          {{ block.shopify_attributes }}
+        >
+          <div id="media-grid-{{ block.id }}" class="media-grid__card">
+            {%- case block.type -%}
+              {%- when 'image' -%}
+                {%- if block.settings.image != blank -%}
+                  {%- capture sizes -%}
+                    (max-width: 749px) 100vw,
+                    min({{ 390 | times: block.settings.desktop_column_span }}px, {{ 25 | times: block.settings.desktop_column_span }}vw)
+                  {%- endcapture -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 2000
+                    | image_tag:
+                      class: 'media-grid__media',
+                      loading: 'lazy',
+                      sizes: sizes,
+                      widths: '200,300,400,500,600,700,800,1000,1200,1400,1600,1800,2000'
+                  }}
+                {%- else -%}
+                  {{ 'collection-1' | placeholder_svg_tag: 'media-grid__media media-grid__media--placeholder' }}
+                {%- endif -%}
+              {%- when 'video' -%}
+                {%- if block.settings.video != blank -%}
+                  {{
+                    block.settings.video
+                    | video_tag:
+                      class: 'media-grid__media',
+                      autoplay: true,
+                      loop: true,
+                      muted: true,
+                      playsinline: true,
+                      controls: block.settings.show_video_controls
+                  }}
+                {%- elsif block.settings.cover_image != blank -%}
+                  {{
+                    block.settings.cover_image
+                    | image_url: width: 2000
+                    | image_tag: class: 'media-grid__media', loading: 'lazy', widths: '400,600,800,1000,1400,2000'
+                  }}
+                {%- else -%}
+                  {{ 'collection-2' | placeholder_svg_tag: 'media-grid__media media-grid__media--placeholder' }}
+                {%- endif -%}
+            {%- endcase -%}
+
+            {%- if block.settings.title != blank or block.settings.link_text != blank -%}
+              <div class="media-grid__content media-grid__content--{{ block.settings.mobile_text_position }} media-grid__content--desktop-{{ block.settings.desktop_text_position }}">
+                {%- if block.settings.title != blank -%}
+                  <p class="media-grid__heading {{ block.settings.heading_tag }}">{{ block.settings.title | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.link_text != blank -%}
+                  <span class="media-grid__button">{{ block.settings.link_text | escape }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </{{ tag }}>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Media grid",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "max_blocks": 15,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card corner radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Row height"
+    },
+    {
+      "type": "range",
+      "id": "desktop_row_height",
+      "min": 150,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop row height",
+      "default": 270
+    },
+    {
+      "type": "range",
+      "id": "mobile_row_height",
+      "min": 120,
+      "max": 260,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile row height",
+      "default": 150
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Promote your products"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "Heading size",
+          "options": [
+            { "value": "h1", "label": "X-Large" },
+            { "value": "h2", "label": "Large" },
+            { "value": "h3", "label": "Medium" },
+            { "value": "h4", "label": "Small" },
+            { "value": "h5", "label": "X-Small" },
+            { "value": "h6", "label": "XX-Small" }
+          ],
+          "default": "h4"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text"
+        },
+        {
+          "type": "header",
+          "content": "Mobile"
+        },
+        {
+          "type": "select",
+          "id": "mobile_text_position",
+          "label": "Content position",
+          "options": [
+            { "value": "top-left", "label": "Top left" },
+            { "value": "top-center", "label": "Top center" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "middle-left", "label": "Middle left" },
+            { "value": "middle-center", "label": "Middle center" },
+            { "value": "middle-right", "label": "Middle right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "bottom-center", "label": "Bottom center" },
+            { "value": "bottom-right", "label": "Bottom right" }
+          ],
+          "default": "middle-center"
+        },
+        {
+          "type": "header",
+          "content": "Desktop",
+          "info": "When using a 1x1 tile, we recommend not using text on top of media."
+        },
+        {
+          "type": "range",
+          "id": "desktop_column_span",
+          "label": "Column span",
+          "min": 1,
+          "max": 4,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "id": "desktop_row_span",
+          "label": "Row span",
+          "min": 1,
+          "max": 3,
+          "default": 2
+        },
+        {
+          "type": "select",
+          "id": "desktop_text_position",
+          "label": "Content position",
+          "options": [
+            { "value": "top-left", "label": "Top left" },
+            { "value": "top-center", "label": "Top center" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "middle-left", "label": "Middle left" },
+            { "value": "middle-center", "label": "Middle center" },
+            { "value": "middle-right", "label": "Middle right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "bottom-center", "label": "Bottom center" },
+            { "value": "bottom-right", "label": "Bottom right" }
+          ],
+          "default": "middle-center"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient",
+          "label": "Background gradient"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_background",
+          "label": "Button background",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Overlay opacity",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Cover image",
+          "info": "Shown if no video is selected"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_video_controls",
+          "label": "Show video controls",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Promote your products"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "Heading size",
+          "options": [
+            { "value": "h1", "label": "X-Large" },
+            { "value": "h2", "label": "Large" },
+            { "value": "h3", "label": "Medium" },
+            { "value": "h4", "label": "Small" },
+            { "value": "h5", "label": "X-Small" },
+            { "value": "h6", "label": "XX-Small" }
+          ],
+          "default": "h4"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text"
+        },
+        {
+          "type": "header",
+          "content": "Mobile"
+        },
+        {
+          "type": "select",
+          "id": "mobile_text_position",
+          "label": "Content position",
+          "options": [
+            { "value": "top-left", "label": "Top left" },
+            { "value": "top-center", "label": "Top center" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "middle-left", "label": "Middle left" },
+            { "value": "middle-center", "label": "Middle center" },
+            { "value": "middle-right", "label": "Middle right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "bottom-center", "label": "Bottom center" },
+            { "value": "bottom-right", "label": "Bottom right" }
+          ],
+          "default": "middle-center"
+        },
+        {
+          "type": "header",
+          "content": "Desktop"
+        },
+        {
+          "type": "range",
+          "id": "desktop_column_span",
+          "label": "Column span",
+          "min": 1,
+          "max": 4,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "id": "desktop_row_span",
+          "label": "Row span",
+          "min": 1,
+          "max": 3,
+          "default": 2
+        },
+        {
+          "type": "select",
+          "id": "desktop_text_position",
+          "label": "Content position",
+          "options": [
+            { "value": "top-left", "label": "Top left" },
+            { "value": "top-center", "label": "Top center" },
+            { "value": "top-right", "label": "Top right" },
+            { "value": "middle-left", "label": "Middle left" },
+            { "value": "middle-center", "label": "Middle center" },
+            { "value": "middle-right", "label": "Middle right" },
+            { "value": "bottom-left", "label": "Bottom left" },
+            { "value": "bottom-center", "label": "Bottom center" },
+            { "value": "bottom-right", "label": "Bottom right" }
+          ],
+          "default": "middle-center"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color_background",
+          "id": "background_gradient",
+          "label": "Background gradient"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_background",
+          "label": "Button background",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Overlay opacity",
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Media grid",
+      "blocks": [
+        {
+          "type": "image",
+          "settings": {
+            "title": "Visit Auto Car Universe",
+            "heading_tag": "h2",
+            "link_text": "See More >>",
+            "mobile_text_position": "middle-center",
+            "desktop_column_span": 2,
+            "desktop_row_span": 2,
+            "desktop_text_position": "middle-center",
+            "text_color": "#ffffff",
+            "button_background": "#e67e22",
+            "button_text_color": "#ffffff",
+            "background": "#000000"
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "title": "Seat Covers",
+            "heading_tag": "h6",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "text_color": "#000000",
+            "background": "#ffffff"
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "title": "Jump Starter",
+            "heading_tag": "h6",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "text_color": "#000000",
+            "background": "#ffffff"
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "title": "Car Accessories",
+            "heading_tag": "h6",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "text_color": "#000000",
+            "background": "#ffffff"
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "title": "Flash Sale",
+            "heading_tag": "h6",
+            "mobile_text_position": "top-left",
+            "desktop_column_span": 1,
+            "desktop_row_span": 1,
+            "desktop_text_position": "top-left",
+            "text_color": "#000000",
+            "background": "#ffffff"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -2976,6 +2976,10 @@
             "image": {
               "label": "Image"
             },
+            "mobile_image": {
+              "label": "Mobile image",
+              "info": "Optional. Shown on screens smaller than 750px."
+            },
             "heading": {
               "label": "Heading"
             },

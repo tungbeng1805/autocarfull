@@ -2748,6 +2748,10 @@
             "image": {
               "label": "Hình ảnh"
             },
+            "mobile_image": {
+              "label": "Hình ảnh mobile",
+              "info": "Tùy chọn. Hiển thị trên màn hình nhỏ hơn 750px."
+            },
             "heading": {
               "label": "Tiêu đề"
             },

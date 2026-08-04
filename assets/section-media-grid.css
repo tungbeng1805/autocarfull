@@ -1,0 +1,218 @@
+.media-grid-section {
+  --media-grid-gap: 1rem;
+}
+
+.media-grid-section__inner {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.media-grid-section__inner:not(.media-grid-section__inner--full-width) {
+  max-width: var(--page-width);
+  padding-inline: 1.5rem;
+}
+
+.media-grid {
+  display: grid;
+  align-items: start;
+  gap: calc(var(--media-grid-gap) / 2);
+  grid: auto-flow dense var(--media-grid-row-height) / repeat(2, minmax(0, 1fr));
+}
+
+.media-grid__item {
+  grid-area: span min(2, var(--media-grid-row-span, 1)) / span min(2, var(--media-grid-column-span, 1));
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  border-radius: var(--media-grid-radius, 0.8rem);
+  overflow: hidden;
+  box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.06);
+}
+
+.media-grid__card {
+  position: relative;
+  display: grid;
+  grid-template: 0 minmax(0, 1fr) 0 / minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  place-items: center;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  color: rgb(var(--media-grid-text, 255, 255, 255));
+  background: rgb(var(--media-grid-bg, 0, 0, 0));
+}
+
+.media-grid__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: rgba(var(--media-grid-overlay, 0, 0, 0), var(--media-grid-overlay-opacity, 0));
+}
+
+.media-grid__media {
+  grid-area: 1 / 1 / span 3 / span 3;
+  place-self: stretch;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
+  display: block;
+}
+
+.media-grid__media--placeholder {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.media-grid__content {
+  position: relative;
+  z-index: 2;
+  grid-area: 2 / 2 / auto / span 1;
+  max-width: 100%;
+  width: 100%;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.media-grid__heading {
+  margin: 0;
+  color: inherit;
+}
+
+.media-grid__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 0.9rem 1.6rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  background: rgb(var(--media-grid-button-bg, 0, 0, 0));
+  color: rgb(var(--media-grid-button-text, 255, 255, 255));
+}
+
+.media-grid__content--top-left {
+  place-self: start start;
+  text-align: left;
+}
+
+.media-grid__content--top-center {
+  place-self: start center;
+  text-align: center;
+  align-items: center;
+}
+
+.media-grid__content--top-right {
+  place-self: start end;
+  text-align: right;
+  align-items: flex-end;
+}
+
+.media-grid__content--middle-left {
+  place-self: center start;
+  text-align: left;
+}
+
+.media-grid__content--middle-center {
+  place-self: center;
+  text-align: center;
+  align-items: center;
+}
+
+.media-grid__content--middle-right {
+  place-self: center end;
+  text-align: right;
+  align-items: flex-end;
+}
+
+.media-grid__content--bottom-left {
+  place-self: end start;
+  text-align: left;
+}
+
+.media-grid__content--bottom-center {
+  place-self: end center;
+  text-align: center;
+  align-items: center;
+}
+
+.media-grid__content--bottom-right {
+  place-self: end end;
+  text-align: right;
+  align-items: flex-end;
+}
+
+@media screen and (min-width: 750px) {
+  .media-grid {
+    --calculated-row-height: max(150px, min(100vw / 5, var(--media-grid-row-height)));
+    gap: var(--media-grid-gap);
+    grid: auto-flow dense var(--calculated-row-height) / repeat(4, minmax(0, 1fr));
+  }
+
+  .media-grid__item {
+    grid-area: span var(--media-grid-row-span, 1) / span var(--media-grid-column-span, 1);
+  }
+
+  .media-grid__content--desktop-top-left {
+    place-self: start start;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .media-grid__content--desktop-top-center {
+    place-self: start center;
+    text-align: center;
+    align-items: center;
+  }
+
+  .media-grid__content--desktop-top-right {
+    place-self: start end;
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .media-grid__content--desktop-middle-left {
+    place-self: center start;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .media-grid__content--desktop-middle-center {
+    place-self: center;
+    text-align: center;
+    align-items: center;
+  }
+
+  .media-grid__content--desktop-middle-right {
+    place-self: center end;
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .media-grid__content--desktop-bottom-left {
+    place-self: end start;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .media-grid__content--desktop-bottom-center {
+    place-self: end center;
+    text-align: center;
+    align-items: center;
+  }
+
+  .media-grid__content--desktop-bottom-right {
+    place-self: end end;
+    text-align: right;
+    align-items: flex-end;
+  }
+}
