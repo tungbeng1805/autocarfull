@@ -809,7 +809,7 @@ body.seat-covers1-template .product-form__input--seat-covers input[type='radio']
     padding: 10px 5px 10px 5px;
   }
   body.seat-covers1-template .tb-left { gap: 5px; }
-  body.seat-covers1-template .tb-title { font-size: 13px; }
+  body.seat-covers1-template .tb-title { font-size: 10px; }
   body.seat-covers1-template .tb-old-price { font-size: 12px; }
   body.seat-covers1-template .tb-new-price { font-size: 13px; }
 }
