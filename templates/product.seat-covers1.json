@@ -36,7 +36,8 @@
             "label": "Your Vehicle",
             "type": "text",
             "required": false,
-            "allow_long_text": false
+            "allow_long_text": false,
+            "max_length": 120
           }
         },
         "dropdown_data_3J3Jwq": {
@@ -197,8 +198,19 @@
       ],
       "custom_css": [],
       "settings": {
+        "enable_sticky_info": true,
+        "show_fixed_add_to_cart": true,
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "mobile_thumbnails": "hide",
+        "hide_variants": false,
         "enable_video_looping": true,
-        "show_fixed_add_to_cart": true
+        "padding_top": 0,
+        "padding_bottom": 36
       }
     },
     "custom_html_eQfD4R": {
@@ -227,7 +239,7 @@
         "related_id": "related-products",
         "background": "#ffffff",
         "text_color": "#000000",
-        "active_text_color": "#EF6D23"
+        "active_text_color": "#ef6d23"
       }
     },
     "images_with_text_scrolling_NKiKTY": {
@@ -293,11 +305,15 @@
       "name": "Video",
       "settings": {
         "heading": "",
+        "heading_size": "h1",
         "autoplay": true,
         "enable_video_looping": true,
         "video": "shopify://files/videos/0629.mp4",
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "description": "",
         "full_width": false,
         "section_background": "#1a1a1a",
+        "color_scheme": "",
         "padding_top": 0,
         "padding_bottom": 0
       }
@@ -419,11 +435,15 @@
       "name": "Video",
       "settings": {
         "heading": "",
+        "heading_size": "h1",
         "autoplay": true,
         "enable_video_looping": true,
         "video": "shopify://files/videos/0929.mp4",
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "description": "",
         "full_width": false,
         "section_background": "#1a1a1a",
+        "color_scheme": "",
         "padding_top": 12,
         "padding_bottom": 48
       }
@@ -460,11 +480,15 @@
       "name": "Video",
       "settings": {
         "heading": "",
+        "heading_size": "h1",
         "autoplay": true,
         "enable_video_looping": true,
         "video": "shopify://files/videos/nu.mp4",
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "description": "",
         "full_width": false,
         "section_background": "#1a1a1a",
+        "color_scheme": "",
         "padding_top": 12,
         "padding_bottom": 48
       }
@@ -501,11 +525,15 @@
       "name": "Video",
       "settings": {
         "heading": "",
+        "heading_size": "h1",
         "autoplay": true,
         "enable_video_looping": true,
         "video": "shopify://files/videos/0821.mp4",
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "description": "",
         "full_width": false,
         "section_background": "#1a1a1a",
+        "color_scheme": "",
         "padding_top": 12,
         "padding_bottom": 48
       }
@@ -715,7 +743,9 @@
     },
     "1750522499df22d5f3": {
       "type": "apps",
-      "settings": {}
+      "settings": {
+        "include_margins": true
+      }
     },
     "review_p8qDjK": {
       "type": "review",
@@ -729,7 +759,9 @@
         "recommend_text": "98% would recommend",
         "video_title": "Reviews with videos",
         "image_title": "Reviews with images",
-        "view_more_text": "View 8 more"
+        "view_more_text": "View 8 more",
+        "background": "",
+        "text_color": ""
       }
     },
     "faq_cc7KyM": {
