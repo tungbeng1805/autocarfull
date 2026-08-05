@@ -67,66 +67,6 @@
           "type": "gift_free",
           "settings": {}
         },
-        "description_AGEH4P": {
-          "type": "description",
-          "settings": {}
-        },
-        "offer_MHPDKr": {
-          "type": "offer",
-          "disabled": true,
-          "settings": {
-            "text_alignment": "start",
-            "icon_position": "aligned",
-            "icon": "picto-truck",
-            "icon_width": 20,
-            "title": "Fast and Free Shipping",
-            "content": "",
-            "background": "#ffffff",
-            "text_color": "#ee6819"
-          }
-        },
-        "offer_fqbinm": {
-          "type": "offer",
-          "disabled": true,
-          "settings": {
-            "text_alignment": "start",
-            "icon_position": "aligned",
-            "icon": "picto-return",
-            "icon_width": 20,
-            "title": "30-Day Return",
-            "content": "",
-            "background": "#ffffff",
-            "text_color": "#ee6819"
-          }
-        },
-        "offer_fJN3X8": {
-          "type": "offer",
-          "disabled": true,
-          "settings": {
-            "text_alignment": "start",
-            "icon_position": "aligned",
-            "icon": "picto-love",
-            "icon_width": 20,
-            "title": "2-Year Warranty",
-            "content": "",
-            "background": "#ffffff",
-            "text_color": "#ee6819"
-          }
-        },
-        "offer_9334DB": {
-          "type": "offer",
-          "disabled": true,
-          "settings": {
-            "text_alignment": "start",
-            "icon_position": "aligned",
-            "icon": "picto-secure-profile",
-            "icon_width": 20,
-            "title": "Pay with Ease and Secure",
-            "content": "",
-            "background": "#ffffff",
-            "text_color": "#ee6819"
-          }
-        },
         "shipping_aNrPA7": {
           "type": "shipping",
           "settings": {}
@@ -184,11 +124,6 @@
         "quantity_selector",
         "buy_buttons",
         "gift_free_KmhcFx",
-        "description_AGEH4P",
-        "offer_MHPDKr",
-        "offer_fqbinm",
-        "offer_fJN3X8",
-        "offer_9334DB",
         "shipping_aNrPA7",
         "image_b66G3K",
         "collapsible_text_wzWUYN",
@@ -926,8 +861,8 @@
         "show_vendor": false,
         "show_rating": false,
         "columns_mobile": "2",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
