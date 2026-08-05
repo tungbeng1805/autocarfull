@@ -647,7 +647,7 @@ body.seat-covers1-template .tb-banner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 5px;
   padding: 14px 20px 14px 16px;
   position: relative;
   width: 100%;
