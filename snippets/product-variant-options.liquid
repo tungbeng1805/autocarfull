@@ -74,6 +74,16 @@
     if matched_variant and matched_variant.featured_media
       assign variant_image = matched_variant.featured_media
     endif
+
+    if variant_image == nil and is_color_option
+      assign option_index = option.position | minus: 1
+      for variant in product.variants
+        if variant.options[option_index] == value and variant.featured_media
+          assign variant_image = variant.featured_media
+          break
+        endif
+      endfor
+    endif
   -%}
 
   {%- if block.settings.picker_type == 'button' -%}

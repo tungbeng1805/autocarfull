@@ -10,6 +10,9 @@
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
+  {%- if template.name == 'product' and template.suffix == 'seat-covers1' -%}
+    <script src="{{ 'seat-covers-variant-swatches.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
   {%- if block.settings.picker_type == 'button' -%}
     <variant-radios
       id="variant-radios-{{ section.id }}"
