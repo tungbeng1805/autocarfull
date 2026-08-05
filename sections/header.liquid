@@ -36,6 +36,30 @@
     margin-left: -1.2rem;
   }
 
+  /* Mobile: menu button and search sit together on the left */
+  .header__left-icons {
+    grid-area: left-icons;
+    justify-self: start;
+    display: flex;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 989px) {
+    .header .header__icons .header__search {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .header__left-icons {
+      display: contents;
+    }
+
+    .header .header__left-icons .header__search {
+      display: none;
+    }
+  }
+
 
   {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
     .scrolled-past-header .header__heading-logo-wrapper {
@@ -165,11 +189,14 @@
     endif
   -%}
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
-    {%- liquid
-      if section.settings.menu != blank
-        render 'header-drawer'
-      endif
+    <div class="header__left-icons">
+      {%- if section.settings.menu != blank -%}
+        {% render 'header-drawer' %}
+        {% render 'header-search', input_id: 'Search-In-Modal-Mobile' %}
+      {%- endif -%}
+    </div>
 
+    {%- liquid
       if section.settings.logo_position == 'top-center' or section.settings.menu == blank
         render 'header-search', input_id: 'Search-In-Modal-1'
       endif
