@@ -262,11 +262,65 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "featured_blog_MJkdBf": {
+      "type": "featured-blog",
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "heading": "Blog posts",
+        "heading_size": "h1",
+        "blog": "news",
+        "post_limit": 3,
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "show_view_all": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "newsletter_QTNtTD": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_LtKk8a": {
+          "type": "heading",
+          "settings": {
+            "heading": "Let’s keep in touch.",
+            "heading_size": "h1"
+          }
+        },
+        "paragraph_MHdMPd": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Subscribe to be the first to receive our latest news and exclusive deals!</p>"
+          }
+        },
+        "email_form_PP4Www": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_LtKk8a",
+        "paragraph_MHdMPd",
+        "email_form_PP4Www"
+      ],
+      "name": "t:sections.newsletter.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
     }
   },
   "order": [
     "slideshow_JhUfxA",
     "media_grid_6Yhwdm",
-    "featured_collection_mqwWYm"
+    "featured_collection_mqwWYm",
+    "featured_blog_MJkdBf",
+    "newsletter_QTNtTD"
   ]
 }
