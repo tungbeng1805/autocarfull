@@ -680,8 +680,8 @@ body.seat-covers1-template .tb-green-dot {
   display: block;
   box-sizing: border-box;
   border: 1px solid #151515;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: #fff;
   flex-shrink: 0;
@@ -806,9 +806,9 @@ body.seat-covers1-template .product-form__input--seat-covers input[type='radio']
     width: 100%;
   }
   body.seat-covers1-template .tb-banner {
-    padding: 10px 5px 10px 10px;
+    padding: 10px 5px 10px 5px;
   }
-  body.seat-covers1-template .tb-left { gap: 10px; }
+  body.seat-covers1-template .tb-left { gap: 5px; }
   body.seat-covers1-template .tb-title { font-size: 13px; }
   body.seat-covers1-template .tb-old-price { font-size: 12px; }
   body.seat-covers1-template .tb-new-price { font-size: 13px; }
