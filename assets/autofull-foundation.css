@@ -112,8 +112,8 @@ body {
 
 /* Cart glyph fills only part of its 40x40 viewBox, so it needs the larger box. */
 .header__icon--cart .icon {
-  height: 4.4rem;
-  width: 4.4rem;
+  height: 22px;
+  width: 22px;
 }
 
 /* Footer is intentionally spacious and aligned to exactly the same container. */

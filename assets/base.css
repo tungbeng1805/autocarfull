@@ -553,7 +553,12 @@ hr {
 .full-unstyled-link {
   text-decoration: none;
   color: currentColor;
-  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 16px;
   font-weight: 700;
 }
@@ -3323,5 +3328,12 @@ details-disclosure > details {
   :root {
     --easter-egg: none;
     --sparkle: url('./sparkle.gif');
+  }
+}
+
+@media (max-width: 575px) {
+  .header__heading-link {
+    width: 45px;
+    padding: 0px;
   }
 }

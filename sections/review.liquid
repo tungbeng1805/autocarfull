@@ -1,6 +1,5 @@
 {%- style -%}
   #shopify-section-{{ section.id }} .review-section {
-    padding: 48px 0;
     background: {{ section.settings.background | default: '#ffffff' }};
     color: {{ section.settings.text_color | default: '#111111' }};
   }
@@ -56,7 +55,7 @@
   @media screen and (max-width: 768px) {
     #shopify-section-{{ section.id }} .title-container-app-review {
       font-size: 30px !important;
-      margin-bottom: 32px !important;
+      margin-bottom: 15px !important;
     }
 
     #shopify-section-{{ section.id }} .rating-stars-app-review .star-app-review,

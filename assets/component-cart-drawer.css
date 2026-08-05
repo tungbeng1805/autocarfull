@@ -239,12 +239,8 @@ cart-drawer-items {
 .cart-drawer .cart-item {
   display: grid;
   grid-template: repeat(2, auto) / repeat(4, 1fr);
-  gap: 1.5rem;
+  gap: 5px;
   margin-bottom: 0;
-}
-
-.cart-drawer .cart-item:last-child {
-  margin-bottom: 1rem;
 }
 
 .cart-drawer .cart-item__media {
@@ -277,10 +273,6 @@ cart-drawer-items {
 
 .cart-drawer .cart-items th {
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
-}
-
-.cart-drawer .cart-item:last-child {
-  margin-bottom: 1.5rem;
 }
 
 .cart-drawer .cart-item .loading-overlay {

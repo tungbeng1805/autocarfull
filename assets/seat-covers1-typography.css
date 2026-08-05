@@ -191,8 +191,8 @@ body.seat-covers1-template .product__accordion--seat-covers .accordion__icon-plu
   margin-left: auto;
 }
 body.seat-covers1-template .product__accordion--seat-covers .accordion__icon-plus .icon-plus {
-  width: 10px;
-  height: 10px;
+  width: 18px;
+  height: 18px;
 }
 body.seat-covers1-template .product__accordion--seat-covers .accordion__content {
   margin-bottom: 20px;
@@ -676,9 +676,12 @@ body.seat-covers1-template .tb-left {
   min-width: 0;
 }
 body.seat-covers1-template .tb-green-dot {
+  /* Override Dawn base.css div:empty { display: none } */
+  display: block;
+  box-sizing: border-box;
   border: 1px solid #151515;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #fff;
   flex-shrink: 0;
@@ -803,10 +806,10 @@ body.seat-covers1-template .product-form__input--seat-covers input[type='radio']
     width: 100%;
   }
   body.seat-covers1-template .tb-banner {
-    padding: 14px 5px 5px;
+    padding: 10px 5px 10px 10px;
     flex-wrap: wrap;
   }
-  body.seat-covers1-template .tb-left { gap: 5px; }
+  body.seat-covers1-template .tb-left { gap: 10px; }
   body.seat-covers1-template .tb-title { font-size: 13px; }
   body.seat-covers1-template .tb-old-price { font-size: 12px; }
   body.seat-covers1-template .tb-new-price { font-size: 13px; }
