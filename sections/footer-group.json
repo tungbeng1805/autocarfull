@@ -14,6 +14,12 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "brand_information_LJGmFD": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true
+          }
+        },
         "link_list_H7ptg8": {
           "type": "link_list",
           "settings": {
@@ -37,13 +43,14 @@
         }
       },
       "block_order": [
+        "brand_information_LJGmFD",
         "link_list_H7ptg8",
         "link_list_fR6Kgq",
         "text_8rgbj6"
       ],
       "settings": {
         "color_scheme": "background-1",
-        "newsletter_enable": true,
+        "newsletter_enable": false,
         "newsletter_heading": "Subscribe to our emails",
         "enable_follow_on_shop": true,
         "show_social": true,
