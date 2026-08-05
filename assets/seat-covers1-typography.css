@@ -807,7 +807,6 @@ body.seat-covers1-template .product-form__input--seat-covers input[type='radio']
   }
   body.seat-covers1-template .tb-banner {
     padding: 10px 5px 10px 10px;
-    flex-wrap: wrap;
   }
   body.seat-covers1-template .tb-left { gap: 10px; }
   body.seat-covers1-template .tb-title { font-size: 13px; }
