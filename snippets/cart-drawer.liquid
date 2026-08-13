@@ -6,6 +6,7 @@
 {% endcomment %}
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'deal-countdown.js' | asset_url }}" defer="defer"></script>
 
 <style>
   .drawer {
@@ -27,7 +28,6 @@
         <div class="drawer__inner-empty">
           <div class="cart-drawer__warnings center{% if settings.cart_drawer_collection != blank %} cart-drawer__warnings--has-collection{% endif %}">
             <div class="cart-drawer__empty-content">
-              <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
               <button
                 class="drawer__close"
                 type="button"
@@ -36,16 +36,14 @@
               >
                 {% render 'icon-close' %}
               </button>
-              <a href="{{ routes.all_products_collection_url }}" class="button">
+              <span class="cart-drawer__empty-icon">
+                {% render 'icon-cart-empty' %}
+                <span class="cart-drawer__empty-count" aria-hidden="true">{{ cart.item_count }}</span>
+              </span>
+              <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
+              <a href="{{ routes.all_products_collection_url }}" class="button cart-drawer__empty-button">
                 {{ 'general.continue_shopping' | t }}
               </a>
-
-              {%- if shop.customer_accounts_enabled and customer == null -%}
-                <p class="cart__login-title h3">{{ 'sections.cart.login.title' | t }}</p>
-                <p class="cart__login-paragraph">
-                  {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
-                </p>
-              {%- endif -%}
             </div>
           </div>
           {%- if settings.cart_drawer_collection != blank -%}

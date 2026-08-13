@@ -109,7 +109,7 @@
   {%- endif -%}
 
   <div
-    class="slideshow banner banner--{{ section.settings.slide_height }} grid grid--1-col slider slider--everywhere{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}{% if section.blocks.first.settings.image == blank %} slideshow--placeholder{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+    class="slideshow banner banner--{{ section.settings.slide_height }} grid grid--1-col slider slider--everywhere{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}{% if section.blocks.first.settings.image == blank %} slideshow--placeholder{% endif %}{% if settings.animations_reveal_on_scroll and section.index > 1 %} scroll-trigger animate--fade-in{% endif %}"
     id="Slider-{{ section.id }}"
     aria-live="polite"
     aria-atomic="true"
@@ -142,7 +142,53 @@
                 assign sizes = '100vw'
                 assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
               endif
+
+              assign fetch_priority = 'auto'
+              assign loading = 'lazy'
+              assign preload = false
+              if forloop.first
+                assign loading = 'eager'
+                if section.index == 1
+                  assign fetch_priority = 'high'
+                  assign preload = true
+                endif
+              endif
             -%}
+            {%- if forloop.first and section.index == 1 and block.settings.mobile_image != blank -%}
+              <link
+                rel="preload"
+                as="image"
+                href="{{ block.settings.mobile_image | image_url: width: 750 }}"
+                imagesrcset="
+                  {{ block.settings.mobile_image | image_url: width: 375 }} 375w,
+                  {{ block.settings.mobile_image | image_url: width: 550 }} 550w,
+                  {{ block.settings.mobile_image | image_url: width: 750 }} 750w,
+                  {{ block.settings.mobile_image | image_url: width: 1100 }} 1100w,
+                  {{ block.settings.mobile_image | image_url: width: 1500 }} 1500w
+                "
+                imagesizes="100vw"
+                media="(max-width: 749px)"
+                fetchpriority="high"
+              >
+              <link
+                rel="preload"
+                as="image"
+                href="{{ block.settings.image | image_url: width: 1500 }}"
+                imagesrcset="
+                  {{ block.settings.image | image_url: width: 375 }} 375w,
+                  {{ block.settings.image | image_url: width: 550 }} 550w,
+                  {{ block.settings.image | image_url: width: 750 }} 750w,
+                  {{ block.settings.image | image_url: width: 1100 }} 1100w,
+                  {{ block.settings.image | image_url: width: 1500 }} 1500w,
+                  {{ block.settings.image | image_url: width: 1780 }} 1780w,
+                  {{ block.settings.image | image_url: width: 2000 }} 2000w,
+                  {{ block.settings.image | image_url: width: 3000 }} 3000w
+                "
+                imagesizes="100vw"
+                media="(min-width: 750px)"
+                fetchpriority="high"
+              >
+            {%- endif -%}
             {%- if block.settings.mobile_image != blank -%}
               <picture>
                 <source
@@ -160,9 +206,26 @@
                 {{
                   block.settings.image
                   | image_url: width: 3840
-                  | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
+                  | image_tag:
+                    loading: loading,
+                    fetchpriority: fetch_priority,
+                    height: height,
+                    sizes: sizes,
+                    widths: widths
                 }}
               </picture>
+            {%- elsif forloop.first -%}
+              {{
+                block.settings.image
+                | image_url: width: 3840
+                | image_tag:
+                  loading: loading,
+                  fetchpriority: fetch_priority,
+                  preload: preload,
+                  height: height,
+                  sizes: sizes,
+                  widths: widths
+              }}
             {%- else -%}
               {{
                 block.settings.image
@@ -179,7 +242,7 @@
             {%- endif -%}
           {%- endif -%}
         </div>
-        <div class="slideshow__text-wrapper banner__content banner__content--{{ block.settings.box_align }} page-width{% if block.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll and forloop.index == 1 %} scroll-trigger animate--slide-in{% endif %}">
+        <div class="slideshow__text-wrapper banner__content banner__content--{{ block.settings.box_align }} page-width{% if block.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll and section.index > 1 and forloop.first %} scroll-trigger animate--slide-in{% endif %}">
           <div class="slideshow__text banner__box content-container content-container--full-width-mobile color-{{ block.settings.color_scheme }} gradient slideshow__text--{{ block.settings.text_alignment }} slideshow__text-mobile--{{ block.settings.text_alignment_mobile }}">
             {%- if block.settings.heading != blank -%}
               <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}">
