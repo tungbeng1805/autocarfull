@@ -2718,6 +2718,10 @@
         "heading": {
           "label": "Heading"
         },
+        "products": {
+          "label": "Products",
+          "info": "Select up to 4 products. Replaces automatic recommendations when selected."
+        },
         "products_to_show": {
           "label": "Maximum products to show"
         },

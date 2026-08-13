@@ -20,12 +20,18 @@
   }
 {%- endstyle -%}
 
+{%- liquid
+  assign has_manual_products = false
+  if section.settings.products != blank and section.settings.products.count > 0
+    assign has_manual_products = true
+  endif
+-%}
+
 <div class="color-{{ section.settings.color_scheme }} gradient no-js-hidden" id="related-products">
-  <product-recommendations
-    class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-    data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}"
-  >
-    {% if recommendations.performed and recommendations.products_count > 0 %}
+  {%- if has_manual_products -%}
+    <div
+      class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    >
       <h2 class="related-products__heading {{ section.settings.heading_size }}">
         {{ section.settings.heading }}
       </h2>
@@ -33,10 +39,10 @@
         class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
         role="list"
       >
-        {% for recommendation in recommendations.products %}
+        {% for related_product in section.settings.products %}
           <li class="grid__item">
             {% render 'card-product',
-              card_product: recommendation,
+              card_product: related_product,
               media_aspect_ratio: section.settings.image_ratio,
               image_shape: section.settings.image_shape,
               show_secondary_image: section.settings.show_secondary_image,
@@ -47,8 +53,37 @@
           </li>
         {% endfor %}
       </ul>
-    {% endif %}
-  </product-recommendations>
+    </div>
+  {%- else -%}
+    <product-recommendations
+      class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+      data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}"
+    >
+      {% if recommendations.performed and recommendations.products_count > 0 %}
+        <h2 class="related-products__heading {{ section.settings.heading_size }}">
+          {{ section.settings.heading }}
+        </h2>
+        <ul
+          class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
+          role="list"
+        >
+          {% for recommendation in recommendations.products %}
+            <li class="grid__item">
+              {% render 'card-product',
+                card_product: recommendation,
+                media_aspect_ratio: section.settings.image_ratio,
+                image_shape: section.settings.image_shape,
+                show_secondary_image: section.settings.show_secondary_image,
+                show_vendor: section.settings.show_vendor,
+                show_rating: section.settings.show_rating,
+                seat_covers_style: true
+              %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </product-recommendations>
+  {%- endif -%}
   {% if section.settings.image_shape == 'arch' %}
     {% render 'mask-arch' %}
   {%- endif -%}
@@ -89,6 +124,13 @@
       ],
       "default": "h1",
       "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "t:sections.related-products.settings.products.label",
+      "info": "t:sections.related-products.settings.products.info",
+      "limit": 4
     },
     {
       "type": "range",

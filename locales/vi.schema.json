@@ -3097,6 +3097,10 @@
         "heading": {
           "label": "Tiêu đề"
         },
+        "products": {
+          "label": "Sản phẩm",
+          "info": "Chọn tối đa 4 sản phẩm. Thay thế đề xuất tự động khi đã chọn."
+        },
         "products_to_show": {
           "label": "Số lượng sản phẩm hiển thị tối đa"
         },
