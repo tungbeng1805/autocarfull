@@ -3336,4 +3336,8 @@ details-disclosure > details {
     width: 45px;
     padding: 0px;
   }
+  #sticky-tabs-spacer {
+    background-color: #dcdbe1;
+    height: 30px !important;
+  }
 }

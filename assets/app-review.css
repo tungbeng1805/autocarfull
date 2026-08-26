@@ -918,6 +918,10 @@
     
     .review-card-app-review {
         padding: 20px;
+        margin-bottom: 0px !important;
+    }
+    .btn-view-all-top-comment {
+        margin-bottom: 0px !important;
     }
     .review-title-app-review {
         font-size: 16px;

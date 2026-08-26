@@ -176,7 +176,7 @@ body {
 
 @media screen and (max-width: 749px) {
   :root {
-    --autofull-gutter: 16px;
+    --autofull-gutter: 8px;
   }
 
   .footer__content-top {
