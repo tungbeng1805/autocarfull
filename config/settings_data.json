@@ -154,9 +154,9 @@
         "disabled": false,
         "settings": {}
       },
-      "4684129713794663398": {
-        "type": "shopify://apps/onepixel/blocks/one-pixel/fbbf7f1f-cacf-481b-802e-aa7043758c9c",
-        "disabled": false,
+      "9752555012629308362": {
+        "type": "shopify://apps/parkour-facebook-pixel/blocks/threasury_pixel/f23b2ffe-4c53-446e-ad3a-7976ffbee5c2",
+        "disabled": true,
         "settings": {}
       }
     },
